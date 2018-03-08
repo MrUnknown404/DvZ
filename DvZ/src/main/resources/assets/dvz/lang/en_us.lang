@@ -1,0 +1,28 @@
+//-//-//Items
+//-//Items
+item.glue.name=Glue
+item.superglue.name=Super Glue
+
+//-//Tools
+item.dwarvensword.name=Dwarven Sword
+item.craftersword.name=Crafter Sword
+item.dwarvenshovel.name=Dwarven Shovel
+item.craftershovel.name=Crafter Shovel
+item.dwarvenpickaxe.name=Dwarven Pickaxe
+item.crafterpickaxe.name=Crafter Pickaxe
+item.dwarvenaxe.name=Dwarven Axe
+item.crafteraxe.name=Crafter Axe
+
+//-//-//Blocks
+//Misc
+tile.softdwarvenstone.name=Soft Dwarven Stone
+tile.dwarvenstone.name=Dwarven Stone
+tile.harddwarvenstone.name=Hard Dwarven Stone
+tile.crackedsoftdwarvenstone.name=Cracked Soft Dwarven Stone
+tile.crackeddwarvenstone.name=Cracked Dwarven Stone
+tile.crackedharddwarvenstone.name=Cracked Hard Dwarven Stone
+
+//-//-//GUI
+//-//Creative Tabs
+itemGroup.TabDvZItems=DvZ Items
+itemGroup.TabDvZBlocks=DvZ Blocks

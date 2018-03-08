@@ -1,0 +1,16 @@
+[
+{
+  "modid": "dvz",
+  "name": "DvZ",
+  "description": "placeholder",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["-Unknown-"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

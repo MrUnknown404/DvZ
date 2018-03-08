@@ -1,0 +1,7 @@
+Shift+right click "Open command prompt here" or "Open powershell here"
+Type "gradlew build"
+Hit enter
+Upon completion go to (folder name)\build\libs for mod location
+
+Or run Build.bat
+Upon completion go to (folder name)\build\libs for mod location
