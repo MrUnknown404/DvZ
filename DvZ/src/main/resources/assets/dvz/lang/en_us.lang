@@ -4,14 +4,20 @@ item.glue.name=Glue
 item.superglue.name=Super Glue
 
 //-//Tools
-item.dwarvensword.name=Dwarven Sword
-item.craftersword.name=Crafter Sword
+item.dwarvensword.name=Dwarven Runeblade
+item.craftersword.name=Dwarven Short Sword
+
 item.dwarvenshovel.name=Dwarven Shovel
 item.craftershovel.name=Crafter Shovel
+
 item.dwarvenpickaxe.name=Dwarven Pickaxe
 item.crafterpickaxe.name=Crafter Pickaxe
+
 item.dwarvenaxe.name=Dwarven Axe
 item.crafteraxe.name=Crafter Axe
+
+item.dwarvenlongbow.name=Dwarven Longbow
+item.crafterbow.name=Dwarven Shortbow
 
 //-//-//Blocks
 //Misc
