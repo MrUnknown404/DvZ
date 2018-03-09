@@ -19,6 +19,17 @@ item.crafteraxe.name=Crafter Axe
 item.dwarvenlongbow.name=Dwarven Longbow
 item.crafterbow.name=Dwarven Shortbow
 
+//-//Armor
+item.dwarvenhelmet.name=Dwarven Helmet
+item.dwarvenchestplate.name=Dwarven Chestplate
+item.dwarvenleggings.name=Dwarven Leggings
+item.dwarvenboots.name=Dwarven Boots
+
+item.crafterhelmet.name=Crafter Helmet
+item.crafterchestplate.name=Crafter Chestplate
+item.crafterleggings.name=Crafter Leggings
+item.crafterboots.name=Crafter Boots
+
 //-//-//Blocks
 //Misc
 tile.softdwarvenstone.name=Soft Dwarven Stone

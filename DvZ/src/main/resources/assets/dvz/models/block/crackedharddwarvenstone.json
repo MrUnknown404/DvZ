@@ -1,6 +1,6 @@
 {
    "parent": "block/cube_all",
    "textures": {
-      "all": "dvz:blocks/cracked_hard_dwarvenstone"
+      "all": "dvz:blocks/crackedharddwarvenstone"
    }
 }

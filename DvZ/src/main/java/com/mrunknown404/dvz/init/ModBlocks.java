@@ -3,7 +3,6 @@ package com.mrunknown404.dvz.init;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mrunknown404.dvz.blocks.BlockGravel;
 import com.mrunknown404.dvz.blocks.ModBlockBase;
 
 import net.minecraft.block.Block;
@@ -21,6 +20,4 @@ public class ModBlocks {
 	public static final Block CRACKEDDWARVENSTONE = new ModBlockBase("crackeddwarvenstone", Material.ROCK, SoundType.STONE, ModCreativeTabs.DVZBLOCKS, 1.5f, 100.0f, "pickaxe", 2);
 	public static final Block SOFTDWARVENSTONE = new ModBlockBase("softdwarvenstone", Material.ROCK, SoundType.STONE, ModCreativeTabs.DVZBLOCKS, 1.5f, 100.0f, "pickaxe", 2);
 	public static final Block CRACKEDSOFTDWARVENSTONE = new ModBlockBase("crackedsoftdwarvenstone", Material.ROCK, SoundType.STONE, ModCreativeTabs.DVZBLOCKS, 1.0f, 100.0f, "pickaxe", 2);
-
-	public static final Block GRAVEL = new BlockGravel("gravel", Material.GROUND, SoundType.GROUND, ModCreativeTabs.DVZBLOCKS, 0.5f, 2.0f, "shovel", 2);
 }

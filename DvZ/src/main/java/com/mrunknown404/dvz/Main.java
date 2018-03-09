@@ -2,7 +2,10 @@ package com.mrunknown404.dvz;
 
 import com.mrunknown404.dvz.proxy.CommonProxy;
 import com.mrunknown404.dvz.util.Reference;
+import com.mrunknown404.dvz.util.handlers.BlockHarvestHandler;
 
+import net.minecraft.init.Items;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -32,6 +35,8 @@ public class Main {
 	
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
+		MinecraftForge.EVENT_BUS.register(new BlockHarvestHandler());
 		
+		Items.CAKE.setMaxStackSize(64);
 	}
 }
