@@ -25,10 +25,11 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemDwarvenLongBow extends ModItemBase {
+public class ItemDwarvenLongBow extends ItemBase {
 
-	public ItemDwarvenLongBow(String name, CreativeTabs tab) {
-		super(name, tab);
+	//** String name, CreativeTabs tab, String tooltip, */
+	public ItemDwarvenLongBow(String name, CreativeTabs tab, String tooltip) {
+		super(name, tab, tooltip);
 		this.maxStackSize = 1;
 		
 		addPropertyOverride(new ResourceLocation("pull"), new IItemPropertyGetter() {

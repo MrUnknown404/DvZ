@@ -2,6 +2,9 @@
 //-//Items
 item.glue.name=Glue
 item.superglue.name=Super Glue
+item.juice.name=Healing Ale
+
+item.debugmana.name=Debug Mana Crystal
 
 //-//Tools
 item.dwarvensword.name=Dwarven Runeblade

@@ -25,10 +25,12 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemCrafterBow extends ModItemBase {
-
-	public ItemCrafterBow(String name, CreativeTabs tab) {
-		super(name, tab);
+public class ItemCrafterBow extends ItemBase {
+	
+	//** String name, CreativeTabs tab, String tooltip, */
+	public ItemCrafterBow(String name, CreativeTabs tab, String tooltip) {
+		super(name, tab, tooltip);
+		
 		this.maxStackSize = 1;
 		
 		addPropertyOverride(new ResourceLocation("pull"), new IItemPropertyGetter() {

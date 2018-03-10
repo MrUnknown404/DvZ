@@ -8,17 +8,15 @@ import com.mrunknown404.dvz.util.IHasModel;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item.ToolMaterial;
-import net.minecraft.item.ItemAxe;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-public class ItemAxeBase extends ItemAxe implements IHasModel {
+public class ItemBase extends Item implements IHasModel{
 
 	private String tooltip;
 	
-	/** String name, CreativeTabs tab, String tooltip, ToolMaterial material, float damage, float speed */
-	public ItemAxeBase(String name, CreativeTabs tab, String tooltip, ToolMaterial material, float damage, float speed) {
-		super(material, damage, speed);
+	/** String name, CreativeTabs tab, String tooltip */
+	public ItemBase(String name, CreativeTabs tab, String tooltip) {
 		setUnlocalizedName(name);
 		setRegistryName(name);
 		setCreativeTab(tab);
@@ -41,4 +39,3 @@ public class ItemAxeBase extends ItemAxe implements IHasModel {
 		Main.proxy.registerItemRenderer(this, 0, "inventory");
 	}
 }
-
