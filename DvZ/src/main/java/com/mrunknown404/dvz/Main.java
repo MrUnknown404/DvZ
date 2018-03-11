@@ -38,6 +38,7 @@ public class Main {
 	public void postInit(FMLPostInitializationEvent event) {
 		MinecraftForge.EVENT_BUS.register(new BlockHarvestHandler());
 		MinecraftForge.EVENT_BUS.register(new ConnectionHandler());
+		MinecraftForge.EVENT_BUS.register(new GameManager());
 		
 		Items.CAKE.setMaxStackSize(64);
 	}

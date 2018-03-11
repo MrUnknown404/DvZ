@@ -49,6 +49,8 @@ public class ItemArmorBase extends ItemArmor implements IHasModel {
 		if (player.experienceLevel >= 25) {
 			if (getMaxDamage(stack) != getDamage(stack) + getMaxDamage(stack)) {
 				repairArmor(world, player, stack);
+				player.experience = 0;
+				player.addExperience((int) (player.xpBarCap() * (player.experienceLevel * 0.001f)));
 			}
 		}
 		return super.onEntitySwing(entityLiving, stack);
@@ -62,34 +64,6 @@ public class ItemArmorBase extends ItemArmor implements IHasModel {
 		player.getCooldownTracker().setCooldown(this, 20);
 		player.removeExperienceLevel(25);
 		setDamage(stack, getDamage(stack) - (getMaxDamage(stack) / 5));
-	}
-	
-	//temp mana system
-	@Override
-	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) {
-		super.onArmorTick(world, player, itemStack);
-		
-		if (world.isRemote) {
-			if (tick < 3 * 20) {
-				tick++;
-				return;
-			}
-			
-			tick = 0;
-			List<EntityPlayer> pl = world.playerEntities;
-			
-			for (EntityPlayer p : pl) {
-				if (p.inventory.armorItemInSlot(2) != null && p.inventory.armorItemInSlot(2).getItem() == ModItems.DWARVEN_CHESTPLATE && this == ModItems.DWARVEN_CHESTPLATE) {
-					if (p.experienceLevel < 1000) {
-						p.addExperienceLevel(25);
-					}
-				} else if (p.inventory.armorItemInSlot(2) != null && p.inventory.armorItemInSlot(2).getItem() == ModItems.CRAFTER_CHESTPLATE && this == ModItems.CRAFTER_CHESTPLATE) {
-					if (p.experienceLevel < 1000) {
-						p.addExperienceLevel(25);
-					}
-				}
-			}
-		}
 	}
 	
 	@Override

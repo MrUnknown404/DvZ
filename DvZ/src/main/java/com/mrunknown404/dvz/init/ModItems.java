@@ -39,7 +39,7 @@ public class ModItems {
 	public static final Item JUICE = new ItemJuice("juice", ModCreativeTabs.DVZITEMS, "˜aHeals you to full ˜8(˜bCosts 75 mana˜8)");
 	
 	//Debug Items //˜0D˜1E˜2B˜3U˜4G-˜5D˜6E˜7B˜8U˜9G-˜aD˜bE˜cB˜dU˜eG˜f!
-	public static final Item DEBUG_MANA = new ItemDebugMana("debugmana", null, "˜aDebug item! ˜8(˜bGives 250 mana˜8)");
+	public static final Item DEBUG_MANA = new ItemDebugMana("debugmana", null, "˜aDebug item! ˜8(˜bGives/Costs 250 mana˜8)");
 	
 	//-//Tools
 	//Weapons

@@ -35,6 +35,8 @@ public class ItemJuice extends ItemBase {
 			if (player.getHealth() != 20f) {
 				if (player.getCooldownTracker().getCooldown(this, 0f) == 0f) {
 					healPlayer(world, player);
+					player.experience = 0;
+					player.addExperience((int) (player.xpBarCap() * (player.experienceLevel * 0.001f)));
 				}
 			}
 		}

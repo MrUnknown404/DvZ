@@ -8,5 +8,7 @@ public class ConnectionHandler {
 	@SubscribeEvent
 	public void onPlayerLogin(PlayerLoggedInEvent event) {
 		event.player.experienceLevel = 1000;
+		event.player.experience = 0;
+		event.player.addExperience((int) (event.player.xpBarCap() - 1));
 	}
 }
