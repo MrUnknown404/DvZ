@@ -2,8 +2,9 @@ package com.mrunknown404.dvz;
 
 import java.util.List;
 
+import com.mrunknown404.dvz.util.handlers.PlayerInfoHandler;
+
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerEvent.NameFormat;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
@@ -26,23 +27,31 @@ public class GameManager {
 			players = event.world.playerEntities;
 			
 			for (EntityPlayer p : players) {
-				updatePlayerMana(p);
+				if (p.getCapability(PlayerInfoHandler.PLAYERINFO, null).getPlayerType() == 1) {
+					updatePlayerMana(p);
+				}
 			}
 		}
 	}
 	
 	@SubscribeEvent
 	public void nameEvent(NameFormat event) {
-		for (EntityPlayer p : players) { //temp
-			if (dwarves.contains(p)) {
-				event.setDisplayname(event.getDisplayname() + " the Dwarf");
+		if (event.getEntityPlayer().getCapability(PlayerInfoHandler.PLAYERINFO, null).getPlayerType() == 1) {
+			if (event.getEntityPlayer().getCapability(PlayerInfoHandler.PLAYERINFO, null).getDwarfType() == 1) {
+				event.setDisplayname("Åò3" + event.getUsername() + " the Crafter");
+			} else if (event.getEntityPlayer().getCapability(PlayerInfoHandler.PLAYERINFO, null).getDwarfType() == 2) {
+				event.setDisplayname("Åò3" + event.getUsername() + " the Crafter");
+			} else {
+				event.setDisplayname("Åò3" + event.getUsername() + " the Dwarf");
 			}
+		} else if (event.getEntityPlayer().getCapability(PlayerInfoHandler.PLAYERINFO, null).getPlayerType() == 0) {
+			event.setDisplayname("Åòf" + event.getUsername());
 		}
 	}
 	
 	public void updatePlayerMana(EntityPlayer p) {
 		if (p.experienceLevel < 1000) {
-			if (tick < 3 * 20) {
+			if (tick < 4 * 20) {
 				tick++;
 				return;
 			}

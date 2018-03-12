@@ -1,22 +1,14 @@
 package com.mrunknown404.dvz.items;
 
-import java.util.List;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.royawesome.jlibnoise.MathHelper;
 
 public class ItemJuice extends ItemBase {
 
@@ -57,7 +49,7 @@ public class ItemJuice extends ItemBase {
 		if (!world.isRemote) {
 			world.playSound((EntityPlayer)null, player.getPosition(), SoundEvents.ENTITY_GENERIC_DRINK, SoundCategory.PLAYERS, 1.0f, 1.0f);
 			player.playSound(SoundEvents.ENTITY_GENERIC_DRINK, 1.0f, 1.0f);
-			player.heal(20f);
+			player.heal(player.getMaxHealth());
 		}
 		player.getCooldownTracker().setCooldown(this, 10);
 		player.getFoodStats().addStats(4, 0f);

@@ -1,5 +1,6 @@
 package com.mrunknown404.dvz;
 
+import com.mrunknown404.dvz.commands.CommandDebugResetGame;
 import com.mrunknown404.dvz.commands.CommandStartGame;
 import com.mrunknown404.dvz.proxy.CommonProxy;
 import com.mrunknown404.dvz.util.Reference;
@@ -28,12 +29,14 @@ public class Main {
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-		MinecraftForge.EVENT_BUS.register(new GameManager());
+		proxy.registerCapability();
+		//CapabilityManager.INSTANCE.register(IPlayerType.class, new PlayerTypeStorage(), PlayerType.class);
+		//MinecraftForge.EVENT_BUS.register(new CapabilityHandler());;
 	}
 	
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
-		
+		MinecraftForge.EVENT_BUS.register(new GameManager());
 	}
 	
 	@EventHandler
@@ -47,5 +50,6 @@ public class Main {
 	@EventHandler
 	public void serverStart(FMLServerStartingEvent event) {
 		event.registerServerCommand(new CommandStartGame());
+		event.registerServerCommand(new CommandDebugResetGame());
 	}
 }

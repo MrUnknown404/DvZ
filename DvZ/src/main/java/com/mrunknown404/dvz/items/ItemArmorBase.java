@@ -48,9 +48,11 @@ public class ItemArmorBase extends ItemArmor implements IHasModel {
 		
 		if (player.experienceLevel >= 25) {
 			if (getMaxDamage(stack) != getDamage(stack) + getMaxDamage(stack)) {
-				repairArmor(world, player, stack);
-				player.experience = 0;
-				player.addExperience((int) (player.xpBarCap() * (player.experienceLevel * 0.001f)));
+				if (player.getCooldownTracker().getCooldown(this, 0f) == 0f) {
+					repairArmor(world, player, stack);
+					player.experience = 0;
+					player.addExperience((int) (player.xpBarCap() * (player.experienceLevel * 0.001f)));
+				}
 			}
 		}
 		return super.onEntitySwing(entityLiving, stack);
