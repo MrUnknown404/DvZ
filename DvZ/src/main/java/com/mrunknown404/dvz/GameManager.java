@@ -4,6 +4,7 @@ import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
+import net.minecraftforge.event.entity.player.PlayerEvent.NameFormat;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 import net.minecraftforge.fml.common.gameevent.TickEvent.WorldTickEvent;
@@ -12,17 +13,9 @@ public class GameManager {
 	
 	private int tick = 0;
 	
-	private List<EntityPlayer> dwarves;
-	
-	//for later use
-	public void startGame(World world) {
-		List<EntityPlayer> pl = world.playerEntities;
-		
-		for (EntityPlayer p : pl) {
-			dwarves.add(p);
-		}
-	}
-	
+	public List<EntityPlayer> dwarves;
+	public List<EntityPlayer> players;
+
 	@SubscribeEvent
 	public void worldTick(WorldTickEvent event) {
 		if (event.phase == Phase.END) {
@@ -30,12 +23,19 @@ public class GameManager {
 		}
 		
 		if (!event.world.isRemote) {
-			List<EntityPlayer> pl = event.world.playerEntities;
+			players = event.world.playerEntities;
 			
-			//NBTTagCompound tag = player.getEntityData();
-			
-			for (EntityPlayer p : pl) {
+			for (EntityPlayer p : players) {
 				updatePlayerMana(p);
+			}
+		}
+	}
+	
+	@SubscribeEvent
+	public void nameEvent(NameFormat event) {
+		for (EntityPlayer p : players) { //temp
+			if (dwarves.contains(p)) {
+				event.setDisplayname(event.getDisplayname() + " the Dwarf");
 			}
 		}
 	}

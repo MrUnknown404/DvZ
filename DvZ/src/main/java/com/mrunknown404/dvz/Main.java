@@ -1,5 +1,6 @@
 package com.mrunknown404.dvz;
 
+import com.mrunknown404.dvz.commands.CommandStartGame;
 import com.mrunknown404.dvz.proxy.CommonProxy;
 import com.mrunknown404.dvz.util.Reference;
 import com.mrunknown404.dvz.util.handlers.BlockHarvestHandler;
@@ -14,6 +15,7 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 
 @Mod(modid = Reference.MODID, name = Reference.NAME, version = Reference.VERSION, acceptedMinecraftVersions = Reference.ACCEPTED_VERSION)
 public class Main {
@@ -26,7 +28,7 @@ public class Main {
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-		
+		MinecraftForge.EVENT_BUS.register(new GameManager());
 	}
 	
 	@EventHandler
@@ -38,8 +40,12 @@ public class Main {
 	public void postInit(FMLPostInitializationEvent event) {
 		MinecraftForge.EVENT_BUS.register(new BlockHarvestHandler());
 		MinecraftForge.EVENT_BUS.register(new ConnectionHandler());
-		MinecraftForge.EVENT_BUS.register(new GameManager());
 		
 		Items.CAKE.setMaxStackSize(64);
+	}
+	
+	@EventHandler
+	public void serverStart(FMLServerStartingEvent event) {
+		event.registerServerCommand(new CommandStartGame());
 	}
 }
