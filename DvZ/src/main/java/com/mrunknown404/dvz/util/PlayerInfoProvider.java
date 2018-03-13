@@ -1,4 +1,4 @@
-package com.mrunknown404.dvz.util.handlers;
+package com.mrunknown404.dvz.util;
 
 import com.mrunknown404.dvz.capabilities.IPlayerInfo;
 
@@ -8,7 +8,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 
-public class PlayerInfoHandler implements ICapabilitySerializable<NBTBase> {
+public class PlayerInfoProvider implements ICapabilitySerializable<NBTBase> {
 
 	@CapabilityInject(IPlayerInfo.class)
 	public static final Capability<IPlayerInfo> PLAYERINFO = null;
@@ -27,12 +27,11 @@ public class PlayerInfoHandler implements ICapabilitySerializable<NBTBase> {
 
 	@Override
 	public NBTBase serializeNBT() {
-		return PLAYERINFO.getStorage().writeNBT(PLAYERINFO, this.instance, null);
+		return (NBTBase) PLAYERINFO.getStorage().writeNBT(PLAYERINFO, this.instance, null);
 	}
 
 	@Override
 	public void deserializeNBT(NBTBase nbt) {
 		PLAYERINFO.getStorage().readNBT(PLAYERINFO, this.instance, null, nbt);
 	}
-
 }

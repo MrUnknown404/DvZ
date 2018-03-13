@@ -1,5 +1,6 @@
 package com.mrunknown404.dvz.util.handlers;
 
+import com.mrunknown404.dvz.util.PlayerInfoProvider;
 import com.mrunknown404.dvz.util.Reference;
 
 import net.minecraft.entity.Entity;
@@ -17,6 +18,6 @@ public class CapabilityHandler {
 		if (!(event.getObject() instanceof EntityPlayer)) {
 			return;
 		}
-		event.addCapability(PLAYERINFO, new PlayerInfoHandler());
+		event.addCapability(PLAYERINFO, new PlayerInfoProvider());
 	}
 }

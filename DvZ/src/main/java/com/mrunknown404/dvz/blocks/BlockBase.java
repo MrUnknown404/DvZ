@@ -16,12 +16,12 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 
-public class ModBlockBase extends Block implements IHasModel {
+public class BlockBase extends Block implements IHasModel {
 	
 	private String tooltip;
 	
 	/** String name, Material material, SoundType soundType, CreativeTabs tab, String tooltip, float hardness, float resistance, String toolType, int harvestLevel */
-	public ModBlockBase(String name, Material material, SoundType soundType, CreativeTabs tab, String tooltip, float hardness, float resistance, String toolType, int harvestLevel) {
+	public BlockBase(String name, Material material, SoundType soundType, CreativeTabs tab, String tooltip, float hardness, float resistance, String toolType, int harvestLevel) {
 		super(material);
 		setSoundType(soundType);
 		setHardness(hardness);

@@ -1,10 +1,14 @@
 package com.mrunknown404.dvz;
 
-import java.util.List;
-
-import com.mrunknown404.dvz.util.handlers.PlayerInfoHandler;
+import com.mrunknown404.dvz.util.EnumDwarfType;
+import com.mrunknown404.dvz.util.EnumHeroType;
+import com.mrunknown404.dvz.util.EnumPlayerType;
+import com.mrunknown404.dvz.util.PlayerInfoProvider;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.MobEffects;
+import net.minecraft.potion.PotionEffect;
 import net.minecraftforge.event.entity.player.PlayerEvent.NameFormat;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
@@ -14,9 +18,6 @@ public class GameManager {
 	
 	private int tick = 0;
 	
-	public List<EntityPlayer> dwarves;
-	public List<EntityPlayer> players;
-
 	@SubscribeEvent
 	public void worldTick(WorldTickEvent event) {
 		if (event.phase == Phase.END) {
@@ -24,11 +25,14 @@ public class GameManager {
 		}
 		
 		if (!event.world.isRemote) {
-			players = event.world.playerEntities;
-			
-			for (EntityPlayer p : players) {
-				if (p.getCapability(PlayerInfoHandler.PLAYERINFO, null).getPlayerType() == 1) {
+			for (EntityPlayer p : event.world.playerEntities) {
+				if (p.getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() == EnumPlayerType.dwarf) {
 					updatePlayerMana(p);
+					if (p.getEntityWorld().getLightFromNeighbors(p.getPosition()) <= 5 && !p.isPotionActive(MobEffects.BLINDNESS) && p.getHeldItemMainhand().getItem() != p.getHeldItemMainhand().getItem().getItemFromBlock(Blocks.TORCH) && p.getHeldItemOffhand().getItem() != p.getHeldItemOffhand().getItem().getItemFromBlock(Blocks.TORCH)) {
+						p.addPotionEffect(new PotionEffect(MobEffects.BLINDNESS, (60 * 60) * 20));
+					} else if ((p.getEntityWorld().getLightFromNeighbors(p.getPosition()) > 5 && p.isPotionActive(MobEffects.BLINDNESS)) || ((p.getHeldItemMainhand().getItem() == p.getHeldItemMainhand().getItem().getItemFromBlock(Blocks.TORCH)) && p.isPotionActive(MobEffects.BLINDNESS)) || ((p.getHeldItemOffhand().getItem() == p.getHeldItemOffhand().getItem().getItemFromBlock(Blocks.TORCH)) && p.isPotionActive(MobEffects.BLINDNESS))) {
+						p.clearActivePotions();
+					}
 				}
 			}
 		}
@@ -36,16 +40,19 @@ public class GameManager {
 	
 	@SubscribeEvent
 	public void nameEvent(NameFormat event) {
-		if (event.getEntityPlayer().getCapability(PlayerInfoHandler.PLAYERINFO, null).getPlayerType() == 1) {
-			if (event.getEntityPlayer().getCapability(PlayerInfoHandler.PLAYERINFO, null).getDwarfType() == 1) {
-				event.setDisplayname("Åò3" + event.getUsername() + " the Crafter");
-			} else if (event.getEntityPlayer().getCapability(PlayerInfoHandler.PLAYERINFO, null).getDwarfType() == 2) {
-				event.setDisplayname("Åò3" + event.getUsername() + " the Crafter");
+		if (event.getEntityPlayer().getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() == EnumPlayerType.dwarf) {
+			if (event.getEntityPlayer().getCapability(PlayerInfoProvider.PLAYERINFO, null).getDwarfType() == EnumDwarfType.blacksmith) {
+				event.setDisplayname("Åò3" + event.getUsername() + " the Blacksmith");
+			} else if (event.getEntityPlayer().getCapability(PlayerInfoProvider.PLAYERINFO, null).getDwarfType() == EnumDwarfType.lumberjack) {
+				event.setDisplayname("Åò3" + event.getUsername() + " the Lumberjack");
 			} else {
 				event.setDisplayname("Åò3" + event.getUsername() + " the Dwarf");
 			}
-		} else if (event.getEntityPlayer().getCapability(PlayerInfoHandler.PLAYERINFO, null).getPlayerType() == 0) {
-			event.setDisplayname("Åòf" + event.getUsername());
+		} else if (event.getEntityPlayer().getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() == EnumPlayerType.spec) {
+			event.setDisplayname(event.getUsername());
+		}
+		if (event.getEntityPlayer().getCapability(PlayerInfoProvider.PLAYERINFO, null).getHeroType() == EnumHeroType.mrunknown404) {
+			event.setDisplayname("Åò6" + event.getUsername() + " the Hero");
 		}
 	}
 	
