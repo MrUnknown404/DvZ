@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mrunknown404.dvz.blocks.BlockBase;
+import com.mrunknown404.dvz.blocks.BlockStoneCake;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -20,4 +21,6 @@ public class ModBlocks {
 	public static final Block CRACKEDDWARVENSTONE = new BlockBase("crackeddwarvenstone", Material.ROCK, SoundType.STONE, ModCreativeTabs.DVZBLOCKS, "", 1.5f, 100.0f, "pickaxe", 2);
 	public static final Block SOFTDWARVENSTONE = new BlockBase("softdwarvenstone", Material.ROCK, SoundType.STONE, ModCreativeTabs.DVZBLOCKS, "", 1.5f, 100.0f, "pickaxe", 2);
 	public static final Block CRACKEDSOFTDWARVENSTONE = new BlockBase("crackedsoftdwarvenstone", Material.ROCK, SoundType.STONE, ModCreativeTabs.DVZBLOCKS, "", 1.0f, 100.0f, "pickaxe", 2);
+
+	public static final Block STONECAKE = new BlockStoneCake("stonecake", Material.ROCK, SoundType.STONE, ModCreativeTabs.DVZBLOCKS, "ÅòaInfinite Cake", 0.5f, 100.0f, "pickaxe", -1);
 }

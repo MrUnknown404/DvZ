@@ -23,12 +23,10 @@ public class ItemJuice extends ItemBase {
 		EntityPlayer player = (EntityPlayer) entityLiving;
 		World world = player.getEntityWorld();
 		
-		if (player.experienceLevel >= 75) {
-			if (player.getHealth() != 20f) {
+		if (player.experienceLevel >= 100) {
+			if (player.getHealth() != player.getMaxHealth()) {
 				if (player.getCooldownTracker().getCooldown(this, 0f) == 0f) {
 					healPlayer(world, player);
-					player.experience = 0;
-					player.addExperience((int) (player.xpBarCap() * (player.experienceLevel * 0.001f)));
 				}
 			}
 		}
@@ -37,8 +35,8 @@ public class ItemJuice extends ItemBase {
 	
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
-		if (player.experienceLevel >= 75) {
-			if (player.getHealth() != 20f) {
+		if (player.experienceLevel >= 100) {
+			if (player.getHealth() != player.getMaxHealth()) {
 				healPlayer(world, player);
 			}
 		}
@@ -53,6 +51,9 @@ public class ItemJuice extends ItemBase {
 		}
 		player.getCooldownTracker().setCooldown(this, 10);
 		player.getFoodStats().addStats(4, 0f);
-		player.removeExperienceLevel(75);
+		player.removeExperienceLevel(100);
+		
+		player.experience = 0;
+		player.addExperience((int) (player.xpBarCap() * (player.experienceLevel * 0.001f)));
 	}
 }

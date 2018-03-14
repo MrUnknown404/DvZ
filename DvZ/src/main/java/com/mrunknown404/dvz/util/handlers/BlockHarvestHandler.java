@@ -5,7 +5,6 @@ import java.util.Random;
 import com.mrunknown404.dvz.init.ModBlocks;
 
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -22,7 +21,7 @@ public class BlockHarvestHandler {
 					event.getDrops().add(new ItemStack(Blocks.TORCH, 1 + new Random().nextInt(2)));
 				}
 				if (new Random().nextInt(64) == 0) {
-					event.getDrops().add(new ItemStack(Items.CAKE));
+					event.getDrops().add(new ItemStack(ModBlocks.STONECAKE));
 				}
 			}
 		}

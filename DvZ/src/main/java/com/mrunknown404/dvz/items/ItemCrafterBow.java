@@ -33,6 +33,7 @@ public class ItemCrafterBow extends ItemBase {
 	//** String name, CreativeTabs tab, String tooltip, */
 	public ItemCrafterBow(String name, CreativeTabs tab, String tooltip) {
 		super(name, tab, tooltip);
+		setNoRepair();
 		
 		this.maxStackSize = 1;
 		

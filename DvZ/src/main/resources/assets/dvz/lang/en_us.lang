@@ -42,6 +42,8 @@ tile.crackedsoftdwarvenstone.name=Cracked Soft Dwarven Stone
 tile.crackeddwarvenstone.name=Cracked Dwarven Stone
 tile.crackedharddwarvenstone.name=Cracked Hard Dwarven Stone
 
+tile.stonecake.name=Stone Cake
+
 //-//-//GUI
 //-//Creative Tabs
 itemGroup.TabDvZItems=DvZ Items

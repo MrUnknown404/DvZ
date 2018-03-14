@@ -1,0 +1,11 @@
+{
+    "variants": {
+        "bites=0": { "model": "dvz:stonecake_uneaten" },
+        "bites=1": { "model": "dvz:stonecake_slice1" },
+        "bites=2": { "model": "dvz:stonecake_slice2" },
+        "bites=3": { "model": "dvz:stonecake_slice3" },
+        "bites=4": { "model": "dvz:stonecake_slice4" },
+        "bites=5": { "model": "dvz:stonecake_slice5" },
+        "bites=6": { "model": "dvz:stonecake_slice6" }
+    }
+}

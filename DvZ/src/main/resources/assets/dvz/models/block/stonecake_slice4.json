@@ -1,0 +1,22 @@
+{
+    "textures": {
+        "particle": "dvz:blocks/stonecake_side",
+        "bottom": "dvz:blocks/stonecake_bottom",
+        "top": "dvz:blocks/stonecake_top",
+        "side": "dvz:blocks/stonecake_side",
+        "inside": "dvz:blocks/stonecake_inner"
+    },
+    "elements": [
+        {   "from": [ 9, 0, 1 ],
+            "to": [ 15, 8, 15 ],
+            "faces": {
+                "down":  { "texture": "#bottom", "cullface": "down" },
+                "up":    { "texture": "#top" },
+                "north": { "texture": "#side" },
+                "south": { "texture": "#side" },
+                "west":  { "texture": "#inside" },
+                "east":  { "texture": "#side" }
+            }
+        }
+    ]
+}

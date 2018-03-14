@@ -1,6 +1,5 @@
 package com.mrunknown404.dvz.util.handlers;
 
-import com.mrunknown404.dvz.util.EnumHeroType;
 import com.mrunknown404.dvz.util.EnumPlayerType;
 import com.mrunknown404.dvz.util.PlayerInfoProvider;
 
@@ -16,9 +15,6 @@ public class ConnectionHandler {
 		if (event.player.getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() == EnumPlayerType.spec) {
 			event.player.addPotionEffect(new PotionEffect(MobEffects.SATURATION, (60*60)*20, 5, true, false));
 		}
-		
-		if (event.player.getName().equals("MrUnknown404")) {
-			event.player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setHeroType(EnumHeroType.mrunknown404);
-		}
+		event.player.setDropItemsWhenDead(false);
 	}
 }

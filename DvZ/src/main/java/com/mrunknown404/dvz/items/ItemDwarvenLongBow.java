@@ -33,12 +33,14 @@ public class ItemDwarvenLongBow extends ItemBase {
 	//** String name, CreativeTabs tab, String tooltip, */
 	public ItemDwarvenLongBow(String name, CreativeTabs tab, String tooltip) {
 		super(name, tab, tooltip);
+		setNoRepair();
+		
 		this.maxStackSize = 1;
 		
 		addPropertyOverride(new ResourceLocation("pull"), new IItemPropertyGetter() {
 			@SideOnly(Side.CLIENT)
 			public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
-				return entityIn == null ? 0.0F : (entityIn.getActiveItemStack().getItem() != ModItems.DWARVEN_LONGBOW ? 0.0F : (float)(stack.getMaxItemUseDuration() - entityIn.getItemInUseCount()) / (20.0F * 2));
+				return entityIn == null ? 0.0F : (entityIn.getActiveItemStack().getItem() != ModItems.DWARVEN_LONGBOW ? 0.0F : (float)(stack.getMaxItemUseDuration() - entityIn.getItemInUseCount()) / (20.0F * 1.5f));
 			}
 		});
 		addPropertyOverride(new ResourceLocation("pulling"), new IItemPropertyGetter() {
@@ -168,7 +170,7 @@ public class ItemDwarvenLongBow extends ItemBase {
 	}
 
 	public static float getArrowVelocity(int charge) {
-		float f = (float)charge / (20.0F * 2);
+		float f = (float)charge / (20.0F * 1.5f);
 		f = (f * f + f * 2.0F) / 3.0F;
 		
 		if (f > 1.0F) {
@@ -179,7 +181,7 @@ public class ItemDwarvenLongBow extends ItemBase {
 	
 	@Override
 	public int getMaxItemUseDuration(ItemStack stack) {
-		return 72000*2;
+		return (int) (72000 * 1.5f);
 	}
 
 	public EnumAction getItemUseAction(ItemStack stack) {

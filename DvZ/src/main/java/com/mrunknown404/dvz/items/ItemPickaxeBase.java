@@ -22,6 +22,7 @@ public class ItemPickaxeBase extends ItemPickaxe implements IHasModel {
 		setUnlocalizedName(name);
 		setRegistryName(name);
 		setCreativeTab(tab);
+		setNoRepair();
 		
 		this.tooltip = tooltip;
 		
