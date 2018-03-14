@@ -6,6 +6,7 @@ import java.util.List;
 import com.mrunknown404.dvz.GameManager;
 import com.mrunknown404.dvz.util.EnumPlayerType;
 import com.mrunknown404.dvz.util.GetEnumNames;
+import com.mrunknown404.dvz.util.PlayerInfoProvider;
 
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
@@ -25,10 +26,11 @@ public class CommandForcePlayerType extends CommandBase {
 	
 	@Override
 	public String getUsage(ICommandSender sender) {
-		return "/forceplayer <playertype> <player>";
+		return "/forceplayer <player> <playertype>" ;
 	}
 
 	private final ITextComponent error = new TextComponentString("ÅòcInvalid arguments");
+	private final ITextComponent error2 = new TextComponentString("ÅòcPlayer is already that role");
 	
 	@Override
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
@@ -44,12 +46,24 @@ public class CommandForcePlayerType extends CommandBase {
 		}
 		
 		//Start
-		if (args[0].equals(EnumPlayerType.spec.name().toString())) {
-			GameManager.resetPlayer((EntityPlayer) getEntity(server, sender, args[1]));
-		} else if (args[0].equals(EnumPlayerType.dwarf.name().toString())) {
-			GameManager.setupPlayer((EntityPlayer) getEntity(server, sender, args[1]));
-		} else if (args[0].equals(EnumPlayerType.monster.name().toString())) {
+		if (args[1].equals(EnumPlayerType.spec.name().toString()) && getEntity(server, sender, args[0]).getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() != EnumPlayerType.spec) {
+			GameManager.resetPlayer((EntityPlayer) getEntity(server, sender, args[0]));
+			return;
+		} else if (args[1].equals(EnumPlayerType.spec.name().toString()) && getEntity(server, sender, args[0]).getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() == EnumPlayerType.spec) {
+			sender.getCommandSenderEntity().sendMessage(error2);
+			return;
+		} else if (args[1].equals(EnumPlayerType.dwarf.name().toString()) && getEntity(server, sender, args[0]).getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() != EnumPlayerType.dwarf) {
+			GameManager.setupPlayer((EntityPlayer) getEntity(server, sender, args[0]));
+			return;
+		} else if (args[1].equals(EnumPlayerType.dwarf.name().toString()) && getEntity(server, sender, args[0]).getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() == EnumPlayerType.dwarf) {
+			sender.getCommandSenderEntity().sendMessage(error2);
+			return;
+		} else if (args[1].equals(EnumPlayerType.monster.name().toString()) && getEntity(server, sender, args[0]).getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() != EnumPlayerType.monster) {
 			sender.getCommandSenderEntity().sendMessage(new TextComponentString("this isn't setup"));
+			return;
+		} else if (args[1].equals(EnumPlayerType.monster.name().toString()) && getEntity(server, sender, args[0]).getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() == EnumPlayerType.monster) {
+			sender.getCommandSenderEntity().sendMessage(error2);
+			return;
 		} else {
 			sender.getCommandSenderEntity().sendMessage(error);
 			return;
@@ -63,12 +77,12 @@ public class CommandForcePlayerType extends CommandBase {
 
 	@Override
 	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos targetPos) {
-		return args.length == 1 ? getListOfStringsMatchingLastWord(args, GetEnumNames.getNames(EnumPlayerType.class)) : args.length == 2 ? getListOfStringsMatchingLastWord(args, server.getOnlinePlayerNames()) : Collections.<String>emptyList();
+		return args.length == 2 ? getListOfStringsMatchingLastWord(args, GetEnumNames.getNames(EnumPlayerType.class)) : args.length == 1 ? getListOfStringsMatchingLastWord(args, server.getOnlinePlayerNames()) : Collections.<String>emptyList();
 	}
 
 	@Override
 	public boolean isUsernameIndex(String[] args, int index) {
-		return index == 1;
+		return index == 0;
 	}
 
 }
