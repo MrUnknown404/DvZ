@@ -30,7 +30,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemDwarvenLongBow extends ItemBase {
 
-	//** String name, CreativeTabs tab, String tooltip, */
 	public ItemDwarvenLongBow(String name, CreativeTabs tab, String tooltip) {
 		super(name, tab, tooltip);
 		setNoRepair();

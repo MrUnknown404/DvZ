@@ -7,12 +7,10 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
 
 public class ItemJuice extends ItemBase {
 
-	/** String name, CreativeTabs tab */
 	public ItemJuice(String name, CreativeTabs tab, String tooltip) {
 		super(name, tab, tooltip);
 		setMaxStackSize(1);
@@ -21,12 +19,11 @@ public class ItemJuice extends ItemBase {
 	@Override
 	public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
 		EntityPlayer player = (EntityPlayer) entityLiving;
-		World world = player.getEntityWorld();
 		
 		if (player.experienceLevel >= 100) {
 			if (player.getHealth() != player.getMaxHealth()) {
 				if (player.getCooldownTracker().getCooldown(this, 0f) == 0f) {
-					healPlayer(world, player);
+					healPlayer(player);
 				}
 			}
 		}
@@ -37,15 +34,14 @@ public class ItemJuice extends ItemBase {
 	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
 		if (player.experienceLevel >= 100) {
 			if (player.getHealth() != player.getMaxHealth()) {
-				healPlayer(world, player);
+				healPlayer(player);
 			}
 		}
 		return super.onItemRightClick(world, player, hand);
 	}
 	
-	private void healPlayer(World world, EntityPlayer player) {
-		if (!world.isRemote) {
-			world.playSound((EntityPlayer)null, player.getPosition(), SoundEvents.ENTITY_GENERIC_DRINK, SoundCategory.PLAYERS, 1.0f, 1.0f);
+	private void healPlayer(EntityPlayer player) {
+		if (player.getEntityWorld().isRemote) {
 			player.playSound(SoundEvents.ENTITY_GENERIC_DRINK, 1.0f, 1.0f);
 			player.heal(player.getMaxHealth());
 		}

@@ -2,8 +2,10 @@ package com.mrunknown404.dvz.commands;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 import com.mrunknown404.dvz.GameManager;
+import com.mrunknown404.dvz.init.ModItems;
 import com.mrunknown404.dvz.util.EnumPlayerType;
 import com.mrunknown404.dvz.util.GetEnumNames;
 import com.mrunknown404.dvz.util.PlayerInfoProvider;
@@ -12,6 +14,7 @@ import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
@@ -29,13 +32,14 @@ public class CommandForcePlayerType extends CommandBase {
 		return "/forceplayer <player> <playertype>" ;
 	}
 
-	private final ITextComponent error = new TextComponentString("ÅòcInvalid arguments");
+	private final ITextComponent error1 = new TextComponentString("ÅòcInvalid arguments");
 	private final ITextComponent error2 = new TextComponentString("ÅòcPlayer is already that role");
+	private final ITextComponent error3 = new TextComponentString("ÅòcMonsters have not been released");
 	
 	@Override
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
 		if (args.length != 2) {
-			sender.getCommandSenderEntity().sendMessage(error);
+			sender.getCommandSenderEntity().sendMessage(error1);
 			return;
 		}
 		
@@ -48,31 +52,44 @@ public class CommandForcePlayerType extends CommandBase {
 		//Start
 		if (args[1].equals(EnumPlayerType.spec.name().toString()) && getEntity(server, sender, args[0]).getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() != EnumPlayerType.spec) {
 			GameManager.resetPlayer((EntityPlayer) getEntity(server, sender, args[0]));
-			return;
 		} else if (args[1].equals(EnumPlayerType.spec.name().toString()) && getEntity(server, sender, args[0]).getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() == EnumPlayerType.spec) {
 			sender.getCommandSenderEntity().sendMessage(error2);
 			return;
 		} else if (args[1].equals(EnumPlayerType.dwarf.name().toString()) && getEntity(server, sender, args[0]).getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() != EnumPlayerType.dwarf) {
-			GameManager.setupPlayer((EntityPlayer) getEntity(server, sender, args[0]));
-			return;
+			GameManager.setupPlayerDwarf((EntityPlayer) getEntity(server, sender, args[0]));
 		} else if (args[1].equals(EnumPlayerType.dwarf.name().toString()) && getEntity(server, sender, args[0]).getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() == EnumPlayerType.dwarf) {
 			sender.getCommandSenderEntity().sendMessage(error2);
 			return;
 		} else if (args[1].equals(EnumPlayerType.monster.name().toString()) && getEntity(server, sender, args[0]).getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() != EnumPlayerType.monster) {
-			sender.getCommandSenderEntity().sendMessage(new TextComponentString("this isn't setup"));
-			return;
+			if (server.getEntityWorld().getScoreboard().getTeam("monsters") == null) {
+				sender.getCommandSenderEntity().sendMessage(error3);
+				return;
+			}
+			EntityPlayer player = (EntityPlayer) getEntity(server, sender, args[0]);
+			
+			player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setPlayerType(EnumPlayerType.monster);;
+			player.getEntityWorld().getScoreboard().addPlayerToTeam(player.getName(), "monsters");
+			
+			player.inventory.clear();
+			player.inventory.addItemStackToInventory(new ItemStack(ModItems.SPAWNAS_ZOMBIE));
+			if (ThreadLocalRandom.current().nextBoolean()) {
+				player.inventory.addItemStackToInventory(new ItemStack(ModItems.SPAWNAS_CREEPER));
+			}
+			if (ThreadLocalRandom.current().nextBoolean()) {
+				player.inventory.addItemStackToInventory(new ItemStack(ModItems.SPAWNAS_SKELETON));
+			}
 		} else if (args[1].equals(EnumPlayerType.monster.name().toString()) && getEntity(server, sender, args[0]).getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() == EnumPlayerType.monster) {
 			sender.getCommandSenderEntity().sendMessage(error2);
 			return;
 		} else {
-			sender.getCommandSenderEntity().sendMessage(error);
+			sender.getCommandSenderEntity().sendMessage(error1);
 			return;
 		}
 	}
 
 	@Override
 	public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
-		return sender.canUseCommand(4, "startgame");
+		return sender.canUseCommand(4, "forceplayer");
 	}
 
 	@Override

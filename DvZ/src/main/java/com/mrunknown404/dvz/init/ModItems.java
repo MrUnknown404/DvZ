@@ -10,9 +10,12 @@ import com.mrunknown404.dvz.items.ItemDebugMana;
 import com.mrunknown404.dvz.items.ItemDwarvenLongBow;
 import com.mrunknown404.dvz.items.ItemGlue;
 import com.mrunknown404.dvz.items.ItemJuice;
+import com.mrunknown404.dvz.items.ItemMonsterFood;
 import com.mrunknown404.dvz.items.ItemPickaxeBase;
 import com.mrunknown404.dvz.items.ItemShovelBase;
+import com.mrunknown404.dvz.items.ItemSpawnAsMob;
 import com.mrunknown404.dvz.items.ItemSwordBase;
+import com.mrunknown404.dvz.util.EnumMonsterType;
 import com.mrunknown404.dvz.util.Reference;
 
 import net.minecraft.init.SoundEvents;
@@ -39,7 +42,7 @@ public class ModItems {
 	public static final Item JUICE = new ItemJuice("juice", ModCreativeTabs.DVZITEMS, "˜aHeals you to full ˜8(˜bCosts 75 mana˜8)");
 	
 	//Debug Items //˜0D˜1E˜2B˜3U˜4G-˜5D˜6E˜7B˜8U˜9G-˜aD˜bE˜cB˜dU˜eG˜f!
-	public static final Item DEBUG_MANA = new ItemDebugMana("debugmana", null, "˜aDebug item! ˜8(˜bGives/Costs 250 mana˜8)");
+	public static final Item DEBUG_MANA = new ItemDebugMana("debugmana", null, "˜aDebug item! ˜8(˜bGives/Takes 250 mana˜8)");
 	
 	//-//Tools
 	//Weapons
@@ -70,4 +73,12 @@ public class ModItems {
 	public static final Item CRAFTER_CHESTPLATE = new ItemArmorBase("crafterchestplate", ModCreativeTabs.DVZITEMS, "˜aLeft click to repair armor ˜8(˜bCosts 25 mana˜8)", ARMMAT_CRAFTER, 1, EntityEquipmentSlot.CHEST);
 	public static final Item CRAFTER_LEGGINGS = new ItemArmorBase("crafterleggings", ModCreativeTabs.DVZITEMS, "˜aLeft click to repair armor ˜8(˜bCosts 25 mana˜8)", ARMMAT_CRAFTER, 2, EntityEquipmentSlot.LEGS);
 	public static final Item CRAFTER_BOOTS = new ItemArmorBase("crafterboots", ModCreativeTabs.DVZITEMS, "˜aLeft click to repair armor ˜8(˜bCosts 25 mana˜8)", ARMMAT_CRAFTER, 1, EntityEquipmentSlot.FEET);
+
+	//-//Monster Items
+	public static final Item SPAWNAS_ZOMBIE = new ItemSpawnAsMob("spawnaszombie", ModCreativeTabs.DVZITEMS, "˜cSpawn as a Zombie", EnumMonsterType.zombie);
+	public static final Item SPAWNAS_CREEPER = new ItemSpawnAsMob("spawnascreeper", ModCreativeTabs.DVZITEMS, "˜cSpawn as a Creeper", EnumMonsterType.creeper);
+	public static final Item SPAWNAS_SKELETON = new ItemSpawnAsMob("spawnasskeleton", ModCreativeTabs.DVZITEMS, "˜cSpawn as a Skeleton", EnumMonsterType.skeleton);
+	
+	public static final Item MONSTERFOOD = new ItemMonsterFood("monsterfood", ModCreativeTabs.DVZITEMS, "˜aRestores hunger");
+	//public static final Item CREEPER_EXPLODE
 }

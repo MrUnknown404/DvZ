@@ -16,7 +16,6 @@ public class ItemAxeBase extends ItemAxe implements IHasModel {
 
 	private String tooltip;
 	
-	/** String name, CreativeTabs tab, String tooltip, ToolMaterial material, float damage, float speed */
 	public ItemAxeBase(String name, CreativeTabs tab, String tooltip, ToolMaterial material, float damage, float speed) {
 		super(material, damage, speed);
 		setUnlocalizedName(name);

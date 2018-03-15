@@ -55,7 +55,7 @@ public class CommandStartGame extends CommandBase {
 				player.sendMessage(msg);
 			}
 			
-			GameManager.setupPlayer(player);
+			GameManager.setupPlayerDwarf(player);
 		}
 	}
 

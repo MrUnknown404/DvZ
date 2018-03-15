@@ -3,12 +3,14 @@ package com.mrunknown404.dvz;
 import com.mrunknown404.dvz.commands.CommandCreateQuarry;
 import com.mrunknown404.dvz.commands.CommandDebugResetGame;
 import com.mrunknown404.dvz.commands.CommandForcePlayerType;
+import com.mrunknown404.dvz.commands.CommandReleaseMonsters;
 import com.mrunknown404.dvz.commands.CommandStartGame;
 import com.mrunknown404.dvz.proxy.CommonProxy;
 import com.mrunknown404.dvz.util.Reference;
 import com.mrunknown404.dvz.util.handlers.BlockHarvestHandler;
 import com.mrunknown404.dvz.util.handlers.ConnectionHandler;
-import com.mrunknown404.dvz.util.handlers.PlayerInfoCloneHandler;
+import com.mrunknown404.dvz.util.handlers.FallingHandler;
+import com.mrunknown404.dvz.util.handlers.PlayerCloneHandler;
 import com.mrunknown404.dvz.util.handlers.WorldLoadHandler;
 
 import net.minecraft.init.Blocks;
@@ -49,14 +51,40 @@ public class Main {
 		
 		MinecraftForge.EVENT_BUS.register(new BlockHarvestHandler());
 		MinecraftForge.EVENT_BUS.register(new ConnectionHandler());
-		MinecraftForge.EVENT_BUS.register(new PlayerInfoCloneHandler());
+		MinecraftForge.EVENT_BUS.register(new PlayerCloneHandler());
 		MinecraftForge.EVENT_BUS.register(new WorldLoadHandler());
+		MinecraftForge.EVENT_BUS.register(new FallingHandler());
 		
 		Items.CAKE.setMaxStackSize(64);
 		Blocks.SAND.setResistance(10000);
 		Blocks.DIRT.setResistance(10000);
 		Blocks.GRASS.setResistance(10000);
 		Blocks.STONE.setResistance(10000);
+		
+		Items.LEATHER_HELMET.setMaxDamage(-1);
+		Items.LEATHER_CHESTPLATE.setMaxDamage(-1);
+		Items.LEATHER_LEGGINGS.setMaxDamage(-1);
+		Items.LEATHER_BOOTS.setMaxDamage(-1);
+		
+		Items.GOLDEN_HELMET.setMaxDamage(-1);
+		Items.GOLDEN_CHESTPLATE.setMaxDamage(-1);
+		Items.GOLDEN_LEGGINGS.setMaxDamage(-1);
+		Items.GOLDEN_BOOTS.setMaxDamage(-1);
+		
+		Items.CHAINMAIL_HELMET.setMaxDamage(-1);
+		Items.CHAINMAIL_CHESTPLATE.setMaxDamage(-1);
+		Items.CHAINMAIL_LEGGINGS.setMaxDamage(-1);
+		Items.CHAINMAIL_BOOTS.setMaxDamage(-1);
+		
+		Items.IRON_HELMET.setMaxDamage(-1);
+		Items.IRON_CHESTPLATE.setMaxDamage(-1);
+		Items.IRON_LEGGINGS.setMaxDamage(-1);
+		Items.IRON_BOOTS.setMaxDamage(-1);
+		
+		Items.DIAMOND_HELMET.setMaxDamage(-1);
+		Items.DIAMOND_CHESTPLATE.setMaxDamage(-1);
+		Items.DIAMOND_LEGGINGS.setMaxDamage(-1);
+		Items.DIAMOND_BOOTS.setMaxDamage(-1);
 	}
 	
 	@EventHandler
@@ -65,5 +93,6 @@ public class Main {
 		event.registerServerCommand(new CommandDebugResetGame());
 		event.registerServerCommand(new CommandCreateQuarry());
 		event.registerServerCommand(new CommandForcePlayerType());
+		event.registerServerCommand(new CommandReleaseMonsters());
 	}
 }

@@ -16,7 +16,6 @@ public class ItemSwordBase extends ItemSword implements IHasModel {
 
 	private String tooltip;
 	
-	/** String name, CreativeTabs tab, String tooltip, ToolMaterial material */
 	public ItemSwordBase(String name, CreativeTabs tab, String tooltip, ToolMaterial material) {
 		super(material);
 		setUnlocalizedName(name);

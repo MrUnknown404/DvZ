@@ -14,6 +14,7 @@ public class PlayerInfoStorage implements IStorage<IPlayerInfo> {
 		nbt.setInteger("playertype", instance.getPlayerType().ordinal());
 		nbt.setInteger("dwarftype", instance.getDwarfType().ordinal());
 		nbt.setInteger("herotype", instance.getHeroType().ordinal());
+		nbt.setInteger("monstertype", instance.getMonsterType().ordinal());
 		return nbt;
 	}
 
@@ -22,5 +23,6 @@ public class PlayerInfoStorage implements IStorage<IPlayerInfo> {
 		instance.setDwarfTypeInt(((NBTTagCompound) nbt).getInteger("dwarftype"));
 		instance.setPlayerTypeInt(((NBTTagCompound) nbt).getInteger("playertype"));
 		instance.setHeroTypeInt(((NBTTagCompound) nbt).getInteger("herotype"));
+		instance.setMonsterTypeInt(((NBTTagCompound) nbt).getInteger("monstertype"));
 	}
 }

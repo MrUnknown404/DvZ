@@ -19,9 +19,7 @@ import net.minecraft.world.World;
 public class ItemArmorBase extends ItemArmor implements IHasModel {
 
 	private String tooltip;
-	private int tick = 0;
 	
-	/** String name, CreativeTabs tab, String tooltip, ArmorMaterial material, int renderIndex, EntityEquipmentSlot equipmentSlot */
 	public ItemArmorBase(String name, CreativeTabs tab, String tooltip, ArmorMaterial material, int renderIndex, EntityEquipmentSlot equipmentSlot) {
 		super(material, renderIndex, equipmentSlot);
 		setUnlocalizedName(name);

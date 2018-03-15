@@ -6,17 +6,18 @@ import com.mrunknown404.dvz.init.ModBlocks;
 import com.mrunknown404.dvz.init.ModItems;
 import com.mrunknown404.dvz.util.EnumDwarfType;
 import com.mrunknown404.dvz.util.EnumHeroType;
+import com.mrunknown404.dvz.util.EnumMonsterType;
 import com.mrunknown404.dvz.util.EnumPlayerType;
 import com.mrunknown404.dvz.util.PlayerInfoProvider;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraftforge.event.entity.player.PlayerDropsEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.NameFormat;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
@@ -32,8 +33,6 @@ public class GameManager {
 			return;
 		}
 		
-		//event.world.getScoreboard().createTeam(name)
-		
 		if (!event.world.isRemote) {
 			for (EntityPlayer p : event.world.playerEntities) {
 				if (p.getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() == EnumPlayerType.dwarf) {
@@ -45,6 +44,30 @@ public class GameManager {
 					}
 				}
 			}
+		}
+	}
+	
+	public void updatePlayerMana(EntityPlayer p) {
+		if (p.experienceLevel < 1000) {
+			if (tick < 3 * 20) {
+				tick++;
+				return;
+			}
+			
+			tick = 0;
+			p.experienceLevel += 25;
+			//p.addExperienceLevel(25); //this causes the level up sound so i'm not use it
+			p.experience = 0;
+			p.addExperience((int) (p.xpBarCap() * (p.experienceLevel * 0.001f)));
+			
+			if (p.experienceLevel == 1001) {
+				p.experienceLevel = 1000;
+				p.experience = 0;
+				p.addExperience((int) (p.xpBarCap() - 1));
+			}
+		} else if (p.experienceLevel > 1000) {
+			p.experienceLevel = 1000;
+			updatePlayerMana(p);
 		}
 	}
 	
@@ -61,37 +84,84 @@ public class GameManager {
 		} else if (event.getEntityPlayer().getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() == EnumPlayerType.spec) {
 			event.setDisplayname(event.getUsername());
 		}
-		if (event.getEntityPlayer().getCapability(PlayerInfoProvider.PLAYERINFO, null).getHeroType() == EnumHeroType.mrunknown404) {
-			event.setDisplayname("Åò6" + event.getUsername() + " the Hero");
+		
+		if (event.getEntityPlayer().getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() == EnumPlayerType.monster) {
+			event.setDisplayname("Åòc" + event.getUsername() + " the Monster");
+		} else if (event.getEntityPlayer().getCapability(PlayerInfoProvider.PLAYERINFO, null).getHeroType() == EnumHeroType.mrunknown404) {
+			event.setDisplayname("Åò6" + event.getUsername() + " the Creator");
 		}
 	}
 	
-	public void updatePlayerMana(EntityPlayer p) {
-		if (p.experienceLevel < 1000) {
-			if (tick < 3 * 20) {
-				tick++;
-				return;
-			}
+	public static void resetPlayer(EntityPlayer player) {
+		if (player.getEntityWorld().getScoreboard().getTeam("dwarves") != null) {
+			player.getEntityWorld().getScoreboard().removePlayerFromTeam(player.getName().toString(), player.getEntityWorld().getScoreboard().getTeam("dwarves"));
+		}
+		
+		player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setDwarfType(EnumDwarfType.nil);
+		player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setPlayerType(EnumPlayerType.spec);
+		player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setHeroType(EnumHeroType.nil);
+		player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setMonsterType(EnumMonsterType.nil);
+		
+		player.removeExperienceLevel(player.experienceLevel);
+		player.experience = 0;
+		player.addExperience(0);
+		
+		player.clearActivePotions();
+		player.inventory.clear();
+		player.heal(player.getMaxHealth());
+		player.addPotionEffect(new PotionEffect(MobEffects.SATURATION, (60*60)*20, 5, true, false));
+		
+		player.refreshDisplayName();
+	}
+	
+	public static void setupPlayerMonster(EntityPlayer player, EnumMonsterType type) {
+		player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setPlayerType(EnumPlayerType.monster);
+		
+		player.removeExperienceLevel(player.experienceLevel);
+		player.experience = 0;
+		player.addExperience(0);
+		
+		player.clearActivePotions();
+		player.inventory.clear();
+		player.heal(player.getMaxHealth());
+		
+		player.refreshDisplayName();
+		
+		if (type == EnumMonsterType.zombie) {
+			ItemStack item1 = new ItemStack(Items.DIAMOND_SWORD);
+			item1.addEnchantment(Enchantments.SHARPNESS, 1);
+			player.inventory.addItemStackToInventory(item1);
+			player.inventory.addItemStackToInventory(new ItemStack(ModItems.MONSTERFOOD));
 			
-			tick = 0;
-			p.experienceLevel += 25;
-			//p.addExperienceLevel(25); //this causes the level up sound so i'm not use it
+			player.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.LEATHER_HELMET));
+			player.setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(Items.LEATHER_CHESTPLATE));
+			player.setItemStackToSlot(EntityEquipmentSlot.LEGS, new ItemStack(Items.LEATHER_LEGGINGS));
+			player.setItemStackToSlot(EntityEquipmentSlot.FEET, new ItemStack(Items.LEATHER_BOOTS));
 			
-			p.experience = 0;
-			p.addExperience((int) (p.xpBarCap() * (p.experienceLevel * 0.001f)));
+			player.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, (60 * 60) * 20, 0));
+			player.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, (60 * 60) * 20, 1));
+		} else if (type == EnumMonsterType.creeper) {
+			player.inventory.addItemStackToInventory(new ItemStack(ModItems.MONSTERFOOD));
 			
-			if (p.experienceLevel == 1001) {
-				p.experienceLevel = 1000;
-				p.experience = 0;
-				p.addExperience((int) (p.xpBarCap() - 1));
-			}
-		} else if (p.experienceLevel > 1000) {
-			p.experienceLevel = 1000;
-			updatePlayerMana(p);
+		} else if (type == EnumMonsterType.skeleton) {
+			player.inventory.addItemStackToInventory(new ItemStack(ModItems.MONSTERFOOD));
+		
+		} else if (type == EnumMonsterType.wolf) {
+			player.inventory.addItemStackToInventory(new ItemStack(ModItems.MONSTERFOOD));
+		
+		} else if (type == EnumMonsterType.spiderling) {
+			player.inventory.addItemStackToInventory(new ItemStack(ModItems.MONSTERFOOD));
+		
+		} else if (type == EnumMonsterType.spider) {
+			player.inventory.addItemStackToInventory(new ItemStack(ModItems.MONSTERFOOD));
+		
+		} else if (type == EnumMonsterType.blaze) {
+			player.inventory.addItemStackToInventory(new ItemStack(ModItems.MONSTERFOOD));
+		
 		}
 	}
 	
-	public static void setupPlayer(EntityPlayer player) {
+	public static void setupPlayerDwarf(EntityPlayer player) {
 		player.getEntityWorld().getScoreboard().addPlayerToTeam(player.getName(), "dwarves");
 		
 		if (player.getName().equals("MrUnknown404")) {
@@ -116,6 +186,7 @@ public class GameManager {
 		
 		player.clearActivePotions();
 		player.inventory.clear();
+		player.heal(player.getMaxHealth());
 		
 		if (player.getCapability(PlayerInfoProvider.PLAYERINFO, null).getHeroType() == EnumHeroType.mrunknown404) {
 			if (player.getCapability(PlayerInfoProvider.PLAYERINFO, null).getDwarfType() == EnumDwarfType.builder) {
@@ -222,26 +293,6 @@ public class GameManager {
 				player.inventory.addItemStackToInventory(new ItemStack(ModBlocks.CRACKEDSOFTDWARVENSTONE, 32));			
 			}
 		}
-		player.refreshDisplayName();
-	}
-	
-	public static void resetPlayer(EntityPlayer player) {
-		if (player.getEntityWorld().getScoreboard().getTeam("dwarves") != null) {
-			player.getEntityWorld().getScoreboard().removePlayerFromTeam(player.getName().toString(), player.getEntityWorld().getScoreboard().getTeam("dwarves"));
-		}
-		
-		player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setDwarfType(EnumDwarfType.nil);
-		player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setPlayerType(EnumPlayerType.spec);
-		player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setHeroType(EnumHeroType.nil);
-		
-		player.removeExperienceLevel(player.experienceLevel);
-		player.experience = 0;
-		player.addExperience(0);
-		
-		player.clearActivePotions();
-		player.inventory.clear();
-		player.addPotionEffect(new PotionEffect(MobEffects.SATURATION, (60*60)*20, 5, true, false));
-		
 		player.refreshDisplayName();
 	}
 }

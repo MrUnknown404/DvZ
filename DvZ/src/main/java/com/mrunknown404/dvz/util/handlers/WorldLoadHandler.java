@@ -13,5 +13,6 @@ public class WorldLoadHandler {
 		event.getWorld().getGameRules().setOrCreateGameRule("doEntityDrops", "false");
 		event.getWorld().getGameRules().setOrCreateGameRule("doFireTick", "false");
 		event.getWorld().getGameRules().setOrCreateGameRule("doMobSpawning", "false");
+		event.getWorld().getGameRules().setOrCreateGameRule("keepInventory", "true");
 	}
 }

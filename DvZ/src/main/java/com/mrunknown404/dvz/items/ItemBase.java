@@ -15,7 +15,6 @@ public class ItemBase extends Item implements IHasModel{
 
 	private String tooltip;
 	
-	/** String name, CreativeTabs tab, String tooltip */
 	public ItemBase(String name, CreativeTabs tab, String tooltip) {
 		setUnlocalizedName(name);
 		setRegistryName(name);

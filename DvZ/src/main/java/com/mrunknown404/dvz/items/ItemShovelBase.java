@@ -16,7 +16,6 @@ public class ItemShovelBase extends ItemSpade implements IHasModel {
 
 	private String tooltip;
 	
-	/** String name, CreativeTabs tab, String tooltip, ToolMaterial material */
 	public ItemShovelBase(String name, CreativeTabs tab, String tooltip, ToolMaterial material) {
 		super(material);
 		setUnlocalizedName(name);

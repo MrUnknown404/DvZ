@@ -44,6 +44,10 @@ public class CommandDebugResetGame extends CommandBase {
 		//Start
 		List<EntityPlayer> players = server.getEntityWorld().playerEntities;
 		
+		if (server.getEntityWorld().getScoreboard().getTeam("monsters") != null) {
+			server.getEntityWorld().getScoreboard().removeTeam(server.getEntityWorld().getScoreboard().getTeam("monsters"));
+		}
+		
 		server.getEntityWorld().getScoreboard().removeTeam(server.getEntityWorld().getScoreboard().getTeam("dwarves"));
 		
 		for (EntityPlayer player : players) {

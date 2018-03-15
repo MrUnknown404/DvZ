@@ -16,7 +16,6 @@ public class ItemPickaxeBase extends ItemPickaxe implements IHasModel {
 
 	private String tooltip;
 	
-	/** String name, CreativeTabs tab, String tooltip, ToolMaterial material */
 	public ItemPickaxeBase(String name, CreativeTabs tab, String tooltip, ToolMaterial material) {
 		super(material);
 		setUnlocalizedName(name);

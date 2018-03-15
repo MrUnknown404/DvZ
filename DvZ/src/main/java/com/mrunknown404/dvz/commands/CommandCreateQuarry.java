@@ -31,7 +31,7 @@ public class CommandCreateQuarry extends CommandBase {
 	
 	@Override
 	public String getUsage(ICommandSender sender) {
-		return "Creates the quarry!";
+		return "/createquarry";
 	}
 	
 	private final ITextComponent error = new TextComponentString("ÅòcInvalid arguments");
@@ -72,7 +72,7 @@ public class CommandCreateQuarry extends CommandBase {
 
 	@Override
 	public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
-		return sender.canUseCommand(4, "startgame");
+		return sender.canUseCommand(4, "createquarry");
 	}
 
 	@Override

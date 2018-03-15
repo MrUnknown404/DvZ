@@ -5,7 +5,7 @@ import java.util.Arrays;
 public enum EnumPlayerType {
 	spec   (0),
 	dwarf  (1),
-	monster(3);
+	monster(2);
 	
 	public final int fId;
 
