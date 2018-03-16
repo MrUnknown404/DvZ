@@ -28,9 +28,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemCrafterBow extends ItemBase {
+public class ItemSkeletonBow extends ItemBase {
 	
-	public ItemCrafterBow(String name, CreativeTabs tab, String tooltip) {
+	public ItemSkeletonBow(String name, CreativeTabs tab, String tooltip) {
 		super(name, tab, tooltip);
 		setNoRepair();
 		
@@ -39,7 +39,7 @@ public class ItemCrafterBow extends ItemBase {
 		addPropertyOverride(new ResourceLocation("pull"), new IItemPropertyGetter() {
 			@SideOnly(Side.CLIENT)
 			public float apply(ItemStack stack, @Nullable World world, @Nullable EntityLivingBase entity) {
-				return entity == null ? 0.0F : (entity.getActiveItemStack().getItem() != ModItems.CRAFTER_BOW ? 0.0F : (float)(stack.getMaxItemUseDuration() - entity.getItemInUseCount()) / (20.0F * 0.5F));
+				return entity == null ? 0.0F : (entity.getActiveItemStack().getItem() != ModItems.SKELETON_BOW ? 0.0F : (float)(stack.getMaxItemUseDuration() - entity.getItemInUseCount()) / (20.0F * 1.0F));
 			}
 		});
 		addPropertyOverride(new ResourceLocation("pulling"), new IItemPropertyGetter() {
@@ -55,12 +55,8 @@ public class ItemCrafterBow extends ItemBase {
 		EntityPlayer player = (EntityPlayer) entityLiving;
 		World world = player.getEntityWorld();
 		
-		if (player.experienceLevel >= 25) {
-			if (player.getCooldownTracker().getCooldown(this, 0f) == 0f) {
-				craftArrows(world, player, stack);
-				player.experience = 0;
-				player.addExperience((int) (player.xpBarCap() * (player.experienceLevel * 0.001f)));
-			}
+		if (player.getCooldownTracker().getCooldown(this, 0f) == 0f) {
+			craftArrows(world, player, stack);
 		}
 		return super.onEntitySwing(entityLiving, stack);
 	}
@@ -69,15 +65,14 @@ public class ItemCrafterBow extends ItemBase {
 		if (!world.isRemote) {
 			player.playSound(SoundEvents.ENTITY_ARROW_HIT_PLAYER, 1.0f, 1.0f);
 		
-			EntityItem item = new EntityItem(world, player.posX, player.posY + 1, player.posZ, new ItemStack(Items.ARROW, ThreadLocalRandom.current().nextInt(8, 12)));
+			EntityItem item = new EntityItem(world, player.posX, player.posY + 1, player.posZ, new ItemStack(Items.ARROW, ThreadLocalRandom.current().nextInt(2, 4)));
 			item.setPickupDelay(10);
 			item.motionY = 0 + ThreadLocalRandom.current().nextDouble(0.15, 0.25);
 			item.motionX = 0 + ThreadLocalRandom.current().nextDouble(-0.05, 0.05);
 			item.motionZ = 0 + ThreadLocalRandom.current().nextDouble(-0.05, 0.05);
 			world.spawnEntity(item);
 		}
-		player.getCooldownTracker().setCooldown(this, 25);
-		player.removeExperienceLevel(25);
+		player.getCooldownTracker().setCooldown(this, 30);
 	}
 	
 	private ItemStack findAmmo(EntityPlayer player) {
@@ -125,7 +120,7 @@ public class ItemCrafterBow extends ItemBase {
 					if (!world.isRemote) {
 						ItemArrow itemarrow = (ItemArrow)((ItemArrow)(itemstack.getItem() instanceof ItemArrow ? itemstack.getItem() : Items.ARROW));
 						EntityArrow entityarrow = itemarrow.createArrow(world, itemstack, entityplayer);
-						entityarrow.setAim(entityplayer, entityplayer.rotationPitch, entityplayer.rotationYaw, 0.0F, f * 2.5f, 1.0F);
+						entityarrow.setAim(entityplayer, entityplayer.rotationPitch, entityplayer.rotationYaw, 0.0F, f * 3.0f, 1.0F);
 						
 						if (f == 1.0F) {
 							entityarrow.setIsCritical(true);
@@ -133,9 +128,9 @@ public class ItemCrafterBow extends ItemBase {
 						int j = EnchantmentHelper.getEnchantmentLevel(Enchantments.POWER, stack);
 						
 						if (j > 0) {
-							entityarrow.setDamage(entityarrow.getDamage() + (double)j * 0.5D + 0.5D);
+							entityarrow.setDamage(entityarrow.getDamage() + (double)j * 0.5D + 1.0D);
 						} else {
-							entityarrow.setDamage(entityarrow.getDamage() + (double)j * 0.5D + 0.5D);
+							entityarrow.setDamage(entityarrow.getDamage() + (double)j * 0.5D + 1.0D);
 						}
 						int k = EnchantmentHelper.getEnchantmentLevel(Enchantments.PUNCH, stack);
 						
@@ -167,7 +162,7 @@ public class ItemCrafterBow extends ItemBase {
 	}
 
 	public static float getArrowVelocity(int charge) {
-		float f = (float)charge / (20.0F * 0.5F);
+		float f = (float)charge / (20.0F * 1.0F);
 		f = (f * f + f * 2.0F) / 3.0F;
 		
 		if (f > 1.0F) {
@@ -177,7 +172,7 @@ public class ItemCrafterBow extends ItemBase {
 	}
 
 	public int getMaxItemUseDuration(ItemStack stack) {
-		return (int) (72000 * 0.5F);
+		return (int) (72000 * 1.0F);
 	}
 
 	public EnumAction getItemUseAction(ItemStack stack) {

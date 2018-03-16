@@ -40,15 +40,15 @@ public class ItemMonsterFood extends ItemFood implements IHasModel {
 	}
 	
 	@Override
-	public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving) {
+	public ItemStack onItemUseFinish(ItemStack stack, World world, EntityLivingBase entityLiving) {
 		EntityPlayer player = (EntityPlayer) entityLiving;
-		if (!worldIn.isRemote) {
-			player.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 20 * 20, 2));
+		if (!world.isRemote) {
+			player.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 20 * 20, 3));
 			player.addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 20 * 20, 0));
 			player.getCooldownTracker().setCooldown(this, 30 * 20);
 		}
 		stack.setCount(2);
-		return super.onItemUseFinish(stack, worldIn, entityLiving);
+		return super.onItemUseFinish(stack, world, entityLiving);
 	}
 	
 	@Override

@@ -65,6 +65,8 @@ public class CommandReleaseMonsters extends CommandBase {
 				player.sendMessage(msg);
 			}
 			
+			//kill dwarves
+			
 			if (player.getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() == EnumPlayerType.spec) {
 				player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setPlayerType(EnumPlayerType.monster);;
 				player.getEntityWorld().getScoreboard().addPlayerToTeam(player.getName(), "monsters");

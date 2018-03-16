@@ -14,6 +14,7 @@ import com.mrunknown404.dvz.items.ItemJuice;
 import com.mrunknown404.dvz.items.ItemMonsterFood;
 import com.mrunknown404.dvz.items.ItemPickaxeBase;
 import com.mrunknown404.dvz.items.ItemShovelBase;
+import com.mrunknown404.dvz.items.ItemSkeletonBow;
 import com.mrunknown404.dvz.items.ItemSpawnAsMonster;
 import com.mrunknown404.dvz.items.ItemSwordBase;
 import com.mrunknown404.dvz.util.EnumMonsterType;
@@ -76,10 +77,11 @@ public class ModItems {
 	public static final Item CRAFTER_BOOTS = new ItemArmorBase("crafterboots", ModCreativeTabs.DVZITEMS, "ÅòaLeft click to repair armor Åò8(ÅòbCosts 25 manaÅò8)", ARMMAT_CRAFTER, 1, EntityEquipmentSlot.FEET);
 
 	//-//Monster Items
-	public static final Item SPAWNAS_ZOMBIE = new ItemSpawnAsMonster("spawnaszombie", ModCreativeTabs.DVZITEMS, "ÅòcSpawn as a Zombie", EnumMonsterType.zombie);
-	public static final Item SPAWNAS_CREEPER = new ItemSpawnAsMonster("spawnascreeper", ModCreativeTabs.DVZITEMS, "ÅòcSpawn as a Creeper", EnumMonsterType.creeper);
-	public static final Item SPAWNAS_SKELETON = new ItemSpawnAsMonster("spawnasskeleton", ModCreativeTabs.DVZITEMS, "ÅòcSpawn as a Skeleton", EnumMonsterType.skeleton);
+	public static final Item SPAWNAS_ZOMBIE = new ItemSpawnAsMonster("spawnaszombie", ModCreativeTabs.DVZITEMS, "ÅòcSpawn as a Zombie", EnumMonsterType.zombie, 10);
+	public static final Item SPAWNAS_CREEPER = new ItemSpawnAsMonster("spawnascreeper", ModCreativeTabs.DVZITEMS, "ÅòcSpawn as a Creeper", EnumMonsterType.creeper, 10);
+	public static final Item SPAWNAS_SKELETON = new ItemSpawnAsMonster("spawnasskeleton", ModCreativeTabs.DVZITEMS, "ÅòcSpawn as a Skeleton", EnumMonsterType.skeleton, 10);
 	
-	public static final Item MONSTERFOOD = new ItemMonsterFood("monsterfood", ModCreativeTabs.DVZITEMS, "ÅòaRestores hunger");
-	public static final Item CREEPER_EXPLODE = new ItemCreeperExplode("creeperexplode", ModCreativeTabs.DVZITEMS, "explodes");
+	public static final Item MONSTER_FOOD = new ItemMonsterFood("monsterfood", ModCreativeTabs.DVZITEMS, "ÅòaRestores hunger");
+	public static final Item CREEPER_EXPLODE = new ItemCreeperExplode("creeperexplode", ModCreativeTabs.DVZITEMS, "ÅòaLeft/Right click to explode");
+	public static final Item SKELETON_BOW = new ItemSkeletonBow("skeletonbow", ModCreativeTabs.DVZITEMS, "ÅòaLeft click to create arrows");
 }

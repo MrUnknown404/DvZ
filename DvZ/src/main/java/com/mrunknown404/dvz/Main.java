@@ -7,10 +7,8 @@ import com.mrunknown404.dvz.commands.CommandReleaseMonsters;
 import com.mrunknown404.dvz.commands.CommandStartGame;
 import com.mrunknown404.dvz.proxy.CommonProxy;
 import com.mrunknown404.dvz.util.Reference;
-import com.mrunknown404.dvz.util.handlers.BlockHarvestHandler;
-import com.mrunknown404.dvz.util.handlers.ConnectionHandler;
-import com.mrunknown404.dvz.util.handlers.FallingHandler;
-import com.mrunknown404.dvz.util.handlers.PlayerCloneHandler;
+import com.mrunknown404.dvz.util.handlers.BlockHandler;
+import com.mrunknown404.dvz.util.handlers.PlayerHandler;
 import com.mrunknown404.dvz.util.handlers.WorldLoadHandler;
 
 import net.minecraft.init.Blocks;
@@ -49,11 +47,9 @@ public class Main {
 	public void postInit(FMLPostInitializationEvent event) {
 		CraftingManager.getInstance().getRecipeList().removeAll(CraftingManager.getInstance().getRecipeList());
 		
-		MinecraftForge.EVENT_BUS.register(new BlockHarvestHandler());
-		MinecraftForge.EVENT_BUS.register(new ConnectionHandler());
-		MinecraftForge.EVENT_BUS.register(new PlayerCloneHandler());
+		MinecraftForge.EVENT_BUS.register(new PlayerHandler());
+		MinecraftForge.EVENT_BUS.register(new BlockHandler());
 		MinecraftForge.EVENT_BUS.register(new WorldLoadHandler());
-		MinecraftForge.EVENT_BUS.register(new FallingHandler());
 		
 		Blocks.CLAY.setResistance(10000);
 		Blocks.SAND.setResistance(10000);

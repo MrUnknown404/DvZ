@@ -86,9 +86,7 @@ public class ItemCreeperExplode extends ItemBase {
 				}
 			}
 			if (!world.isRemote) {
-				//world.playSound((EntityPlayer)null, pos, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.PLAYERS, 1.0f, 1.0f);
-				//player.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 1.0f, 1.0f);
-				world.createExplosion(player, player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ(), 3.5f, true);
+				world.createExplosion(player, player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ(), 3.0f, true);
 				killPlayer(player);
 			}
 		}
