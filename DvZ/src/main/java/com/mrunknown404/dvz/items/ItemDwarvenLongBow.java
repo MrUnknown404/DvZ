@@ -68,7 +68,6 @@ public class ItemDwarvenLongBow extends ItemBase {
 	
 	private void craftArrows(World world, EntityPlayer player, ItemStack stack) {
 		if (!world.isRemote) {
-			world.playSound((EntityPlayer)null, player.getPosition(), SoundEvents.ENTITY_ARROW_HIT_PLAYER, SoundCategory.PLAYERS, 1.0f, 1.0f);
 			player.playSound(SoundEvents.ENTITY_ARROW_HIT_PLAYER, 1.0f, 1.0f);
 			
 			EntityItem item = new EntityItem(world, player.posX, player.posY + 1, player.posZ, new ItemStack(Items.ARROW, ThreadLocalRandom.current().nextInt(8, 12)));

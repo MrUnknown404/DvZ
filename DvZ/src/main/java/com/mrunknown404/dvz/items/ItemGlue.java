@@ -20,9 +20,7 @@ public class ItemGlue extends ItemBase {
 	public ItemGlue(String name, CreativeTabs tab, String tooltip, boolean isSuper) {
 		super(name, tab, tooltip);
 		
-		if (isSuper == true) {
-			this.isSuper = isSuper;
-		}
+		this.isSuper = isSuper;
 	}
 	
 	@Override

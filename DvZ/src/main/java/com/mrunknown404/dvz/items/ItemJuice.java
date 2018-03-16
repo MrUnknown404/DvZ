@@ -43,8 +43,8 @@ public class ItemJuice extends ItemBase {
 	private void healPlayer(EntityPlayer player) {
 		if (player.getEntityWorld().isRemote) {
 			player.playSound(SoundEvents.ENTITY_GENERIC_DRINK, 1.0f, 1.0f);
-			player.heal(player.getMaxHealth());
 		}
+		player.heal(player.getMaxHealth());
 		player.getCooldownTracker().setCooldown(this, 10);
 		player.getFoodStats().addStats(4, 0f);
 		player.removeExperienceLevel(100);

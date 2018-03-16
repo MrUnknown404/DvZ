@@ -52,11 +52,13 @@ public class CommandForcePlayerType extends CommandBase {
 		//Start
 		if (args[1].equals(EnumPlayerType.spec.name().toString()) && getEntity(server, sender, args[0]).getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() != EnumPlayerType.spec) {
 			GameManager.resetPlayer((EntityPlayer) getEntity(server, sender, args[0]));
+			sender.getCommandSenderEntity().sendMessage(new TextComponentString(getEntity(server, sender, args[0]).getName() + " has been forced into a " + args[1].toString()));
 		} else if (args[1].equals(EnumPlayerType.spec.name().toString()) && getEntity(server, sender, args[0]).getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() == EnumPlayerType.spec) {
 			sender.getCommandSenderEntity().sendMessage(error2);
 			return;
 		} else if (args[1].equals(EnumPlayerType.dwarf.name().toString()) && getEntity(server, sender, args[0]).getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() != EnumPlayerType.dwarf) {
 			GameManager.setupPlayerDwarf((EntityPlayer) getEntity(server, sender, args[0]));
+			sender.getCommandSenderEntity().sendMessage(new TextComponentString(getEntity(server, sender, args[0]).getName() + " has been forced into a " + args[1].toString()));
 		} else if (args[1].equals(EnumPlayerType.dwarf.name().toString()) && getEntity(server, sender, args[0]).getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() == EnumPlayerType.dwarf) {
 			sender.getCommandSenderEntity().sendMessage(error2);
 			return;
@@ -67,10 +69,10 @@ public class CommandForcePlayerType extends CommandBase {
 			}
 			EntityPlayer player = (EntityPlayer) getEntity(server, sender, args[0]);
 			
-			player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setPlayerType(EnumPlayerType.monster);;
-			player.getEntityWorld().getScoreboard().addPlayerToTeam(player.getName(), "monsters");
-			
+			player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setPlayerType(EnumPlayerType.monster);
 			player.inventory.clear();
+			player.clearActivePotions();
+			
 			player.inventory.addItemStackToInventory(new ItemStack(ModItems.SPAWNAS_ZOMBIE));
 			if (ThreadLocalRandom.current().nextBoolean()) {
 				player.inventory.addItemStackToInventory(new ItemStack(ModItems.SPAWNAS_CREEPER));
@@ -78,6 +80,7 @@ public class CommandForcePlayerType extends CommandBase {
 			if (ThreadLocalRandom.current().nextBoolean()) {
 				player.inventory.addItemStackToInventory(new ItemStack(ModItems.SPAWNAS_SKELETON));
 			}
+			sender.getCommandSenderEntity().sendMessage(new TextComponentString(getEntity(server, sender, args[0]).getName() + " has been forced into a " + args[1].toString()));
 		} else if (args[1].equals(EnumPlayerType.monster.name().toString()) && getEntity(server, sender, args[0]).getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() == EnumPlayerType.monster) {
 			sender.getCommandSenderEntity().sendMessage(error2);
 			return;

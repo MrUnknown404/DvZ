@@ -13,11 +13,11 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 
-public class ItemSpawnAsMob extends ItemBase {
+public class ItemSpawnAsMonster extends ItemBase {
 
 	private EnumMonsterType enumMonsterType;
 	
-	public ItemSpawnAsMob(String name, CreativeTabs tab, String tooltip, EnumMonsterType type) {
+	public ItemSpawnAsMonster(String name, CreativeTabs tab, String tooltip, EnumMonsterType type) {
 		super(name, tab, tooltip);
 		
 		enumMonsterType = type;

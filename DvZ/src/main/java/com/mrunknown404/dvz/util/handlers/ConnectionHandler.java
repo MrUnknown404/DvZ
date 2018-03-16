@@ -2,6 +2,7 @@ package com.mrunknown404.dvz.util.handlers;
 
 import java.util.concurrent.ThreadLocalRandom;
 
+import com.mrunknown404.dvz.GameManager;
 import com.mrunknown404.dvz.init.ModItems;
 import com.mrunknown404.dvz.util.EnumDwarfType;
 import com.mrunknown404.dvz.util.EnumHeroType;

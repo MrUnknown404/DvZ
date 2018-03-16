@@ -55,7 +55,7 @@ public class Main {
 		MinecraftForge.EVENT_BUS.register(new WorldLoadHandler());
 		MinecraftForge.EVENT_BUS.register(new FallingHandler());
 		
-		Items.CAKE.setMaxStackSize(64);
+		Blocks.CLAY.setResistance(10000);
 		Blocks.SAND.setResistance(10000);
 		Blocks.DIRT.setResistance(10000);
 		Blocks.GRASS.setResistance(10000);
@@ -85,6 +85,8 @@ public class Main {
 		Items.DIAMOND_CHESTPLATE.setMaxDamage(-1);
 		Items.DIAMOND_LEGGINGS.setMaxDamage(-1);
 		Items.DIAMOND_BOOTS.setMaxDamage(-1);
+		
+		Items.DIAMOND_SWORD.setMaxDamage(-1);
 	}
 	
 	@EventHandler

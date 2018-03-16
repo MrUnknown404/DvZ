@@ -116,6 +116,7 @@ public class GameManager {
 	
 	public static void setupPlayerMonster(EntityPlayer player, EnumMonsterType type) {
 		player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setPlayerType(EnumPlayerType.monster);
+		player.getEntityWorld().getScoreboard().addPlayerToTeam(player.getName(), "monsters");
 		
 		player.removeExperienceLevel(player.experienceLevel);
 		player.experience = 0;
@@ -127,25 +128,29 @@ public class GameManager {
 		
 		player.refreshDisplayName();
 		
+		player.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, (60 * 60) * 20, 0));
 		if (type == EnumMonsterType.zombie) {
 			ItemStack item1 = new ItemStack(Items.DIAMOND_SWORD);
 			item1.addEnchantment(Enchantments.SHARPNESS, 1);
 			player.inventory.addItemStackToInventory(item1);
 			player.inventory.addItemStackToInventory(new ItemStack(ModItems.MONSTERFOOD));
 			
-			player.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.LEATHER_HELMET));
+			player.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.SKULL, 1, 2)); //temporary
 			player.setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(Items.LEATHER_CHESTPLATE));
 			player.setItemStackToSlot(EntityEquipmentSlot.LEGS, new ItemStack(Items.LEATHER_LEGGINGS));
 			player.setItemStackToSlot(EntityEquipmentSlot.FEET, new ItemStack(Items.LEATHER_BOOTS));
 			
 			player.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, (60 * 60) * 20, 0));
-			player.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, (60 * 60) * 20, 1));
+			player.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, (60 * 60) * 20, 2));
 		} else if (type == EnumMonsterType.creeper) {
+			player.inventory.addItemStackToInventory(new ItemStack(ModItems.CREEPER_EXPLODE));
 			player.inventory.addItemStackToInventory(new ItemStack(ModItems.MONSTERFOOD));
 			
+			player.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.SKULL, 1, 4)); //temporary
 		} else if (type == EnumMonsterType.skeleton) {
 			player.inventory.addItemStackToInventory(new ItemStack(ModItems.MONSTERFOOD));
 		
+			player.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.SKULL, 1, 0)); //temporary
 		} else if (type == EnumMonsterType.wolf) {
 			player.inventory.addItemStackToInventory(new ItemStack(ModItems.MONSTERFOOD));
 		
@@ -155,9 +160,8 @@ public class GameManager {
 		} else if (type == EnumMonsterType.spider) {
 			player.inventory.addItemStackToInventory(new ItemStack(ModItems.MONSTERFOOD));
 		
-		} else if (type == EnumMonsterType.blaze) {
-			player.inventory.addItemStackToInventory(new ItemStack(ModItems.MONSTERFOOD));
-		
+		} else {
+			System.err.println("INVALID TYPE: " + type.toString());
 		}
 	}
 	

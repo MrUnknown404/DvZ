@@ -1,36 +1,58 @@
 package com.mrunknown404.dvz.items;
 
+import java.util.List;
+
+import com.mrunknown404.dvz.Main;
+import com.mrunknown404.dvz.init.ModItems;
+import com.mrunknown404.dvz.util.IHasModel;
+
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
+import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumHand;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 
-public class ItemMonsterFood extends ItemBase {
+public class ItemMonsterFood extends ItemFood implements IHasModel {
 
+	private String tooltip;
+	
 	public ItemMonsterFood(String name, CreativeTabs tab, String tooltip) {
-		super(name, tab, tooltip);
+		super(20, 0, false);
+		setUnlocalizedName(name);
+		setRegistryName(name);
+		setCreativeTab(tab);
+		setAlwaysEdible();
 		
-		setMaxStackSize(1);
+		this.tooltip = tooltip;
+		
+		ModItems.ITEMS.add(this);
 	}
 	
 	@Override
-	public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
+	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+		super.addInformation(stack, playerIn, tooltip, advanced);
+		if (this.tooltip != "") {
+			tooltip.add(this.tooltip);
+		}
+	}
+	
+	@Override
+	public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving) {
 		EntityPlayer player = (EntityPlayer) entityLiving;
-		if (player.getCooldownTracker().getCooldown(this, 0f) == 0f) {
-			player.getFoodStats().setFoodLevel(19);
+		if (!worldIn.isRemote) {
+			player.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 20 * 20, 2));
+			player.addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 20 * 20, 0));
 			player.getCooldownTracker().setCooldown(this, 30 * 20);
 		}
-		return super.onEntitySwing(entityLiving, stack);
+		stack.setCount(2);
+		return super.onItemUseFinish(stack, worldIn, entityLiving);
 	}
 	
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
-		player.getFoodStats().setFoodLevel(19);
-		player.getCooldownTracker().setCooldown(this, 30 * 20);
-		
-		return super.onItemRightClick(world, player, hand);
+	public void registerModels() {
+		Main.proxy.registerItemRenderer(this, 0, "inventory");
 	}
 }

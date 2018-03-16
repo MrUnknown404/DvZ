@@ -44,9 +44,5 @@ public class PlayerCloneHandler {
 				player.inventory.addItemStackToInventory(new ItemStack(ModItems.SPAWNAS_SKELETON));
 			}
 		}
-		
-		if (player.getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() == EnumPlayerType.spec) {
-			player.addPotionEffect(new PotionEffect(MobEffects.SATURATION, (60*60)*20, 5, true, false));
-		}
 	}
 }
