@@ -17,6 +17,7 @@ import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.entity.player.PlayerPickupXpEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 
@@ -37,7 +38,7 @@ public class PlayerHandler {
 			event.player.clearActivePotions();
 			event.player.refreshDisplayName();
 			
-			GameManager.giveEggs(event.player);
+			GameManager.giveSpawnAsMonsterItems(event.player);
 		}
 	}
 	
@@ -62,7 +63,7 @@ public class PlayerHandler {
 		player.refreshDisplayName();
 		
 		if (player.getEntityWorld().getScoreboard().getTeam("monsters") != null) {
-			GameManager.giveEggs(player);
+			GameManager.giveSpawnAsMonsterItems(player);
 		}
 	}
 	
@@ -93,5 +94,11 @@ public class PlayerHandler {
 			event.getPlayer().inventory.addItemStackToInventory(item);
 			event.getPlayer().inventoryContainer.detectAndSendChanges();
 		}
+	}
+	
+	@SubscribeEvent
+	public void onXPPickup(PlayerPickupXpEvent event) {
+		event.getOrb().onKillCommand();
+		event.setCanceled(true);
 	}
 }

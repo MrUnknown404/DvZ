@@ -18,23 +18,33 @@ public class BlockHandler {
 	
 	@SubscribeEvent
 	public void harvestEvent(HarvestDropsEvent event) {
+		event.getDrops().clear();
 		if (event.getHarvester() != null) {
 			if (event.getState() == Blocks.GRAVEL.getDefaultState()) {
-				event.getDrops().clear();
-				event.getDrops().add(new ItemStack(ModBlocks.CRACKEDSOFTDWARVENSTONE, 1 + new Random().nextInt(2)));
+				event.getDrops().add(new ItemStack(ModBlocks.CRACKEDSOFTDWARVENSTONE, 1 + new Random().nextInt(3)));
 				if (new Random().nextInt(32) == 0) {
 					event.getDrops().add(new ItemStack(Blocks.TORCH, 1 + new Random().nextInt(2)));
 				}
 				if (new Random().nextInt(64) == 0) {
 					event.getDrops().add(new ItemStack(ModBlocks.STONECAKE));
 				}
-			} else {
-				event.getDrops().clear();
-				return;
+			} else if (event.getState() == Blocks.COAL_ORE.getDefaultState()) { 
+				event.getDrops().add(new ItemStack(Items.COAL));
+			} else if (event.getState() == Blocks.DIAMOND_ORE.getDefaultState()) {
+				event.getDrops().add(new ItemStack(Items.GOLD_NUGGET));
+			} else if (event.getState() == Blocks.EMERALD_ORE.getDefaultState()) {
+				event.getDrops().add(new ItemStack(Items.GOLD_NUGGET));
+			} else if (event.getState() == Blocks.REDSTONE_ORE.getDefaultState()) {
+				event.getDrops().add(new ItemStack(Items.GOLD_NUGGET));
+			} else if (event.getState() == Blocks.LIT_REDSTONE_ORE.getDefaultState()) {
+				event.getDrops().add(new ItemStack(Items.GOLD_NUGGET));
+			} else if (event.getState() == Blocks.IRON_ORE.getDefaultState()) {
+				event.getDrops().add(new ItemStack(Items.GOLD_NUGGET));
+			} else if (event.getState() == Blocks.GOLD_ORE.getDefaultState()) {
+				event.getDrops().add(new ItemStack(Items.GOLD_NUGGET));
+			} else if (event.getState() == Blocks.LAPIS_ORE.getDefaultState()) {
+				event.getDrops().add(new ItemStack(Items.GOLD_NUGGET));
 			}
-		} else {
-			event.getDrops().clear();
-			return;
 		}
 	}
 	

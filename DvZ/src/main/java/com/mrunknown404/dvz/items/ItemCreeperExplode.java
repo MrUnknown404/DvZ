@@ -22,6 +22,7 @@ public class ItemCreeperExplode extends ItemBase {
 
 	private boolean isSuper;
 	private boolean didUse = false;
+	private EntityPlayer p;
 	
 	public ItemCreeperExplode(String name, CreativeTabs tab, String tooltip, boolean isSuper) {
 		super(name, tab, tooltip);
@@ -32,10 +33,13 @@ public class ItemCreeperExplode extends ItemBase {
 	
 	@Override
 	public void onUpdate(ItemStack stack, World world, Entity entity, int itemSlot, boolean isSelected) {
-		EntityPlayer player = (EntityPlayer) entity;
-		BlockPos pos = player.getPosition();
-		if (player.getCooldownTracker().getCooldown(this, 0f) == 0f && didUse == true) {
-			if (isSuper) {	//radius = 8;//radius = 4;
+		if (p == null) {
+			return;
+		}
+		
+		BlockPos pos = p.getPosition();
+		if (p.getCooldownTracker().getCooldown(this, 0f) == 0f && didUse == true) {
+			if (isSuper) {
 				if (!world.isRemote) {
 					for (BlockPos _pos : pos.getAllInBox(pos.add(-8, -8, -8), pos.add(8, 8, 8))) {
 						if (world.getBlockState(_pos) == ModBlocks.HARDDWARVENSTONE.getDefaultState()) {
@@ -79,7 +83,7 @@ public class ItemCreeperExplode extends ItemBase {
 							}
 							world.notifyBlockUpdate(_pos, ModBlocks.CRACKEDSOFTDWARVENSTONE.getDefaultState(), ModBlocks.CRACKEDSOFTDWARVENSTONE.getDefaultState(), 0);
 						} else if (world.getBlockState(_pos) == ModBlocks.CRACKEDSOFTDWARVENSTONE.getDefaultState()) {
-							if (ThreadLocalRandom.current().nextInt(0, 4) == 0) {
+							if (ThreadLocalRandom.current().nextInt(0, 6) == 0) {
 							} else {
 								world.setBlockState(_pos, Blocks.AIR.getDefaultState());
 								world.notifyBlockUpdate(_pos, Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState(), 0);
@@ -131,7 +135,7 @@ public class ItemCreeperExplode extends ItemBase {
 							}
 							world.notifyBlockUpdate(_pos, ModBlocks.CRACKEDSOFTDWARVENSTONE.getDefaultState(), ModBlocks.CRACKEDSOFTDWARVENSTONE.getDefaultState(), 0);
 						} else if (world.getBlockState(_pos) == ModBlocks.CRACKEDSOFTDWARVENSTONE.getDefaultState()) {
-							if (ThreadLocalRandom.current().nextInt(0, 2) == 0) {
+							if (ThreadLocalRandom.current().nextInt(0, 4) == 0) {
 							} else {
 								world.setBlockState(_pos, Blocks.AIR.getDefaultState());
 								world.notifyBlockUpdate(_pos, Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState(), 0);
@@ -142,11 +146,11 @@ public class ItemCreeperExplode extends ItemBase {
 			}
 			if (!world.isRemote) {
 				if (isSuper) {
-					world.createExplosion(player, player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ(), 4.5f, true);
+					world.createExplosion(p, p.getPosition().getX(), p.getPosition().getY(), p.getPosition().getZ(), 4.5f, true);
 				} else {
-					world.createExplosion(player, player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ(), 3.0f, true);
+					world.createExplosion(p, p.getPosition().getX(), p.getPosition().getY(), p.getPosition().getZ(), 3.0f, true);
 				}
-				killPlayer(player);
+				killPlayer(p);
 			}
 		}
 		super.onUpdate(stack, world, entity, itemSlot, isSelected);

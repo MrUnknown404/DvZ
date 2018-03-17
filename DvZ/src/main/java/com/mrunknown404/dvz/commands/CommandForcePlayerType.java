@@ -73,7 +73,8 @@ public class CommandForcePlayerType extends CommandBase {
 				return;
 			}
 			
-			GameManager.giveEggs(player);
+			GameManager.resetPlayer(player);
+			GameManager.giveSpawnAsMonsterItems(player);
 			
 			sender.getCommandSenderEntity().sendMessage(txt);
 		} else if (args[1].equals(EnumPlayerType.monster.name().toString()) && cap.getPlayerType() == EnumPlayerType.monster) {

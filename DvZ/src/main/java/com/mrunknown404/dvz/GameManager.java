@@ -116,7 +116,7 @@ public class GameManager {
 		player.refreshDisplayName();
 	}
 	
-	public static void giveEggs(EntityPlayer player) {
+	public static void giveSpawnAsMonsterItems(EntityPlayer player) {
 		player.inventory.clear();
 		player.clearActivePotions();
 		player.refreshDisplayName();

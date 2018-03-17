@@ -1,6 +1,8 @@
 package com.mrunknown404.dvz.commands;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 import com.mrunknown404.dvz.init.ModItems;
@@ -11,7 +13,9 @@ import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.scoreboard.Team.EnumVisible;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
@@ -41,13 +45,11 @@ public class CommandReleaseMonsters extends CommandBase {
 		}
 		
 		if (server.getEntityWorld().getScoreboard().getTeam("dwarves") == null) {
-			System.err.println(sender.getDisplayName().toString() + " has tried to use /releasemonster while the game has not started");
 			sender.getCommandSenderEntity().sendMessage(new TextComponentString("You have tried to use /releasemonster while the game has not started"));
 			return;
 		}
 		
 		if (server.getEntityWorld().getScoreboard().getTeam("monsters") != null) {
-			System.err.println(sender.getDisplayName().toString() + " has tried to use /releasemonster while the monsters have already been released");
 			sender.getCommandSenderEntity().sendMessage(new TextComponentString("You have tried to use /releasemonster while the monsters have already been released"));
 			return;
 		}
@@ -60,14 +62,16 @@ public class CommandReleaseMonsters extends CommandBase {
 		server.getEntityWorld().getScoreboard().getTeam("monsters").setNameTagVisibility(EnumVisible.HIDE_FOR_OTHER_TEAMS);
 		server.getEntityWorld().getScoreboard().getTeam("monsters").setDeathMessageVisibility(EnumVisible.ALWAYS);
 		
+		List<EntityPlayer> deadPlayers = new ArrayList<EntityPlayer>();
+		
 		for (EntityPlayer player : players) {
 			for (int i = 0; i < 5; i++) {
 				player.sendMessage(msg);
 			}
 			
-			//kill dwarves
-			
 			if (player.getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() == EnumPlayerType.spec) {
+				deadPlayers.add(player);
+				
 				player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setPlayerType(EnumPlayerType.monster);;
 				player.getEntityWorld().getScoreboard().addPlayerToTeam(player.getName(), "monsters");
 				
@@ -81,8 +85,18 @@ public class CommandReleaseMonsters extends CommandBase {
 				}
 			}
 		}
+		
+		while (deadPlayers.size() < (players.size() / 3)) {
+			deadPlayers.add(players.get(new Random().nextInt(players.size())));
+		}
+		
+		for (EntityPlayer player : deadPlayers) {
+			System.out.println(player.getName() + " has been chosen");
+			player.sendMessage(new TextComponentString("˜4You have the Crafter Plague!"));
+			player.addPotionEffect(new PotionEffect(MobEffects.WITHER, (120 * 60) * 20, 2));
+		}
 	}
-
+	
 	@Override
 	public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
 		return sender.canUseCommand(4, "releasemonsters");

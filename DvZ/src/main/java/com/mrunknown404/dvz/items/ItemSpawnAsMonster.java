@@ -15,46 +15,49 @@ import net.minecraft.world.World;
 
 public class ItemSpawnAsMonster extends ItemBase {
 
-	private float time;
+	private int time;
 	private boolean didUse = false;
 	private EnumMonsterType enumMonsterType;
+	private EntityPlayer p;
 	
-	public ItemSpawnAsMonster(String name, CreativeTabs tab, String tooltip, EnumMonsterType type, float time) {
+	public ItemSpawnAsMonster(String name, CreativeTabs tab, String tooltip, EnumMonsterType type, int time) {
 		super(name, tab, tooltip);
 		
 		enumMonsterType = type;
 		this.time = time;
 	}
-
+	
 	@Override
 	public void onUpdate(ItemStack stack, World world, Entity entity, int itemSlot, boolean isSelected) {
-		EntityPlayer player = (EntityPlayer) entity;
-
-		if (player.getEntityWorld().isRemote) {
+		if (p == null) {
 			return;
 		}
 		
-		if (player.getCooldownTracker().getCooldown(this, 0f) == 0f && didUse == true) {
+		if (p.getEntityWorld().isRemote) {
+			return;
+		}
+		
+		if (p.getCooldownTracker().getCooldown(this, 0f) == 0f && didUse == true) {
 			if (world.getScoreboard().getTeam("monsters") != null) {
 				didUse = false;
-				GameManager.setupPlayerMonster(player, enumMonsterType);
+				GameManager.setupPlayerMonster(p, enumMonsterType);
 			} else {
-				player.sendMessage(new TextComponentString("Monsters have not been released"));
+				p.sendMessage(new TextComponentString("Monsters have not been released"));
 			}
 		}
 		super.onUpdate(stack, world, entity, itemSlot, isSelected);
 	}
-
+	
 	@Override
 	public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
 		EntityPlayer player = (EntityPlayer) entityLiving;
-		
+		p = player;
 		if (player.getEntityWorld().isRemote) {
 			return super.onEntitySwing(entityLiving, stack);
 		}
 		
 		if (player.getCooldownTracker().getCooldown(this, 1f) == 0f) {
-			player.getCooldownTracker().setCooldown(this, (int) time);
+			player.getCooldownTracker().setCooldown(this, time);
 			didUse = true;
 		}
 		return super.onEntitySwing(entityLiving, stack);
@@ -62,12 +65,13 @@ public class ItemSpawnAsMonster extends ItemBase {
 	
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+		p = player;
 		if (player.getEntityWorld().isRemote) {
 			return super.onItemRightClick(world, player, hand);
 		}
 		
 		if (player.getCooldownTracker().getCooldown(this, 1f) == 0f) {
-			player.getCooldownTracker().setCooldown(this, (int) time);
+			player.getCooldownTracker().setCooldown(this, time);
 			didUse = true;
 		}
 		return super.onItemRightClick(world, player, hand);
