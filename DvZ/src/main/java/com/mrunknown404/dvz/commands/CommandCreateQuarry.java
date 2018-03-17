@@ -41,9 +41,7 @@ public class CommandCreateQuarry extends CommandBase {
 		if (args.length != 0) {
 			sender.getCommandSenderEntity().sendMessage(error);
 			return;
-		}
-		
-		if (server.getEntityWorld().getTopSolidOrLiquidBlock(sender.getPosition()).getY() <= 63) {
+		} else if (server.getEntityWorld().getTopSolidOrLiquidBlock(sender.getPosition()).getY() <= 63) {
 			sender.getCommandSenderEntity().sendMessage(new TextComponentString("˜cToo low (minimum Y:63)"));
 			return;
 		}

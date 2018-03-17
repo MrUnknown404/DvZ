@@ -38,12 +38,8 @@ public class ItemSpawnAsMonster extends ItemBase {
 		}
 		
 		if (p.getCooldownTracker().getCooldown(this, 0f) == 0f && didUse == true) {
-			if (world.getScoreboard().getTeam("monsters") != null) {
-				didUse = false;
-				GameManager.setupPlayerMonster(p, enumMonsterType);
-			} else {
-				p.sendMessage(new TextComponentString("Monsters have not been released"));
-			}
+			didUse = false;
+			GameManager.setupPlayerMonster(p, enumMonsterType);
 		}
 		super.onUpdate(stack, world, entity, itemSlot, isSelected);
 	}
@@ -52,13 +48,18 @@ public class ItemSpawnAsMonster extends ItemBase {
 	public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
 		EntityPlayer player = (EntityPlayer) entityLiving;
 		p = player;
+		
 		if (player.getEntityWorld().isRemote) {
 			return super.onEntitySwing(entityLiving, stack);
 		}
 		
-		if (player.getCooldownTracker().getCooldown(this, 1f) == 0f) {
-			player.getCooldownTracker().setCooldown(this, time);
-			didUse = true;
+		if (player.getEntityWorld().getScoreboard().getTeam("monsters") != null) {
+			if (player.getCooldownTracker().getCooldown(this, 1f) == 0f) {
+				player.getCooldownTracker().setCooldown(this, time);
+				didUse = true;
+			}
+		} else {
+			p.sendMessage(new TextComponentString("Monsters have not been released"));
 		}
 		return super.onEntitySwing(entityLiving, stack);
 	}
@@ -70,9 +71,13 @@ public class ItemSpawnAsMonster extends ItemBase {
 			return super.onItemRightClick(world, player, hand);
 		}
 		
-		if (player.getCooldownTracker().getCooldown(this, 1f) == 0f) {
-			player.getCooldownTracker().setCooldown(this, time);
-			didUse = true;
+		if (world.getScoreboard().getTeam("monsters") != null) {
+			if (player.getCooldownTracker().getCooldown(this, 1f) == 0f) {
+				player.getCooldownTracker().setCooldown(this, time);
+				didUse = true;
+			}
+		}else {
+			p.sendMessage(new TextComponentString("Monsters have not been released"));
 		}
 		return super.onItemRightClick(world, player, hand);
 	}

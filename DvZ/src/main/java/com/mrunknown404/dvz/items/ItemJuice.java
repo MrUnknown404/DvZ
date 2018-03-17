@@ -3,10 +3,12 @@ package com.mrunknown404.dvz.items;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 
 public class ItemJuice extends ItemBase {
@@ -15,7 +17,7 @@ public class ItemJuice extends ItemBase {
 		super(name, tab, tooltip);
 		setMaxStackSize(1);
 	}
-
+	
 	@Override
 	public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
 		EntityPlayer player = (EntityPlayer) entityLiving;
@@ -41,7 +43,10 @@ public class ItemJuice extends ItemBase {
 	}
 	
 	private void healPlayer(EntityPlayer player) {
-		if (player.getEntityWorld().isRemote) {
+		if (player.isPotionActive(MobEffects.WITHER)) {
+			player.sendMessage(new TextComponentString("You have Crafter Plague healing won't help"));
+			return;
+		} else if (player.getEntityWorld().isRemote) {
 			player.playSound(SoundEvents.ENTITY_GENERIC_DRINK, 1.0f, 1.0f);
 		}
 		player.heal(player.getMaxHealth());

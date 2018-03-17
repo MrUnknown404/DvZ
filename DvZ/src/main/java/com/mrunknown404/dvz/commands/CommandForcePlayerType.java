@@ -41,9 +41,7 @@ public class CommandForcePlayerType extends CommandBase {
 		if (args.length != 2) {
 			sender.getCommandSenderEntity().sendMessage(error1);
 			return;
-		}
-		
-		if (server.getEntityWorld().getScoreboard().getTeam("dwarves") == null) {
+		} else if (server.getEntityWorld().getScoreboard().getTeam("dwarves") == null) {
 			sender.getCommandSenderEntity().sendMessage(error5);
 			return;
 		}
@@ -66,13 +64,6 @@ public class CommandForcePlayerType extends CommandBase {
 			sender.getCommandSenderEntity().sendMessage(error2);
 			return;
 		} else if (args[1].equals(EnumPlayerType.monster.name().toString()) && cap.getPlayerType() != EnumPlayerType.monster) {
-			if (server.getEntityWorld().getScoreboard().getTeam("monsters") == null) {
-				GameManager.resetPlayer(player);
-				final TextComponentString t = new TextComponentString(error3.toString() + args[0].toString() + error4.toString() + args[1].toString() + " (will be a monster when the monsters have been released)");
-				sender.getCommandSenderEntity().sendMessage(t);
-				return;
-			}
-			
 			GameManager.resetPlayer(player);
 			GameManager.giveSpawnAsMonsterItems(player);
 			

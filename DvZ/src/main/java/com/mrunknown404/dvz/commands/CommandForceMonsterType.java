@@ -40,14 +40,10 @@ public class CommandForceMonsterType extends CommandBase {
 		if (args.length != 2) {
 			sender.getCommandSenderEntity().sendMessage(error1);
 			return;
-		}
-		
-		if (server.getEntityWorld().getScoreboard().getTeam("dwarves") == null) {
+		} else if (server.getEntityWorld().getScoreboard().getTeam("dwarves") == null) {
 			sender.getCommandSenderEntity().sendMessage(error3);
 			return;
-		}
-		
-		if (server.getEntityWorld().getScoreboard().getTeam("monsters") == null) {
+		} else if (server.getEntityWorld().getScoreboard().getTeam("monsters") == null) {
 			sender.getCommandSenderEntity().sendMessage(error4);
 			return;
 		}

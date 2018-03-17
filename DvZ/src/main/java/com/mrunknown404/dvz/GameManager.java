@@ -94,9 +94,13 @@ public class GameManager {
 	
 	public static void resetPlayer(EntityPlayer player) {
 		if (player.getEntityWorld().getScoreboard().getTeam("dwarves") != null) {
-			player.getEntityWorld().getScoreboard().removePlayerFromTeam(player.getName().toString(), player.getEntityWorld().getScoreboard().getTeam("dwarves"));
+			if (player.getEntityWorld().getScoreboard().getPlayersTeam(player.getName()) == player.getEntityWorld().getScoreboard().getTeam("dwarves")) {
+				player.getEntityWorld().getScoreboard().removePlayerFromTeam(player.getName().toString(), player.getEntityWorld().getScoreboard().getTeam("dwarves"));
+			}
 		} else if (player.getEntityWorld().getScoreboard().getTeam("monsters") != null) {
-			player.getEntityWorld().getScoreboard().removePlayerFromTeam(player.getName().toString(), player.getEntityWorld().getScoreboard().getTeam("monsters"));
+			if (player.getEntityWorld().getScoreboard().getPlayersTeam(player.getName()) == player.getEntityWorld().getScoreboard().getTeam("monsters")) {
+				player.getEntityWorld().getScoreboard().removePlayerFromTeam(player.getName().toString(), player.getEntityWorld().getScoreboard().getTeam("monsters"));
+			}
 		}
 		
 		player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setDwarfType(EnumDwarfType.nil);
@@ -111,7 +115,6 @@ public class GameManager {
 		player.clearActivePotions();
 		player.inventory.clear();
 		player.heal(player.getMaxHealth());
-		player.addPotionEffect(new PotionEffect(MobEffects.SATURATION, (60*60)*20, 5, true, false));
 		
 		player.refreshDisplayName();
 	}

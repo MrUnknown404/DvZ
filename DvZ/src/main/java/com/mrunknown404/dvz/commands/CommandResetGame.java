@@ -33,9 +33,7 @@ public class CommandResetGame extends CommandBase {
 		if (args.length != 0) {
 			sender.getCommandSenderEntity().sendMessage(error);
 			return;
-		}
-		
-		if (server.getEntityWorld().getScoreboard().getTeam("dwarves") == null) {
+		} else if (server.getEntityWorld().getScoreboard().getTeam("dwarves") == null) {
 			System.err.println(sender.getDisplayName().toString() + " has tried to use /resetgame when the game never started!");
 			sender.getCommandSenderEntity().sendMessage(new TextComponentString("You have tried to use /resetgame when the game never started!"));
 			return;

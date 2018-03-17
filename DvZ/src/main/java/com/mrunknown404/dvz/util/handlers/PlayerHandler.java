@@ -12,7 +12,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraft.world.WorldServer;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
@@ -22,7 +24,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 
 public class PlayerHandler {
-	
+
 	@SubscribeEvent
 	public void onPlayerLogin(PlayerLoggedInEvent event) {
 		if (event.player.getEntityWorld().getScoreboard().getTeam("monsters") != null) {
@@ -71,9 +73,14 @@ public class PlayerHandler {
 	public void onPlayerDeath(LivingDeathEvent event) {
 		if (event.getSource().getEntity() instanceof EntityPlayer) {
 			if (((EntityPlayer) event.getSource().getEntity()).getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() == EnumPlayerType.dwarf) {
-				((EntityPlayer) event.getSource().getEntity()).addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 4 * 20, 99));
+				((EntityPlayer) event.getSource().getEntity()).addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 4 * 20, 99, false, false));
+				spawnParticles((EntityPlayer) event.getSource().getEntity());
 			}
 		}
+	}
+	
+	private void spawnParticles(EntityPlayer p) {
+		((WorldServer)p.getEntityWorld()).spawnParticle(EnumParticleTypes.VILLAGER_HAPPY, p.posX, p.posY + 0.5D, p.posZ, 100, 1.0d, 1.0d, 1.0d, 0, new int[0]);
 	}
 	
 	@SubscribeEvent

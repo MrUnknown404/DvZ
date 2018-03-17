@@ -164,6 +164,7 @@ public class ItemCreeperExplode extends ItemBase {
 	@Override
 	public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
 		EntityPlayer player = (EntityPlayer) entityLiving;
+		p = player;
 		
 		if (player.getCooldownTracker().getCooldown(this, 0f) == 0f) {
 			if (!player.getEntityWorld().isRemote) {
@@ -183,6 +184,7 @@ public class ItemCreeperExplode extends ItemBase {
 	
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+		p = player;
 		if (player.getCooldownTracker().getCooldown(this, 0f) == 0f) {
 			if (!player.getEntityWorld().isRemote) {
 				player.getEntityWorld().playSound((EntityPlayer)null, player.getPosition(), SoundEvents.ENTITY_CREEPER_PRIMED, SoundCategory.PLAYERS, 1.0f, 1.0f);

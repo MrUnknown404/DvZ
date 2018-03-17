@@ -34,9 +34,7 @@ public class CommandStartGame extends CommandBase {
 		if (args.length != 0) {
 			sender.getCommandSenderEntity().sendMessage(error);
 			return;
-		}
-		
-		if (server.getEntityWorld().getScoreboard().getTeam("dwarves") != null) {
+		} else if (server.getEntityWorld().getScoreboard().getTeam("dwarves") != null) {
 			sender.getCommandSenderEntity().sendMessage(new TextComponentString("You have tried to use /startgame while the game has started"));
 			return;
 		}
