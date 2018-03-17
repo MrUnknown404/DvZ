@@ -77,7 +77,7 @@ public class CommandReleaseMonsters extends CommandBase {
 		
 		while (plaguePlayers.size() < (canBeKilledPlayers.size() / 3)) {
 			System.out.println(plaguePlayers + " : " + canBeKilledPlayers);
-			EntityPlayer _p = players.get(new Random().nextInt(players.size()));
+			EntityPlayer _p = canBeKilledPlayers.get(new Random().nextInt(canBeKilledPlayers.size()));
 			System.out.println("0");
 			if (_p.getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() == EnumPlayerType.dwarf) {
 				plaguePlayers.add(_p);
