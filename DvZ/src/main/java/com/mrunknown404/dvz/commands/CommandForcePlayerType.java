@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.mrunknown404.dvz.GameManager;
+import com.mrunknown404.dvz.capabilities.IPlayerInfo;
 import com.mrunknown404.dvz.util.EnumPlayerType;
 import com.mrunknown404.dvz.util.GetEnumNames;
 import com.mrunknown404.dvz.util.PlayerInfoProvider;
@@ -48,32 +49,34 @@ public class CommandForcePlayerType extends CommandBase {
 		}
 		
 		//Start
-		if (args[1].equals(EnumPlayerType.spec.name().toString()) && getEntity(server, sender, args[0]).getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() != EnumPlayerType.spec) {
-			GameManager.resetPlayer((EntityPlayer) getEntity(server, sender, args[0]));
-			sender.getCommandSenderEntity().sendMessage(new TextComponentString(getEntity(server, sender, args[0]).getName() + " has been forced into a " + args[1].toString()));
-		} else if (args[1].equals(EnumPlayerType.spec.name().toString()) && getEntity(server, sender, args[0]).getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() == EnumPlayerType.spec) {
+		final ITextComponent txt = new TextComponentString(getEntity(server, sender, args[0]).getName() + " has been forced into a " + args[1].toString());
+		EntityPlayer player = (EntityPlayer) getEntity(server, sender, args[0]);
+		IPlayerInfo cap = player.getCapability(PlayerInfoProvider.PLAYERINFO, null);
+		
+		if (args[1].equals(EnumPlayerType.spec.name().toString()) && cap.getPlayerType() != EnumPlayerType.spec) {
+			GameManager.resetPlayer(player);
+			sender.getCommandSenderEntity().sendMessage(txt);
+		} else if (args[1].equals(EnumPlayerType.spec.name().toString()) && cap.getPlayerType() == EnumPlayerType.spec) {
 			sender.getCommandSenderEntity().sendMessage(error2);
 			return;
-		} else if (args[1].equals(EnumPlayerType.dwarf.name().toString()) && getEntity(server, sender, args[0]).getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() != EnumPlayerType.dwarf) {
-			GameManager.setupPlayerDwarf((EntityPlayer) getEntity(server, sender, args[0]));
-			sender.getCommandSenderEntity().sendMessage(new TextComponentString(getEntity(server, sender, args[0]).getName() + " has been forced into a " + args[1].toString()));
-		} else if (args[1].equals(EnumPlayerType.dwarf.name().toString()) && getEntity(server, sender, args[0]).getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() == EnumPlayerType.dwarf) {
+		} else if (args[1].equals(EnumPlayerType.dwarf.name().toString()) && cap.getPlayerType() != EnumPlayerType.dwarf) {
+			GameManager.setupPlayerDwarf(player);
+			sender.getCommandSenderEntity().sendMessage(txt);
+		} else if (args[1].equals(EnumPlayerType.dwarf.name().toString()) && cap.getPlayerType() == EnumPlayerType.dwarf) {
 			sender.getCommandSenderEntity().sendMessage(error2);
 			return;
-		} else if (args[1].equals(EnumPlayerType.monster.name().toString()) && getEntity(server, sender, args[0]).getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() != EnumPlayerType.monster) {
+		} else if (args[1].equals(EnumPlayerType.monster.name().toString()) && cap.getPlayerType() != EnumPlayerType.monster) {
 			if (server.getEntityWorld().getScoreboard().getTeam("monsters") == null) {
-				GameManager.resetPlayer((EntityPlayer) getEntity(server, sender, args[0]));
-				final TextComponentString p = new TextComponentString(args[0].toString());
-				final TextComponentString t = new TextComponentString(error3.toString() + p.toString() + error4.toString() + args[1].toString() + " (samething)");
+				GameManager.resetPlayer(player);
+				final TextComponentString t = new TextComponentString(error3.toString() + args[0].toString() + error4.toString() + args[1].toString() + " (will be a monster when the monsters have been released)");
 				sender.getCommandSenderEntity().sendMessage(t);
 				return;
 			}
 			
-			EntityPlayer player = (EntityPlayer) getEntity(server, sender, args[0]);
 			GameManager.giveEggs(player);
 			
-			sender.getCommandSenderEntity().sendMessage(new TextComponentString(getEntity(server, sender, args[0]).getName() + " has been forced into a " + args[1].toString()));
-		} else if (args[1].equals(EnumPlayerType.monster.name().toString()) && getEntity(server, sender, args[0]).getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() == EnumPlayerType.monster) {
+			sender.getCommandSenderEntity().sendMessage(txt);
+		} else if (args[1].equals(EnumPlayerType.monster.name().toString()) && cap.getPlayerType() == EnumPlayerType.monster) {
 			sender.getCommandSenderEntity().sendMessage(error2);
 			return;
 		} else {

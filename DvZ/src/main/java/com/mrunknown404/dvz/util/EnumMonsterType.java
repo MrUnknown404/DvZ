@@ -1,13 +1,14 @@
 package com.mrunknown404.dvz.util;
 
 public enum EnumMonsterType {
-	nil       (0),
-	zombie    (1),
-	creeper   (2),
-	skeleton  (3),
-	wolf      (4),
-	spiderling(5),
-	spider    (6);
+	nil         (0),
+	zombie      (1),
+	creeper     (2),
+	skeleton    (3),
+	wolf        (4),
+	spiderling  (5),
+	spider      (6),
+	supercreeper(7);
 	
 	public final int fId;
 

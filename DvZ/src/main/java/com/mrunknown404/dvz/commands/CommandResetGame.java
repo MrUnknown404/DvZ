@@ -13,7 +13,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 
-public class CommandDebugResetGame extends CommandBase {
+public class CommandResetGame extends CommandBase {
 
 	@Override
 	public String getName() {

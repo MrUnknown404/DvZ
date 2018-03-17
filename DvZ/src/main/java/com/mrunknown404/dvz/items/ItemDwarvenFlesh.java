@@ -15,11 +15,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 
-public class ItemMonsterFood extends ItemFood implements IHasModel {
+public class ItemDwarvenFlesh extends ItemFood implements IHasModel {
 
 	private String tooltip;
 	
-	public ItemMonsterFood(String name, CreativeTabs tab, String tooltip) {
+	public ItemDwarvenFlesh(String name, CreativeTabs tab, String tooltip) {
 		super(20, 0, false);
 		setUnlocalizedName(name);
 		setRegistryName(name);

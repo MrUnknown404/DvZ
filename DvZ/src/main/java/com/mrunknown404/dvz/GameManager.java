@@ -95,6 +95,8 @@ public class GameManager {
 	public static void resetPlayer(EntityPlayer player) {
 		if (player.getEntityWorld().getScoreboard().getTeam("dwarves") != null) {
 			player.getEntityWorld().getScoreboard().removePlayerFromTeam(player.getName().toString(), player.getEntityWorld().getScoreboard().getTeam("dwarves"));
+		} else if (player.getEntityWorld().getScoreboard().getTeam("monsters") != null) {
+			player.getEntityWorld().getScoreboard().removePlayerFromTeam(player.getName().toString(), player.getEntityWorld().getScoreboard().getTeam("monsters"));
 		}
 		
 		player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setDwarfType(EnumDwarfType.nil);
@@ -148,7 +150,7 @@ public class GameManager {
 			ItemStack item1 = new ItemStack(Items.DIAMOND_SWORD);
 			item1.addEnchantment(Enchantments.SHARPNESS, 1);
 			player.inventory.addItemStackToInventory(item1);
-			player.inventory.addItemStackToInventory(new ItemStack(ModItems.MONSTER_FOOD));
+			player.inventory.addItemStackToInventory(new ItemStack(ModItems.DWARVEN_FLESH));
 			
 			player.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.SKULL, 1, 2)); //temporary
 			player.setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(Items.LEATHER_CHESTPLATE));
@@ -173,14 +175,15 @@ public class GameManager {
 			player.addPotionEffect(new PotionEffect(MobEffects.SPEED, (120 * 60) * 20, 0, false, false));
 			player.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, (120 * 60) * 20, 0, false, false));
 		} else if (type == EnumMonsterType.wolf) {
-			player.inventory.addItemStackToInventory(new ItemStack(ModItems.MONSTER_FOOD));
 		
 		} else if (type == EnumMonsterType.spiderling) {
-			player.inventory.addItemStackToInventory(new ItemStack(ModItems.MONSTER_FOOD));
 		
 		} else if (type == EnumMonsterType.spider) {
-			player.inventory.addItemStackToInventory(new ItemStack(ModItems.MONSTER_FOOD));
 		
+		} else if (type == EnumMonsterType.supercreeper) {
+			player.inventory.addItemStackToInventory(new ItemStack(ModItems.SUPERCREEPER_EXPLODE));
+			
+			player.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.SKULL, 1, 4)); //temporary
 		} else {
 			System.err.println("INVALID TYPE: " + type.toString());
 		}

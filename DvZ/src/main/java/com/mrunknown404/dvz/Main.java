@@ -1,9 +1,10 @@
 package com.mrunknown404.dvz;
 
 import com.mrunknown404.dvz.commands.CommandCreateQuarry;
-import com.mrunknown404.dvz.commands.CommandDebugResetGame;
+import com.mrunknown404.dvz.commands.CommandForceMonsterType;
 import com.mrunknown404.dvz.commands.CommandForcePlayerType;
 import com.mrunknown404.dvz.commands.CommandReleaseMonsters;
+import com.mrunknown404.dvz.commands.CommandResetGame;
 import com.mrunknown404.dvz.commands.CommandStartGame;
 import com.mrunknown404.dvz.proxy.CommonProxy;
 import com.mrunknown404.dvz.util.Reference;
@@ -87,10 +88,14 @@ public class Main {
 	
 	@EventHandler
 	public void serverStart(FMLServerStartingEvent event) {
-		event.registerServerCommand(new CommandStartGame());
-		event.registerServerCommand(new CommandDebugResetGame());
 		event.registerServerCommand(new CommandCreateQuarry());
-		event.registerServerCommand(new CommandForcePlayerType());
+		
+		event.registerServerCommand(new CommandStartGame());
 		event.registerServerCommand(new CommandReleaseMonsters());
+		event.registerServerCommand(new CommandResetGame());
+		
+		event.registerServerCommand(new CommandForcePlayerType());
+		event.registerServerCommand(new CommandForceMonsterType());
+		
 	}
 }

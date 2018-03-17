@@ -8,10 +8,10 @@ import com.mrunknown404.dvz.items.ItemAxeBase;
 import com.mrunknown404.dvz.items.ItemCrafterBow;
 import com.mrunknown404.dvz.items.ItemCreeperExplode;
 import com.mrunknown404.dvz.items.ItemDebugMana;
+import com.mrunknown404.dvz.items.ItemDwarvenFlesh;
 import com.mrunknown404.dvz.items.ItemDwarvenLongBow;
 import com.mrunknown404.dvz.items.ItemGlue;
 import com.mrunknown404.dvz.items.ItemJuice;
-import com.mrunknown404.dvz.items.ItemMonsterFood;
 import com.mrunknown404.dvz.items.ItemPickaxeBase;
 import com.mrunknown404.dvz.items.ItemShovelBase;
 import com.mrunknown404.dvz.items.ItemSkeletonBow;
@@ -81,7 +81,8 @@ public class ModItems {
 	public static final Item SPAWNAS_CREEPER = new ItemSpawnAsMonster("spawnascreeper", ModCreativeTabs.DVZITEMS, "ÅòcSpawn as a Creeper", EnumMonsterType.creeper, 10);
 	public static final Item SPAWNAS_SKELETON = new ItemSpawnAsMonster("spawnasskeleton", ModCreativeTabs.DVZITEMS, "ÅòcSpawn as a Skeleton", EnumMonsterType.skeleton, 10);
 	
-	public static final Item MONSTER_FOOD = new ItemMonsterFood("monsterfood", ModCreativeTabs.DVZITEMS, "ÅòaRestores hunger");
-	public static final Item CREEPER_EXPLODE = new ItemCreeperExplode("creeperexplode", ModCreativeTabs.DVZITEMS, "ÅòaLeft/Right click to explode");
+	public static final Item DWARVEN_FLESH = new ItemDwarvenFlesh("dwarvenflesh", ModCreativeTabs.DVZITEMS, "ÅòaRestores hunger & gives buffs");
+	public static final Item CREEPER_EXPLODE = new ItemCreeperExplode("creeperexplode", ModCreativeTabs.DVZITEMS, "ÅòaLeft/Right click to explode", false);
+	public static final Item SUPERCREEPER_EXPLODE = new ItemCreeperExplode("supercreeperexplode", ModCreativeTabs.DVZITEMS, "ÅòaLeft/Right click to explode", true);
 	public static final Item SKELETON_BOW = new ItemSkeletonBow("skeletonbow", ModCreativeTabs.DVZITEMS, "ÅòaLeft click to create arrows");
 }

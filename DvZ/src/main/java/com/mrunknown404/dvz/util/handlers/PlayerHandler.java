@@ -9,9 +9,12 @@ import com.mrunknown404.dvz.util.EnumPlayerType;
 import com.mrunknown404.dvz.util.PlayerInfoProvider;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -64,10 +67,19 @@ public class PlayerHandler {
 	}
 	
 	@SubscribeEvent
+	public void onPlayerDeath(LivingDeathEvent event) {
+		if (event.getSource().getEntity() instanceof EntityPlayer) {
+			if (((EntityPlayer) event.getSource().getEntity()).getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() == EnumPlayerType.dwarf) {
+				((EntityPlayer) event.getSource().getEntity()).addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 4 * 20, 99));
+			}
+		}
+	}
+	
+	@SubscribeEvent
 	public void fallingEvent(LivingFallEvent event) {
 		if (event.getEntityLiving() instanceof EntityPlayer) {
 			if (event.getEntityLiving().getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() == EnumPlayerType.monster) {
-			event.setDamageMultiplier(0);
+				event.setDamageMultiplier(0);
 			}
 		}
 	}

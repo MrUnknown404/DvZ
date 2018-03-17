@@ -34,8 +34,9 @@ item.crafterleggings.name=Crafter Leggings
 item.crafterboots.name=Crafter Boots
 
 //-//Monster Items
-item.monsterfood.name=Dwarven Flesh
+item.dwarvenflesh.name=Dwarf Flesh
 item.creeperexplode.name=Explode
+item.supercreeperexplode.name=Explode
 item.skeletonbow.name=Bone Bow
 
 item.spawnaszombie.name=Zombie
