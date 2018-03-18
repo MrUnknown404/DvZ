@@ -84,6 +84,7 @@ public class Main {
 		Items.DIAMOND_BOOTS.setMaxDamage(-1);
 		
 		Items.DIAMOND_SWORD.setMaxDamage(-1);
+		Items.SHEARS.setMaxDamage(-1);
 	}
 	
 	@EventHandler

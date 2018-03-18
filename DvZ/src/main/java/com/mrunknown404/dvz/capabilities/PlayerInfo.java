@@ -7,7 +7,7 @@ import com.mrunknown404.dvz.util.EnumPlayerType;
 
 public class PlayerInfo implements IPlayerInfo {
 
-	private EnumPlayerType enumPlayerType = EnumPlayerType.spec;
+	private EnumPlayerType enumPlayerType = EnumPlayerType.spectator;
 	private EnumDwarfType enumDwarfType = EnumDwarfType.nil;
 	private EnumHeroType enumHeroType = EnumHeroType.nil;
 	private EnumMonsterType enumMonsterType = EnumMonsterType.nil;
@@ -29,7 +29,7 @@ public class PlayerInfo implements IPlayerInfo {
 	
 	@Override
 	public void setMonsterType(EnumMonsterType type) {
-		
+		enumMonsterType = type;
 	}
 	
 	@Override

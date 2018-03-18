@@ -18,6 +18,7 @@ import net.minecraft.world.WorldServer;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
+import net.minecraftforge.event.entity.living.LivingHealEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerPickupXpEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -31,16 +32,32 @@ public class PlayerHandler {
 			if (event.player.getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() == EnumPlayerType.dwarf) {
 				return;
 			}
-			event.player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setPlayerType(EnumPlayerType.spec);
+			event.player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setPlayerType(EnumPlayerType.spectator);
 			event.player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setDwarfType(EnumDwarfType.nil);
 			event.player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setHeroType(EnumHeroType.nil);
 			event.player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setMonsterType(EnumMonsterType.nil);
 
+			event.player.capabilities.allowFlying = false;
+			event.player.capabilities.setFlySpeed(0.05F);
+			event.player.sendPlayerAbilities();
+			
 			event.player.inventory.clear();
 			event.player.clearActivePotions();
 			event.player.refreshDisplayName();
 			
 			GameManager.giveSpawnAsMonsterItems(event.player);
+		}
+	}
+	
+	@SubscribeEvent
+	public void onHeal(LivingHealEvent event) {
+		if (event.getEntityLiving() instanceof EntityPlayer) {
+			EntityPlayer p = (EntityPlayer) event.getEntityLiving();
+			if (p.getCapability(PlayerInfoProvider.PLAYERINFO, null).getMonsterType() == EnumMonsterType.dragon) {
+				if (event.getAmount() == 1) {
+					event.setCanceled(true);
+				}
+			}
 		}
 	}
 	
@@ -54,10 +71,14 @@ public class PlayerHandler {
 			event.getOriginal().getLastAttacker().sendMessage(new TextComponentString("Debug!"));
 		}
 		
-		info.setPlayerType(EnumPlayerType.spec);
+		info.setPlayerType(EnumPlayerType.spectator);
 		info.setDwarfType(EnumDwarfType.nil);
 		info.setHeroType(EnumHeroType.nil);
 		info.setMonsterType(EnumMonsterType.nil);
+		
+		player.capabilities.allowFlying = false;
+		player.capabilities.setFlySpeed(0.05f);
+		player.sendPlayerAbilities();
 		
 		player.removeExperienceLevel(player.experienceLevel);
 		player.experience = 0;
@@ -86,7 +107,7 @@ public class PlayerHandler {
 	@SubscribeEvent
 	public void fallingEvent(LivingFallEvent event) {
 		if (event.getEntityLiving() instanceof EntityPlayer) {
-			if (event.getEntityLiving().getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() == EnumPlayerType.monster) {
+			if (event.getEntityLiving().getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() == EnumPlayerType.monster || event.getEntityLiving().getCapability(PlayerInfoProvider.PLAYERINFO, null).getMonsterType() == EnumMonsterType.dragon) {
 				event.setDamageMultiplier(0);
 			}
 		}

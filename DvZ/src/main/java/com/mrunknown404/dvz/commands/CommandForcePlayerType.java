@@ -51,10 +51,10 @@ public class CommandForcePlayerType extends CommandBase {
 		EntityPlayer player = (EntityPlayer) getEntity(server, sender, args[0]);
 		IPlayerInfo cap = player.getCapability(PlayerInfoProvider.PLAYERINFO, null);
 		
-		if (args[1].equals(EnumPlayerType.spec.name().toString()) && cap.getPlayerType() != EnumPlayerType.spec) {
+		if (args[1].equals(EnumPlayerType.spectator.name().toString()) && cap.getPlayerType() != EnumPlayerType.spectator) {
 			GameManager.resetPlayer(player);
 			sender.getCommandSenderEntity().sendMessage(txt);
-		} else if (args[1].equals(EnumPlayerType.spec.name().toString()) && cap.getPlayerType() == EnumPlayerType.spec) {
+		} else if (args[1].equals(EnumPlayerType.spectator.name().toString()) && cap.getPlayerType() == EnumPlayerType.spectator) {
 			sender.getCommandSenderEntity().sendMessage(error2);
 			return;
 		} else if (args[1].equals(EnumPlayerType.dwarf.name().toString()) && cap.getPlayerType() != EnumPlayerType.dwarf) {

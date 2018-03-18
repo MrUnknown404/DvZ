@@ -81,11 +81,13 @@ public class GameManager {
 			} else {
 				event.setDisplayname("Åò3" + event.getUsername() + " the Dwarf");
 			}
-		} else if (event.getEntityPlayer().getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() == EnumPlayerType.spec) {
+		} else if (event.getEntityPlayer().getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() == EnumPlayerType.spectator) {
 			event.setDisplayname(event.getUsername());
 		}
 		
-		if (event.getEntityPlayer().getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() == EnumPlayerType.monster) {
+		if (event.getEntityPlayer().getCapability(PlayerInfoProvider.PLAYERINFO, null).getMonsterType() == EnumMonsterType.dragon) {
+			event.setDisplayname("Åò4Vlarunga");
+		} else if (event.getEntityPlayer().getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() == EnumPlayerType.monster) {
 			event.setDisplayname("Åòc" + event.getUsername() + " the Monster");
 		} else if (event.getEntityPlayer().getCapability(PlayerInfoProvider.PLAYERINFO, null).getHeroType() == EnumHeroType.mrunknown404) {
 			event.setDisplayname("Åò6" + event.getUsername() + " the Creator");
@@ -104,7 +106,7 @@ public class GameManager {
 		}
 		
 		player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setDwarfType(EnumDwarfType.nil);
-		player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setPlayerType(EnumPlayerType.spec);
+		player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setPlayerType(EnumPlayerType.spectator);
 		player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setHeroType(EnumHeroType.nil);
 		player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setMonsterType(EnumMonsterType.nil);
 		
@@ -136,6 +138,7 @@ public class GameManager {
 	public static void setupPlayerMonster(EntityPlayer player, EnumMonsterType type) {
 		player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setPlayerType(EnumPlayerType.monster);
 		player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setMonsterType(type);
+		
 		player.getEntityWorld().getScoreboard().addPlayerToTeam(player.getName(), "monsters");
 		
 		player.removeExperienceLevel(player.experienceLevel);
@@ -145,6 +148,7 @@ public class GameManager {
 		player.clearActivePotions();
 		player.inventory.clear();
 		player.heal(player.getMaxHealth());
+		player.getFoodStats().setFoodLevel(20);
 		
 		player.refreshDisplayName();
 		
@@ -187,6 +191,18 @@ public class GameManager {
 			player.inventory.addItemStackToInventory(new ItemStack(ModItems.SUPERCREEPER_EXPLODE));
 			
 			player.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.SKULL, 1, 4)); //temporary
+		} else if (type == EnumMonsterType.dragon) {
+			ItemStack item1 = new ItemStack(Items.SHEARS);
+			item1.addEnchantment(Enchantments.SHARPNESS, 100);
+			player.inventory.addItemStackToInventory(item1); //temporary
+			
+			player.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.SKULL, 1, 5)); //temporary
+			
+			player.addPotionEffect(new PotionEffect(MobEffects.HEALTH_BOOST, (120 * 60) * 20, 9, false, false));
+			
+			player.capabilities.allowFlying = true;
+			player.capabilities.setFlySpeed(0.10F);
+			player.sendPlayerAbilities();
 		} else {
 			System.err.println("INVALID TYPE: " + type.toString());
 		}

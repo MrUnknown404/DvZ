@@ -8,7 +8,8 @@ public enum EnumMonsterType {
 	wolf        (4),
 	spiderling  (5),
 	spider      (6),
-	supercreeper(7);
+	supercreeper(7),
+	dragon      (8);
 	
 	public final int fId;
 

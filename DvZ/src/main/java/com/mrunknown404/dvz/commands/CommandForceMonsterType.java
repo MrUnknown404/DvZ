@@ -95,6 +95,12 @@ public class CommandForceMonsterType extends CommandBase {
 		} else if (args[1].equals(EnumMonsterType.supercreeper.name().toString()) && cap.getMonsterType() == EnumMonsterType.supercreeper) {
 			sender.getCommandSenderEntity().sendMessage(error2);
 			return;
+		} else if (args[1].equals(EnumMonsterType.dragon.name().toString()) && cap.getMonsterType() != EnumMonsterType.dragon) {
+			GameManager.setupPlayerMonster(player, EnumMonsterType.dragon);
+			sender.getCommandSenderEntity().sendMessage(txt);
+		} else if (args[1].equals(EnumMonsterType.dragon.name().toString()) && cap.getMonsterType() == EnumMonsterType.dragon) {
+			sender.getCommandSenderEntity().sendMessage(error2);
+			return;
 		} else {
 			sender.getCommandSenderEntity().sendMessage(error1);
 			return;

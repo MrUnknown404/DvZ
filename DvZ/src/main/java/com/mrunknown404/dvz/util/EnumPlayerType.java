@@ -3,9 +3,9 @@ package com.mrunknown404.dvz.util;
 import java.util.Arrays;
 
 public enum EnumPlayerType {
-	spec   (0),
-	dwarf  (1),
-	monster(2);
+	spectator(0),
+	dwarf    (1),
+	monster  (2);
 	
 	public final int fId;
 

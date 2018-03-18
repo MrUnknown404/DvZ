@@ -31,9 +31,7 @@ public class ItemSpawnAsMonster extends ItemBase {
 	public void onUpdate(ItemStack stack, World world, Entity entity, int itemSlot, boolean isSelected) {
 		if (p == null) {
 			return;
-		}
-		
-		if (p.getEntityWorld().isRemote) {
+		} else if (p.getEntityWorld().isRemote) {
 			return;
 		}
 		
