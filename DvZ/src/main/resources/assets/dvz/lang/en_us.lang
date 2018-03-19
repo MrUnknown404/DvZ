@@ -58,3 +58,15 @@ tile.stonecake.name=Stone Cake
 //-//Creative Tabs
 itemGroup.TabDvZItems=DvZ Items
 itemGroup.TabDvZBlocks=DvZ Blocks
+
+//-//Sounds
+soundCategory.master=Master Volume
+soundCategory.music=Music
+soundCategory.record=Nothing
+soundCategory.weather=Dragon
+soundCategory.hostile=Monsters
+soundCategory.neutral=Nothing
+soundCategory.player=Dwarves
+soundCategory.block=Blocks
+soundCategory.ambient=Nothing
+soundCategory.voice=Events

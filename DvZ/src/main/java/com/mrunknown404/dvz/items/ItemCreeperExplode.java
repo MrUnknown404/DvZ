@@ -39,6 +39,9 @@ public class ItemCreeperExplode extends ItemBase {
 		
 		BlockPos pos = p.getPosition();
 		if (p.getCooldownTracker().getCooldown(this, 0f) == 0f && didUse == true) {
+			if (p.isDead) {
+				return;
+			}
 			if (isSuper) {
 				if (!world.isRemote) {
 					for (BlockPos _pos : pos.getAllInBox(pos.add(-8, -8, -8), pos.add(8, 8, 8))) {
@@ -167,10 +170,7 @@ public class ItemCreeperExplode extends ItemBase {
 		p = player;
 		
 		if (player.getCooldownTracker().getCooldown(this, 0f) == 0f) {
-			if (!player.getEntityWorld().isRemote) {
-				player.getEntityWorld().playSound((EntityPlayer)null, player.getPosition(), SoundEvents.ENTITY_CREEPER_PRIMED, SoundCategory.PLAYERS, 1.0f, 1.0f);
-				player.playSound(SoundEvents.ENTITY_CREEPER_PRIMED, 1.0f, 1.0f);
-			}
+			player.getEntityWorld().playSound(player, player.getPosition(), SoundEvents.ENTITY_CREEPER_PRIMED, SoundCategory.HOSTILE, 1.0f, 1.0f);
 			if (isSuper) {
 				player.getCooldownTracker().setCooldown(this, 5 * 20);
 			} else {
@@ -187,8 +187,7 @@ public class ItemCreeperExplode extends ItemBase {
 		p = player;
 		if (player.getCooldownTracker().getCooldown(this, 0f) == 0f) {
 			if (!player.getEntityWorld().isRemote) {
-				player.getEntityWorld().playSound((EntityPlayer)null, player.getPosition(), SoundEvents.ENTITY_CREEPER_PRIMED, SoundCategory.PLAYERS, 1.0f, 1.0f);
-				player.playSound(SoundEvents.ENTITY_CREEPER_PRIMED, 1.0f, 1.0f);
+				world.playSound(player, player.getPosition(), SoundEvents.ENTITY_CREEPER_PRIMED, SoundCategory.HOSTILE, 1.0f, 1.0f);
 			}
 			if (isSuper) {
 				player.getCooldownTracker().setCooldown(this, 5 * 20);

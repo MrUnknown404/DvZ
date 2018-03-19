@@ -8,6 +8,7 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 
@@ -46,9 +47,8 @@ public class ItemJuice extends ItemBase {
 		if (player.isPotionActive(MobEffects.WITHER)) {
 			player.sendMessage(new TextComponentString("You have Crafter Plague healing won't help"));
 			return;
-		} else if (player.getEntityWorld().isRemote) {
-			player.playSound(SoundEvents.ENTITY_GENERIC_DRINK, 1.0f, 1.0f);
 		}
+		player.getEntityWorld().playSound(player, player.getPosition(), SoundEvents.ENTITY_GENERIC_DRINK, SoundCategory.PLAYERS, 1.0f, 1.0f);
 		player.heal(player.getMaxHealth());
 		player.getCooldownTracker().setCooldown(this, 10);
 		player.getFoodStats().addStats(4, 0f);

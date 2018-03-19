@@ -11,7 +11,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-public class ItemBase extends Item implements IHasModel{
+public class ItemBase extends Item implements IHasModel {
 
 	private String tooltip;
 	

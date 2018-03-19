@@ -66,9 +66,8 @@ public class ItemCrafterBow extends ItemBase {
 	}
 	
 	private void craftArrows(World world, EntityPlayer player, ItemStack stack) {
+		world.playSound(player, player.getPosition(), SoundEvents.ENTITY_ARROW_HIT_PLAYER, SoundCategory.PLAYERS, 1.0f, 1.0f);
 		if (!world.isRemote) {
-			player.playSound(SoundEvents.ENTITY_ARROW_HIT_PLAYER, 1.0f, 1.0f);
-		
 			EntityItem item = new EntityItem(world, player.posX, player.posY + 1, player.posZ, new ItemStack(Items.ARROW, ThreadLocalRandom.current().nextInt(8, 12)));
 			item.setPickupDelay(10);
 			item.motionY = 0 + ThreadLocalRandom.current().nextDouble(0.15, 0.25);
@@ -153,7 +152,7 @@ public class ItemCrafterBow extends ItemBase {
 						}
 						world.spawnEntity(entityarrow);
 					}
-					world.playSound((EntityPlayer)null, entityplayer.posX, entityplayer.posY, entityplayer.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
+					world.playSound(entityplayer, entityplayer.getPosition(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
 					
 					if (!flag1 && !entityplayer.capabilities.isCreativeMode) {
 						itemstack.shrink(1);

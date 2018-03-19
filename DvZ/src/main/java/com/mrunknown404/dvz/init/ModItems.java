@@ -79,8 +79,8 @@ public class ModItems {
 
 	//-//Monster Items
 	public static final Item SPAWNAS_ZOMBIE = new ItemSpawnAsMonster("spawnaszombie", ModCreativeTabs.DVZITEMS, "ÅòcSpawn as a Zombie", EnumMonsterType.zombie, 10);
-	public static final Item SPAWNAS_CREEPER = new ItemSpawnAsMonster("spawnascreeper", ModCreativeTabs.DVZITEMS, "ÅòcSpawn as a Creeper", EnumMonsterType.creeper, 10);
-	public static final Item SPAWNAS_SKELETON = new ItemSpawnAsMonster("spawnasskeleton", ModCreativeTabs.DVZITEMS, "ÅòcSpawn as a Skeleton", EnumMonsterType.skeleton, 10);
+	public static final Item SPAWNAS_CREEPER = new ItemSpawnAsMonster("spawnascreeper", ModCreativeTabs.DVZITEMS, "ÅòcSpawn as a Creeper", EnumMonsterType.creeper, 15);
+	public static final Item SPAWNAS_SKELETON = new ItemSpawnAsMonster("spawnasskeleton", ModCreativeTabs.DVZITEMS, "ÅòcSpawn as a Skeleton", EnumMonsterType.skeleton, 12);
 	
 	public static final Item DWARVEN_FLESH = new ItemDwarvenFlesh("dwarvenflesh", ModCreativeTabs.DVZITEMS, "ÅòaRestores hunger & gives buffs");
 	public static final Item CREEPER_EXPLODE = new ItemCreeperExplode("creeperexplode", ModCreativeTabs.DVZITEMS, "ÅòaLeft/Right click to explode", false);

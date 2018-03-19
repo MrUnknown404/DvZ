@@ -57,9 +57,8 @@ public class ItemGlue extends ItemBase {
 				itemstack.shrink(1);
 			}
 			
+			world.playSound(player, player.getPosition(), SoundEvents.BLOCK_GLASS_BREAK, SoundCategory.BLOCKS, 1.0f, 1.0f);
 			if (!world.isRemote) {
-				world.playSound((EntityPlayer)null, pos, SoundEvents.BLOCK_GLASS_BREAK, SoundCategory.BLOCKS, 1.0f, 1.0f);
-				player.playSound(SoundEvents.BLOCK_GLASS_BREAK, 1.0f, 1.0f);
 				if (isSuper == false) {
 					player.getCooldownTracker().setCooldown(this, 5);
 				} else {
@@ -100,9 +99,8 @@ public class ItemGlue extends ItemBase {
 			itemstack.shrink(1);
 		}
 		
+		world.playSound(player, player.getPosition(), SoundEvents.BLOCK_GLASS_BREAK, SoundCategory.PLAYERS, 1.0f, 1.0f);
 		if (!world.isRemote) {
-			world.playSound((EntityPlayer)null, player.getPosition(), SoundEvents.BLOCK_GLASS_BREAK, SoundCategory.BLOCKS, 1.0f, 1.0f);
-			player.playSound(SoundEvents.BLOCK_GLASS_BREAK, 1.0f, 1.0f);
 			if (isSuper == false) {
 				player.getCooldownTracker().setCooldown(this, 5);
 			} else {

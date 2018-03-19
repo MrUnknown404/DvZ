@@ -7,9 +7,11 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 
@@ -47,17 +49,16 @@ public class ItemSpawnAsMonster extends ItemBase {
 		EntityPlayer player = (EntityPlayer) entityLiving;
 		p = player;
 		
-		if (player.getEntityWorld().isRemote) {
-			return super.onEntitySwing(entityLiving, stack);
-		}
-		
-		if (player.getEntityWorld().getScoreboard().getTeam("monsters") != null) {
-			if (player.getCooldownTracker().getCooldown(this, 1f) == 0f) {
-				player.getCooldownTracker().setCooldown(this, time);
-				didUse = true;
+		if (!player.getEntityWorld().isRemote) {
+			if (player.getEntityWorld().getScoreboard().getTeam("monsters") != null) {
+				if (player.getCooldownTracker().getCooldown(this, 1f) == 0f) {
+					player.getCooldownTracker().setCooldown(this, time);
+					player.getEntityWorld().playSound(null, player.getPosition(), SoundEvents.ENTITY_ZOMBIE_VILLAGER_CONVERTED, SoundCategory.HOSTILE, 1.0f, 1.0f);
+					didUse = true;
+				}
+			} else {
+				p.sendMessage(new TextComponentString("Monsters have not been released"));
 			}
-		} else {
-			p.sendMessage(new TextComponentString("Monsters have not been released"));
 		}
 		return super.onEntitySwing(entityLiving, stack);
 	}

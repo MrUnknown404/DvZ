@@ -110,9 +110,7 @@ public class GameManager {
 		player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setHeroType(EnumHeroType.nil);
 		player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setMonsterType(EnumMonsterType.nil);
 		
-		player.capabilities.allowFlying = false;
-		player.capabilities.setFlySpeed(0.05F);
-		player.sendPlayerAbilities();
+		playerCapabilities(player, false);
 		
 		player.removeExperienceLevel(player.experienceLevel);
 		player.experience = 0;
@@ -145,7 +143,9 @@ public class GameManager {
 		player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setMonsterType(type);
 		player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setPlayerType(EnumPlayerType.monster);
 		
-		player.getEntityWorld().getScoreboard().addPlayerToTeam(player.getName(), "monsters");
+		if (player.getCapability(PlayerInfoProvider.PLAYERINFO, null).getMonsterType() != EnumMonsterType.dragon) {
+			player.getEntityWorld().getScoreboard().addPlayerToTeam(player.getName(), "monsters");
+		}
 		
 		player.removeExperienceLevel(player.experienceLevel);
 		player.experience = 0;
@@ -204,14 +204,17 @@ public class GameManager {
 			player.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.SKULL, 1, 5)); //temporary
 			
 			player.addPotionEffect(new PotionEffect(MobEffects.HEALTH_BOOST, (120 * 60) * 20, 9, false, false));
-			
-			player.capabilities.allowFlying = true;
-			player.capabilities.setFlySpeed(0.10F);
-			player.sendPlayerAbilities();
+			playerCapabilities(player, true);
 		} else {
 			System.err.println("INVALID TYPE: " + type.toString());
 		}
 		player.heal(player.getMaxHealth());
+	}
+	
+	public static void playerCapabilities(EntityPlayer player, boolean allowFlight) {
+		player.capabilities.allowFlying = allowFlight;
+		//player.capabilities.setFlySpeed(0.1f); need to send packet will do alter
+		player.sendPlayerAbilities();
 	}
 	
 	public static void setupPlayerDwarf(EntityPlayer player) {

@@ -4,12 +4,14 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
 
-public class ItemDragonTalons extends ItemBase{
+public class ItemDragonTalons extends ItemBase {
 
 	private boolean didUse;
 	private EntityPlayer player;
@@ -40,6 +42,15 @@ public class ItemDragonTalons extends ItemBase{
 		super.onUpdate(stack, worldIn, entityIn, itemSlot, isSelected);
 	}
 	
+	@Override
+	public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
+		if (entityLiving instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer) entityLiving;
+			player.getEntityWorld().playSound(player, player.getPosition(), SoundEvents.ENTITY_ENDERDRAGON_GROWL, SoundCategory.WEATHER, 5.0f, 1.0f);
+		}
+		return super.onEntitySwing(entityLiving, stack);
+	}
+	
 	private boolean tempBool;
 	
 	@Override
@@ -51,6 +62,7 @@ public class ItemDragonTalons extends ItemBase{
 		}
 		
 		if (didUse == true && tempBool == false) {
+			player.getEntityWorld().playSound(null, player.getPosition(), SoundEvents.ITEM_SHIELD_BLOCK, SoundCategory.WEATHER, 1.0f, 1.0f);
 			didUse = false;
 			target = null;
 		}
@@ -68,6 +80,7 @@ public class ItemDragonTalons extends ItemBase{
 		}
 		
 		if (didUse == false) {
+			player.getEntityWorld().playSound(null, player.getPosition(), SoundEvents.ITEM_SHIELD_BLOCK, SoundCategory.WEATHER, 1.0f, 1.0f);
 			tempBool = true;
 			didUse = true;
 		}

@@ -58,10 +58,7 @@ public class ItemArmorBase extends ItemArmor implements IHasModel {
 	}
 	
 	private void repairArmor(World world, EntityPlayer player, ItemStack stack) {
-		if (!world.isRemote) {
-			world.playSound((EntityPlayer)null, player.getPosition(), SoundEvents.BLOCK_ANVIL_USE, SoundCategory.BLOCKS, 1.0f, 1.0f);
-			player.playSound(SoundEvents.BLOCK_ANVIL_USE, 1.0f, 1.0f);
-		}
+		world.playSound(player, player.getPosition(), SoundEvents.BLOCK_ANVIL_USE, SoundCategory.PLAYERS, 1.0f, 1.0f);
 		player.getCooldownTracker().setCooldown(this, 20);
 		player.removeExperienceLevel(25);
 		setDamage(stack, getDamage(stack) - (getMaxDamage(stack) / 5));
