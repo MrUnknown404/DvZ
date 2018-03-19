@@ -58,6 +58,7 @@ public class CommandForcePlayerType extends CommandBase {
 			sender.getCommandSenderEntity().sendMessage(error2);
 			return;
 		} else if (args[1].equals(EnumPlayerType.dwarf.name().toString()) && cap.getPlayerType() != EnumPlayerType.dwarf) {
+			GameManager.resetPlayer(player);
 			GameManager.setupPlayerDwarf(player);
 			sender.getCommandSenderEntity().sendMessage(txt);
 		} else if (args[1].equals(EnumPlayerType.dwarf.name().toString()) && cap.getPlayerType() == EnumPlayerType.dwarf) {

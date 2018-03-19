@@ -25,7 +25,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 
 public class PlayerHandler {
-
+	
 	@SubscribeEvent
 	public void onPlayerLogin(PlayerLoggedInEvent event) {
 		if (event.player.getEntityWorld().getScoreboard().getTeam("monsters") != null) {
@@ -54,7 +54,7 @@ public class PlayerHandler {
 		if (event.getEntityLiving() instanceof EntityPlayer) {
 			EntityPlayer p = (EntityPlayer) event.getEntityLiving();
 			if (p.getCapability(PlayerInfoProvider.PLAYERINFO, null).getMonsterType() == EnumMonsterType.dragon) {
-				if (event.getAmount() == 1) {
+				if (event.getAmount() <= 1) {
 					event.setCanceled(true);
 				}
 			}

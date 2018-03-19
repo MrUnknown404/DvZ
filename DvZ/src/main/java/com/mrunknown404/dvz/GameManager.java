@@ -110,6 +110,10 @@ public class GameManager {
 		player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setHeroType(EnumHeroType.nil);
 		player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setMonsterType(EnumMonsterType.nil);
 		
+		player.capabilities.allowFlying = false;
+		player.capabilities.setFlySpeed(0.05F);
+		player.sendPlayerAbilities();
+		
 		player.removeExperienceLevel(player.experienceLevel);
 		player.experience = 0;
 		player.addExperience(0);
@@ -136,8 +140,10 @@ public class GameManager {
 	}
 	
 	public static void setupPlayerMonster(EntityPlayer player, EnumMonsterType type) {
-		player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setPlayerType(EnumPlayerType.monster);
+		resetPlayer(player);
+		
 		player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setMonsterType(type);
+		player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setPlayerType(EnumPlayerType.monster);
 		
 		player.getEntityWorld().getScoreboard().addPlayerToTeam(player.getName(), "monsters");
 		
@@ -147,7 +153,6 @@ public class GameManager {
 		
 		player.clearActivePotions();
 		player.inventory.clear();
-		player.heal(player.getMaxHealth());
 		player.getFoodStats().setFoodLevel(20);
 		
 		player.refreshDisplayName();
@@ -192,9 +197,9 @@ public class GameManager {
 			
 			player.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.SKULL, 1, 4)); //temporary
 		} else if (type == EnumMonsterType.dragon) {
-			ItemStack item1 = new ItemStack(Items.SHEARS);
+			ItemStack item1 = new ItemStack(ModItems.DRAGON_TALONS);
 			item1.addEnchantment(Enchantments.SHARPNESS, 100);
-			player.inventory.addItemStackToInventory(item1); //temporary
+			player.inventory.addItemStackToInventory(item1);
 			
 			player.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.SKULL, 1, 5)); //temporary
 			
@@ -206,6 +211,7 @@ public class GameManager {
 		} else {
 			System.err.println("INVALID TYPE: " + type.toString());
 		}
+		player.heal(player.getMaxHealth());
 	}
 	
 	public static void setupPlayerDwarf(EntityPlayer player) {
