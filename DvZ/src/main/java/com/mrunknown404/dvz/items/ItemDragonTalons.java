@@ -23,6 +23,12 @@ public class ItemDragonTalons extends ItemBase {
 	}
 
 	@Override
+	public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity) {
+		entity.onKillCommand();
+		return super.onLeftClickEntity(stack, player, entity);
+	}
+	
+	@Override
 	public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
 		if (target == null || player == null) {
 			return;
@@ -37,7 +43,7 @@ public class ItemDragonTalons extends ItemBase {
 				return;
 			}
 			target.fallDistance = 0;
-			target.setPosition(player.posX, player.posY, player.posZ);
+			target.setPositionAndUpdate(player.posX, player.posY - 2d, player.posZ);
 		}
 		super.onUpdate(stack, worldIn, entityIn, itemSlot, isSelected);
 	}
