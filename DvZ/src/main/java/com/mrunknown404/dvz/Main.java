@@ -52,11 +52,11 @@ public class Main {
 		MinecraftForge.EVENT_BUS.register(new BlockHandler());
 		MinecraftForge.EVENT_BUS.register(new WorldLoadHandler());
 		
-		Blocks.CLAY.setResistance(10000);
-		Blocks.SAND.setResistance(10000);
-		Blocks.DIRT.setResistance(10000);
-		Blocks.GRASS.setResistance(10000);
-		Blocks.STONE.setResistance(10000);
+		Blocks.CLAY.setResistance(999);
+		Blocks.SAND.setResistance(7);
+		Blocks.DIRT.setResistance(7);
+		Blocks.GRASS.setResistance(7);
+		Blocks.STONE.setResistance(7);
 		
 		Items.LEATHER_HELMET.setMaxDamage(-1);
 		Items.LEATHER_CHESTPLATE.setMaxDamage(-1);

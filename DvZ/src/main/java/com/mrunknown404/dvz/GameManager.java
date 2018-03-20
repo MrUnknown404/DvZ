@@ -198,6 +198,7 @@ public class GameManager {
 			player.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.SKULL, 1, 4)); //temporary
 		} else if (type == EnumMonsterType.dragon) {
 			player.inventory.addItemStackToInventory(new ItemStack(ModItems.DRAGON_TALONS));
+			player.inventory.addItemStackToInventory(new ItemStack(ModItems.DRAGON_FIREBREATH));
 			
 			player.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.SKULL, 1, 5)); //temporary
 			

@@ -39,6 +39,8 @@ item.creeperexplode.name=Explode
 item.supercreeperexplode.name=Explode
 item.skeletonbow.name=Bone Bow
 item.dragontalons.name=Dragon Talons
+item.dragonfirebreath.name=Dragon Fire Breath
+item.dragonfireattack.name=Dragon Fire Attack
 
 item.spawnaszombie.name=Zombie
 item.spawnascreeper.name=Creeper

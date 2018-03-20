@@ -1,18 +1,16 @@
 package com.mrunknown404.dvz.util;
 
-public enum EnumPlayerType {
-	spectator(0),
-	dwarf    (1),
-	monster  (2);
+public enum EnumDragonType {
+	vlarunga(0); //will be more later
 	
 	public final int fId;
 
-	private EnumPlayerType(int id) {
+	private EnumDragonType(int id) {
 		this.fId = id;
 	}
 
-	public static EnumPlayerType getNumber(int id) {
-		for (EnumPlayerType type : values()) {
+	public static EnumDragonType getNumber(int id) {
+		for (EnumDragonType type : values()) {
 			if (type.fId == id) {
 				return type;
 			}

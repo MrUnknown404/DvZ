@@ -16,7 +16,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -68,10 +67,6 @@ public class PlayerHandler {
 		EntityPlayer player = event.getEntityPlayer();
 		IPlayerInfo info = player.getCapability(PlayerInfoProvider.PLAYERINFO, null);
 		IPlayerInfo oldInfo = event.getOriginal().getCapability(PlayerInfoProvider.PLAYERINFO, null);
-		
-		if (event.getOriginal().getLastAttacker() instanceof EntityPlayer) {
-			event.getOriginal().getLastAttacker().sendMessage(new TextComponentString("Debug!"));
-		}
 		
 		info.setPlayerType(EnumPlayerType.spectator);
 		info.setDwarfType(EnumDwarfType.nil);
@@ -128,24 +123,23 @@ public class PlayerHandler {
 					((EntityPlayer) event.getSource().getEntity()).getEntityWorld().playSound(null, ((EntityPlayer) event.getSource().getEntity()).getPosition(), SoundEvents.ENTITY_ENDERDRAGON_GROWL, SoundCategory.PLAYERS, 0.4f, 2f);
 					spawnParticles((EntityPlayer) event.getSource().getEntity());
 				}
+			} else if (((EntityPlayer) event.getEntity()).getCapability(PlayerInfoProvider.PLAYERINFO, null).getMonsterType() == EnumMonsterType.zombie) {
+				((EntityPlayer) event.getEntity()).getEntityWorld().playSound(null, ((EntityPlayer) event.getEntity()).getPosition(), SoundEvents.ENTITY_ZOMBIE_DEATH, SoundCategory.HOSTILE, 1.0f, 1.0f);
+			} else if (((EntityPlayer) event.getEntity()).getCapability(PlayerInfoProvider.PLAYERINFO, null).getMonsterType() == EnumMonsterType.creeper) {
+				((EntityPlayer) event.getEntity()).getEntityWorld().playSound(null, ((EntityPlayer) event.getEntity()).getPosition(), SoundEvents.ENTITY_CREEPER_DEATH, SoundCategory.HOSTILE, 1.0f, 1.0f);
+			} else if (((EntityPlayer) event.getEntity()).getCapability(PlayerInfoProvider.PLAYERINFO, null).getMonsterType() == EnumMonsterType.skeleton) {
+				((EntityPlayer) event.getEntity()).getEntityWorld().playSound(null, ((EntityPlayer) event.getEntity()).getPosition(), SoundEvents.ENTITY_SKELETON_DEATH, SoundCategory.HOSTILE, 1.0f, 1.0f);
+			} else if (((EntityPlayer) event.getEntity()).getCapability(PlayerInfoProvider.PLAYERINFO, null).getMonsterType() == EnumMonsterType.wolf) {
+				((EntityPlayer) event.getEntity()).getEntityWorld().playSound(null, ((EntityPlayer) event.getEntity()).getPosition(), SoundEvents.ENTITY_WOLF_DEATH, SoundCategory.HOSTILE, 1.0f, 1.0f);
+			} else if (((EntityPlayer) event.getEntity()).getCapability(PlayerInfoProvider.PLAYERINFO, null).getMonsterType() == EnumMonsterType.spiderling) {
+				((EntityPlayer) event.getEntity()).getEntityWorld().playSound(null, ((EntityPlayer) event.getEntity()).getPosition(), SoundEvents.ENTITY_SPIDER_DEATH, SoundCategory.HOSTILE, 1.0f, 1.0f);
+			} else if (((EntityPlayer) event.getEntity()).getCapability(PlayerInfoProvider.PLAYERINFO, null).getMonsterType() == EnumMonsterType.spider) {
+				((EntityPlayer) event.getEntity()).getEntityWorld().playSound(null, ((EntityPlayer) event.getEntity()).getPosition(), SoundEvents.ENTITY_SPIDER_DEATH, SoundCategory.HOSTILE, 1.0f, 1.0f);
+			} else if (((EntityPlayer) event.getEntity()).getCapability(PlayerInfoProvider.PLAYERINFO, null).getMonsterType() == EnumMonsterType.supercreeper) {
+				((EntityPlayer) event.getEntity()).getEntityWorld().playSound(null, ((EntityPlayer) event.getEntity()).getPosition(), SoundEvents.ENTITY_CREEPER_DEATH, SoundCategory.HOSTILE, 1.0f, 1.0f);
+			} else if (((EntityPlayer) event.getEntity()).getCapability(PlayerInfoProvider.PLAYERINFO, null).getMonsterType() == EnumMonsterType.dragon) {
+				((EntityPlayer) event.getEntity()).getEntityWorld().playSound(null, ((EntityPlayer) event.getEntity()).getPosition(), SoundEvents.ENTITY_ENDERDRAGON_DEATH, SoundCategory.WEATHER, 1.0f, 1.0f);
 			}
-		}
-		if (((EntityPlayer) event.getEntity()).getCapability(PlayerInfoProvider.PLAYERINFO, null).getMonsterType() == EnumMonsterType.zombie) {
-			((EntityPlayer) event.getEntity()).getEntityWorld().playSound(null, ((EntityPlayer) event.getEntity()).getPosition(), SoundEvents.ENTITY_ZOMBIE_DEATH, SoundCategory.HOSTILE, 1.0f, 1.0f);
-		} else if (((EntityPlayer) event.getEntity()).getCapability(PlayerInfoProvider.PLAYERINFO, null).getMonsterType() == EnumMonsterType.creeper) {
-			((EntityPlayer) event.getEntity()).getEntityWorld().playSound(null, ((EntityPlayer) event.getEntity()).getPosition(), SoundEvents.ENTITY_CREEPER_DEATH, SoundCategory.HOSTILE, 1.0f, 1.0f);
-		} else if (((EntityPlayer) event.getEntity()).getCapability(PlayerInfoProvider.PLAYERINFO, null).getMonsterType() == EnumMonsterType.skeleton) {
-			((EntityPlayer) event.getEntity()).getEntityWorld().playSound(null, ((EntityPlayer) event.getEntity()).getPosition(), SoundEvents.ENTITY_SKELETON_DEATH, SoundCategory.HOSTILE, 1.0f, 1.0f);
-		} else if (((EntityPlayer) event.getEntity()).getCapability(PlayerInfoProvider.PLAYERINFO, null).getMonsterType() == EnumMonsterType.wolf) {
-			((EntityPlayer) event.getEntity()).getEntityWorld().playSound(null, ((EntityPlayer) event.getEntity()).getPosition(), SoundEvents.ENTITY_WOLF_DEATH, SoundCategory.HOSTILE, 1.0f, 1.0f);
-		} else if (((EntityPlayer) event.getEntity()).getCapability(PlayerInfoProvider.PLAYERINFO, null).getMonsterType() == EnumMonsterType.spiderling) {
-			((EntityPlayer) event.getEntity()).getEntityWorld().playSound(null, ((EntityPlayer) event.getEntity()).getPosition(), SoundEvents.ENTITY_SPIDER_DEATH, SoundCategory.HOSTILE, 1.0f, 1.0f);
-		} else if (((EntityPlayer) event.getEntity()).getCapability(PlayerInfoProvider.PLAYERINFO, null).getMonsterType() == EnumMonsterType.spider) {
-			((EntityPlayer) event.getEntity()).getEntityWorld().playSound(null, ((EntityPlayer) event.getEntity()).getPosition(), SoundEvents.ENTITY_SPIDER_DEATH, SoundCategory.HOSTILE, 1.0f, 1.0f);
-		} else if (((EntityPlayer) event.getEntity()).getCapability(PlayerInfoProvider.PLAYERINFO, null).getMonsterType() == EnumMonsterType.supercreeper) {
-			((EntityPlayer) event.getEntity()).getEntityWorld().playSound(null, ((EntityPlayer) event.getEntity()).getPosition(), SoundEvents.ENTITY_CREEPER_DEATH, SoundCategory.HOSTILE, 1.0f, 1.0f);
-		} else if (((EntityPlayer) event.getEntity()).getCapability(PlayerInfoProvider.PLAYERINFO, null).getMonsterType() == EnumMonsterType.dragon) {
-			((EntityPlayer) event.getEntity()).getEntityWorld().playSound(null, ((EntityPlayer) event.getEntity()).getPosition(), SoundEvents.ENTITY_ENDERDRAGON_DEATH, SoundCategory.WEATHER, 1.0f, 1.0f);
 		}
 	}
 	

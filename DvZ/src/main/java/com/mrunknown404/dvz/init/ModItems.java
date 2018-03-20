@@ -8,6 +8,8 @@ import com.mrunknown404.dvz.items.ItemAxeBase;
 import com.mrunknown404.dvz.items.ItemCrafterBow;
 import com.mrunknown404.dvz.items.ItemCreeperExplode;
 import com.mrunknown404.dvz.items.ItemDebugMana;
+import com.mrunknown404.dvz.items.ItemDragonAttack;
+import com.mrunknown404.dvz.items.ItemDragonBreath;
 import com.mrunknown404.dvz.items.ItemDragonTalons;
 import com.mrunknown404.dvz.items.ItemDwarvenFlesh;
 import com.mrunknown404.dvz.items.ItemDwarvenLongBow;
@@ -18,6 +20,7 @@ import com.mrunknown404.dvz.items.ItemShovelBase;
 import com.mrunknown404.dvz.items.ItemSkeletonBow;
 import com.mrunknown404.dvz.items.ItemSpawnAsMonster;
 import com.mrunknown404.dvz.items.ItemSwordBase;
+import com.mrunknown404.dvz.util.EnumDragonType;
 import com.mrunknown404.dvz.util.EnumMonsterType;
 import com.mrunknown404.dvz.util.Reference;
 
@@ -88,4 +91,6 @@ public class ModItems {
 	public static final Item SKELETON_BOW = new ItemSkeletonBow("skeletonbow", ModCreativeTabs.DVZITEMS, "ÅòaLeft click to create arrows");
 
 	public static final Item DRAGON_TALONS = new ItemDragonTalons("dragontalons", ModCreativeTabs.DVZITEMS, "ÅòaRight click to pickup a player");
+	public static final Item DRAGON_FIREBREATH = new ItemDragonBreath("dragonfirebreath", ModCreativeTabs.DVZITEMS, "ÅòaLeft click to shoot fire", EnumDragonType.vlarunga);
+	public static final Item DRAGON_FIREATTACK = new ItemDragonAttack("dragonfireattack", ModCreativeTabs.DVZITEMS, "ÅòaLeft click to shoot fireballs", EnumDragonType.vlarunga);
 }

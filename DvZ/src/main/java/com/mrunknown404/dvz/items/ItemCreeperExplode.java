@@ -21,7 +21,7 @@ import net.minecraft.world.World;
 public class ItemCreeperExplode extends ItemBase {
 
 	private boolean isSuper;
-	private boolean didUse = false;
+	private boolean didUse;
 	private EntityPlayer p;
 	
 	public ItemCreeperExplode(String name, CreativeTabs tab, String tooltip, boolean isSuper) {
@@ -91,6 +91,10 @@ public class ItemCreeperExplode extends ItemBase {
 								world.setBlockState(_pos, Blocks.AIR.getDefaultState());
 								world.notifyBlockUpdate(_pos, Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState(), 0);
 							}
+						} else if (world.getBlockState(_pos) == ModBlocks.STONECAKE.getDefaultState()) {
+							world.setBlockState(_pos, Blocks.AIR.getDefaultState());
+						} else if (world.getBlockState(_pos) == Blocks.TORCH.getDefaultState()) {
+							world.setBlockState(_pos, Blocks.AIR.getDefaultState());
 						}
 					}
 				}
@@ -143,6 +147,10 @@ public class ItemCreeperExplode extends ItemBase {
 								world.setBlockState(_pos, Blocks.AIR.getDefaultState());
 								world.notifyBlockUpdate(_pos, Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState(), 0);
 							}
+						} else if (world.getBlockState(_pos) == ModBlocks.STONECAKE.getDefaultState()) {
+							world.setBlockState(_pos, Blocks.AIR.getDefaultState());
+						} else if (world.getBlockState(_pos) == Blocks.TORCH.getDefaultState()) {
+							world.setBlockState(_pos, Blocks.AIR.getDefaultState());
 						}
 					}
 				}
