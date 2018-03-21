@@ -34,10 +34,14 @@ item.crafterleggings.name=Crafter Leggings
 item.crafterboots.name=Crafter Boots
 
 //-//Monster Items
-item.dwarvenflesh.name=Dwarf Flesh
+item.zombiesword.name=Makeshift Blade
+item.zombieflesh.name=Dwarf Flesh
+
 item.creeperexplode.name=Explode
 item.supercreeperexplode.name=Explode
-item.skeletonbow.name=Bone Bow
+
+item.skeletonbow.name=Bonetooth Bow
+
 item.dragontalons.name=Dragon Talons
 item.dragonfirebreath.name=Dragon Fire Breath
 item.dragonfireattack.name=Dragon Fire Attack

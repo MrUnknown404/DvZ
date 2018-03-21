@@ -159,10 +159,8 @@ public class GameManager {
 		
 		player.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, (120 * 60) * 20, 0, false, false));
 		if (type == EnumMonsterType.zombie) {
-			ItemStack item1 = new ItemStack(Items.DIAMOND_SWORD);
-			item1.addEnchantment(Enchantments.SHARPNESS, 1);
-			player.inventory.addItemStackToInventory(item1);
-			player.inventory.addItemStackToInventory(new ItemStack(ModItems.DWARVEN_FLESH));
+			player.inventory.addItemStackToInventory(new ItemStack(ModItems.ZOMBIE_SWORD));
+			player.inventory.addItemStackToInventory(new ItemStack(ModItems.ZOMBIE_FLESH));
 			
 			player.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.SKULL, 1, 2)); //temporary
 			player.setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(Items.LEATHER_CHESTPLATE));
@@ -203,6 +201,7 @@ public class GameManager {
 			player.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.SKULL, 1, 5)); //temporary
 			
 			player.addPotionEffect(new PotionEffect(MobEffects.HEALTH_BOOST, (120 * 60) * 20, 9, false, false));
+			player.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, (120 * 60) * 20, 3, false, false));
 			playerCapabilities(player, true);
 		} else {
 			System.err.println("INVALID TYPE: " + type.toString());
