@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 import com.mrunknown404.dvz.init.ModBlocks;
+import com.mrunknown404.dvz.util.EnumMonsterType;
+import com.mrunknown404.dvz.util.PlayerInfoProvider;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -23,14 +25,11 @@ import net.minecraft.world.World;
 
 public class ItemCreeperExplode extends ItemBase {
 
-	private boolean isSuper;
 	private boolean didUse;
 	private EntityPlayer p;
 	
-	public ItemCreeperExplode(String name, CreativeTabs tab, String tooltip, int maxStack, boolean isSuper) {
+	public ItemCreeperExplode(String name, CreativeTabs tab, String tooltip, int maxStack) {
 		super(name, tab, tooltip, maxStack);
-		
-		this.isSuper = isSuper;
 	}
 	
 	@Override
@@ -47,7 +46,7 @@ public class ItemCreeperExplode extends ItemBase {
 			
 			if (!world.isRemote) {
 				explode(world, pos);
-				if (isSuper) {
+				if (p.getCapability(PlayerInfoProvider.PLAYERINFO, null).getMonsterType() == EnumMonsterType.supercreeper) {
 					List<EntityLivingBase> entities = p.getEntityWorld().getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(p.posX - 8, p.posY - 8, p.posZ - 8, p.posX + 8, p.posY + 8, p.posZ + 8));
 					Explosion ex = new Explosion(p.getEntityWorld(), p, p.getPosition().getX(), p.getPosition().getY(), p.getPosition().getZ(), 4.5f, true, true);
 					float f3 = 4.5f * 2.0F;
@@ -104,7 +103,7 @@ public class ItemCreeperExplode extends ItemBase {
 		
 		if (player.getCooldownTracker().getCooldown(this, 0f) == 0f) {
 			player.getEntityWorld().playSound(player, player.getPosition(), SoundEvents.ENTITY_CREEPER_PRIMED, SoundCategory.HOSTILE, 1.0f, 1.0f);
-			if (isSuper) {
+			if (player.getCapability(PlayerInfoProvider.PLAYERINFO, null).getMonsterType() == EnumMonsterType.supercreeper) {
 				player.getCooldownTracker().setCooldown(this, 4 * 20);
 			} else {
 				player.getCooldownTracker().setCooldown(this, 2 * 20);
@@ -120,7 +119,7 @@ public class ItemCreeperExplode extends ItemBase {
 		p = player;
 		if (player.getCooldownTracker().getCooldown(this, 0f) == 0f) {
 			player.getEntityWorld().playSound(player, player.getPosition(), SoundEvents.ENTITY_CREEPER_PRIMED, SoundCategory.HOSTILE, 1.0f, 1.0f);
-			if (isSuper) {
+			if (player.getCapability(PlayerInfoProvider.PLAYERINFO, null).getMonsterType() == EnumMonsterType.supercreeper) {
 				player.getCooldownTracker().setCooldown(this, 4 * 20);
 			} else {
 				player.getCooldownTracker().setCooldown(this, 2 * 20);
@@ -132,7 +131,7 @@ public class ItemCreeperExplode extends ItemBase {
 	}
 	
 	private void explode(World world, BlockPos pos) {
-		if (isSuper) {
+		if (p.getCapability(PlayerInfoProvider.PLAYERINFO, null).getMonsterType() == EnumMonsterType.supercreeper) {
 			for (BlockPos _pos : pos.getAllInBox(pos.add(-8, -8, -8), pos.add(8, 8, 8))) {
 				if (world.getBlockState(_pos) == ModBlocks.HARDDWARVENSTONE.getDefaultState()) {
 					if (ThreadLocalRandom.current().nextInt(0, 6) == 0) {

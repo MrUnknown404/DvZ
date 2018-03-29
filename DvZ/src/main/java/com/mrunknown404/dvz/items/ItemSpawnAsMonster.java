@@ -39,7 +39,7 @@ public class ItemSpawnAsMonster extends ItemBase {
 		
 		if (p.getCooldownTracker().getCooldown(this, 0f) == 0f && didUse == true) {
 			didUse = false;
-			GameManager.setupPlayerMonster(p, enumMonsterType);
+			GameManager.setupPlayerMonster(p, enumMonsterType, null);
 		}
 		super.onUpdate(stack, world, entity, itemSlot, isSelected);
 	}

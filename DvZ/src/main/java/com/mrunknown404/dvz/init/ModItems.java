@@ -13,6 +13,7 @@ import com.mrunknown404.dvz.items.ItemDragonBreath;
 import com.mrunknown404.dvz.items.ItemDragonTalons;
 import com.mrunknown404.dvz.items.ItemDwarvenFlesh;
 import com.mrunknown404.dvz.items.ItemDwarvenLongBow;
+import com.mrunknown404.dvz.items.ItemEquipArmor;
 import com.mrunknown404.dvz.items.ItemGlue;
 import com.mrunknown404.dvz.items.ItemJuice;
 import com.mrunknown404.dvz.items.ItemPickaxeBase;
@@ -52,6 +53,7 @@ public class ModItems {
 	public static final Item GLUE = new ItemGlue("glue", ModCreativeTabs.DVZITEMS, "ÅòaRepairs walls", 64, false);
 	public static final Item SUPER_GLUE = new ItemGlue("superglue", ModCreativeTabs.DVZITEMS, "ÅòaRepairs walls", 64, true);
 	public static final Item JUICE = new ItemJuice("juice", ModCreativeTabs.DVZITEMS, "ÅòaHeals you to full Åò8(ÅòbCosts 75 manaÅò8)",1);
+	public static final Item EQUIP_ARMOR = new ItemEquipArmor("equiparmor", ModCreativeTabs.DVZITEMS, "ÅòaLeft/right click a dwarf to give him armor", 64);
 	
 	public static final Item DEBUG_MANA = new ItemDebugMana("debugmana", null, "ÅòaDebug item! Åò8(ÅòbGives/Takes 250 manaÅò8)", 1);
 	
@@ -86,8 +88,7 @@ public class ModItems {
 	public static final Item ZOMBIE_SWORD = new ItemZombieSword("zombiesword", ModCreativeTabs.DVZITEMS, "", MAT_CRAFTER_DWARVEN, 0, 0, null);
 	public static final Item ZOMBIE_FLESH = new ItemDwarvenFlesh("zombieflesh", ModCreativeTabs.DVZITEMS, "ÅòaRestores hunger & gives buffs");
 	
-	public static final Item CREEPER_EXPLODE = new ItemCreeperExplode("creeperexplode", ModCreativeTabs.DVZITEMS, "ÅòaLeft/Right click to explode", 1, false);
-	public static final Item SUPERCREEPER_EXPLODE = new ItemCreeperExplode("supercreeperexplode", ModCreativeTabs.DVZITEMS, "ÅòaLeft/Right click to explode", 1, true);
+	public static final Item CREEPER_EXPLODE = new ItemCreeperExplode("creeperexplode", ModCreativeTabs.DVZITEMS, "ÅòaLeft/Right click to explode", 1);
 	
 	public static final Item SKELETON_BOW = new ItemSkeletonBow("skeletonbow", ModCreativeTabs.DVZITEMS, "ÅòaLeft click to create arrows", 1);
 

@@ -46,6 +46,7 @@ public class PlayerHandler {
 			event.player.clearActivePotions();
 			event.player.refreshDisplayName();
 			
+			GameManager.resetPlayer(event.player);
 			GameManager.giveSpawnAsMonsterItems(event.player);
 		}
 	}

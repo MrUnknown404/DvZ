@@ -2,8 +2,11 @@ package com.mrunknown404.dvz;
 
 import java.util.concurrent.ThreadLocalRandom;
 
+import javax.annotation.Nullable;
+
 import com.mrunknown404.dvz.init.ModBlocks;
 import com.mrunknown404.dvz.init.ModItems;
+import com.mrunknown404.dvz.util.EnumDragonType;
 import com.mrunknown404.dvz.util.EnumDwarfType;
 import com.mrunknown404.dvz.util.EnumHeroType;
 import com.mrunknown404.dvz.util.EnumMonsterType;
@@ -123,8 +126,6 @@ public class GameManager {
 	}
 	
 	public static void giveSpawnAsMonsterItems(EntityPlayer player) {
-		player.inventory.clear();
-		player.clearActivePotions();
 		player.refreshDisplayName();
 		
 		player.inventory.addItemStackToInventory(new ItemStack(ModItems.SPAWNAS_ZOMBIE));
@@ -152,7 +153,7 @@ public class GameManager {
 		}
 	}
 	
-	public static void setupPlayerMonster(EntityPlayer player, EnumMonsterType type) {
+	public static void setupPlayerMonster(EntityPlayer player, EnumMonsterType type, @Nullable EnumDragonType dragonType) {
 		resetPlayer(player);
 		
 		player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setMonsterType(type);
@@ -173,53 +174,84 @@ public class GameManager {
 		player.refreshDisplayName();
 		
 		player.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, (120 * 60) * 20, 0, false, false));
-		if (type == EnumMonsterType.zombie) {
-			player.inventory.addItemStackToInventory(new ItemStack(ModItems.ZOMBIE_SWORD));
-			player.inventory.addItemStackToInventory(new ItemStack(ModItems.ZOMBIE_FLESH));
+		switch (type) {
+			case creeper: {
+				player.inventory.addItemStackToInventory(new ItemStack(ModItems.CREEPER_EXPLODE));
+				
+				player.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.SKULL, 1, 4)); //temporary
+				break;
+			}
+			case dragon: {
+				if (dragonType == null) {
+					break;
+				}
+				
+				player.inventory.addItemStackToInventory(new ItemStack(ModItems.DRAGON_TALONS));
+				player.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.SKULL, 1, 5)); //temporary
+				playerCapabilities(player, true);
+				switch (dragonType) {
+					case vlarunga: {
+						player.inventory.addItemStackToInventory(new ItemStack(ModItems.DRAGON_FIREBREATH));
+						player.inventory.addItemStackToInventory(new ItemStack(ModItems.DRAGON_FIREATTACK));
+						
+						player.addPotionEffect(new PotionEffect(MobEffects.HEALTH_BOOST, (120 * 60) * 20, 9, false, false));
+						player.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, (120 * 60) * 20, 3, false, false));
+					}
+					default: {
+						break;
+					}
+				}
+				break;
+			}
+			case nil: {
+				System.out.println("Invalid!");
+				break;
+			}
+			case skeleton: {
+				player.inventory.addItemStackToInventory(new ItemStack(ModItems.SKELETON_BOW));
+				player.inventory.addItemStackToInventory(new ItemStack(Items.ARROW, ThreadLocalRandom.current().nextInt(6, 10)));
 			
-			player.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.SKULL, 1, 2)); //temporary
-			player.setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(Items.LEATHER_CHESTPLATE));
-			player.setItemStackToSlot(EntityEquipmentSlot.LEGS, new ItemStack(Items.LEATHER_LEGGINGS));
-			player.setItemStackToSlot(EntityEquipmentSlot.FEET, new ItemStack(Items.LEATHER_BOOTS));
-			
-			player.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, (120 * 60) * 20, 0, false, false));
-			player.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, (120 * 60) * 20, 2, false, false));
-		} else if (type == EnumMonsterType.creeper) {
-			player.inventory.addItemStackToInventory(new ItemStack(ModItems.CREEPER_EXPLODE));
-			
-			player.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.SKULL, 1, 4)); //temporary
-		} else if (type == EnumMonsterType.skeleton) {
-			player.inventory.addItemStackToInventory(new ItemStack(ModItems.SKELETON_BOW));
-			player.inventory.addItemStackToInventory(new ItemStack(Items.ARROW, ThreadLocalRandom.current().nextInt(6, 10)));
-		
-			player.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.SKULL, 1, 0)); //temporary
-			player.setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(Items.LEATHER_CHESTPLATE));
-			player.setItemStackToSlot(EntityEquipmentSlot.LEGS, new ItemStack(Items.LEATHER_LEGGINGS));
-			player.setItemStackToSlot(EntityEquipmentSlot.FEET, new ItemStack(Items.LEATHER_BOOTS));
-			
-			player.addPotionEffect(new PotionEffect(MobEffects.SPEED, (120 * 60) * 20, 0, false, false));
-			player.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, (120 * 60) * 20, 0, false, false));
-		} else if (type == EnumMonsterType.wolf) {
-		
-		} else if (type == EnumMonsterType.spiderling) {
-		
-		} else if (type == EnumMonsterType.spider) {
-		
-		} else if (type == EnumMonsterType.supercreeper) {
-			player.inventory.addItemStackToInventory(new ItemStack(ModItems.SUPERCREEPER_EXPLODE));
-			
-			player.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.SKULL, 1, 4)); //temporary
-		} else if (type == EnumMonsterType.dragon) {
-			player.inventory.addItemStackToInventory(new ItemStack(ModItems.DRAGON_TALONS));
-			player.inventory.addItemStackToInventory(new ItemStack(ModItems.DRAGON_FIREBREATH));
-			
-			player.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.SKULL, 1, 5)); //temporary
-			
-			player.addPotionEffect(new PotionEffect(MobEffects.HEALTH_BOOST, (120 * 60) * 20, 9, false, false));
-			player.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, (120 * 60) * 20, 3, false, false));
-			playerCapabilities(player, true);
-		} else {
-			System.err.println("INVALID TYPE: " + type.toString());
+				player.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.SKULL, 1, 0)); //temporary
+				player.setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(Items.LEATHER_CHESTPLATE));
+				player.setItemStackToSlot(EntityEquipmentSlot.LEGS, new ItemStack(Items.LEATHER_LEGGINGS));
+				player.setItemStackToSlot(EntityEquipmentSlot.FEET, new ItemStack(Items.LEATHER_BOOTS));
+				
+				player.addPotionEffect(new PotionEffect(MobEffects.SPEED, (120 * 60) * 20, 0, false, false));
+				player.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, (120 * 60) * 20, 0, false, false));
+				break;
+			}
+			case spider: {
+				break;
+			}
+			case spiderling: {
+				break;
+			}
+			case supercreeper: {
+				player.inventory.addItemStackToInventory(new ItemStack(ModItems.CREEPER_EXPLODE));
+				
+				player.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.SKULL, 1, 4)); //temporary
+				break;
+			}
+			case wolf: {
+				break;
+			}
+			case zombie: {
+				player.inventory.addItemStackToInventory(new ItemStack(ModItems.ZOMBIE_SWORD));
+				player.inventory.addItemStackToInventory(new ItemStack(ModItems.ZOMBIE_FLESH));
+				
+				player.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.SKULL, 1, 2)); //temporary
+				player.setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(Items.LEATHER_CHESTPLATE));
+				player.setItemStackToSlot(EntityEquipmentSlot.LEGS, new ItemStack(Items.LEATHER_LEGGINGS));
+				player.setItemStackToSlot(EntityEquipmentSlot.FEET, new ItemStack(Items.LEATHER_BOOTS));
+				
+				player.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, (120 * 60) * 20, 0, false, false));
+				player.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, (120 * 60) * 20, 2, false, false));
+				break;
+			}
+			default: {
+				System.err.println(type.toString() + " is invalid!");
+				break;
+			}
 		}
 		player.heal(player.getMaxHealth());
 	}
