@@ -1,7 +1,7 @@
 package com.mrunknown404.dvz.items;
 
 import com.mrunknown404.dvz.GameManager;
-import com.mrunknown404.dvz.util.EnumMonsterType;
+import com.mrunknown404.dvz.util.EnumDwarfType;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -15,17 +15,17 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 
-public class ItemSpawnAsMonster extends ItemBase {
+public class ItemSpawnAsDwarf extends ItemBase {
 
 	private int time;
 	private boolean didUse = false;
-	private EnumMonsterType enumMonsterType;
+	private EnumDwarfType enumDwarfType;
 	private EntityPlayer p;
 	
-	public ItemSpawnAsMonster(String name, CreativeTabs tab, String tooltip, int maxStack, EnumMonsterType type, int time) {
+	public ItemSpawnAsDwarf(String name, CreativeTabs tab, String tooltip, int maxStack, EnumDwarfType type, int time) {
 		super(name, tab, tooltip, maxStack);
 		
-		enumMonsterType = type;
+		enumDwarfType = type;
 		this.time = time;
 	}
 	
@@ -39,7 +39,7 @@ public class ItemSpawnAsMonster extends ItemBase {
 		
 		if (p.getCooldownTracker().getCooldown(this, 0f) == 0f && didUse == true) {
 			didUse = false;
-			GameManager.setupPlayerMonster(p, enumMonsterType);
+			GameManager.setupPlayerDwarf(p, enumDwarfType);
 		}
 		super.onUpdate(stack, world, entity, itemSlot, isSelected);
 	}
@@ -50,14 +50,14 @@ public class ItemSpawnAsMonster extends ItemBase {
 		p = player;
 		
 		if (!player.getEntityWorld().isRemote) {
-			if (player.getEntityWorld().getScoreboard().getTeam("monsters") != null) {
+			if (player.getEntityWorld().getScoreboard().getTeam("dwarves") != null) {
 				if (player.getCooldownTracker().getCooldown(this, 1f) == 0f) {
 					player.getCooldownTracker().setCooldown(this, time);
-					player.getEntityWorld().playSound(null, player.getPosition(), SoundEvents.ENTITY_ZOMBIE_VILLAGER_CONVERTED, SoundCategory.HOSTILE, 1.0f, 1.0f);
+					player.getEntityWorld().playSound(null, player.getPosition(), SoundEvents.ENTITY_ZOMBIE_VILLAGER_CONVERTED, SoundCategory.PLAYERS, 1.0f, 1.0f);
 					didUse = true;
 				}
 			} else {
-				p.sendMessage(new TextComponentString("Monsters have not been released"));
+				p.sendMessage(new TextComponentString("Game has not started!"));
 			}
 		}
 		return super.onEntitySwing(entityLiving, stack);
@@ -70,13 +70,14 @@ public class ItemSpawnAsMonster extends ItemBase {
 			return super.onItemRightClick(world, player, hand);
 		}
 		
-		if (world.getScoreboard().getTeam("monsters") != null) {
+		if (world.getScoreboard().getTeam("dwarves") != null) {
 			if (player.getCooldownTracker().getCooldown(this, 1f) == 0f) {
 				player.getCooldownTracker().setCooldown(this, time);
+				player.getEntityWorld().playSound(null, player.getPosition(), SoundEvents.ENTITY_ZOMBIE_VILLAGER_CONVERTED, SoundCategory.PLAYERS, 1.0f, 1.0f);
 				didUse = true;
 			}
 		}else {
-			p.sendMessage(new TextComponentString("Monsters have not been released"));
+			p.sendMessage(new TextComponentString("Game has not started!"));
 		}
 		return super.onItemRightClick(world, player, hand);
 	}

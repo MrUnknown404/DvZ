@@ -2,9 +2,11 @@ package com.mrunknown404.dvz.commands;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 import com.mrunknown404.dvz.GameManager;
 import com.mrunknown404.dvz.capabilities.IPlayerInfo;
+import com.mrunknown404.dvz.util.EnumDwarfType;
 import com.mrunknown404.dvz.util.EnumPlayerType;
 import com.mrunknown404.dvz.util.GetEnumNames;
 import com.mrunknown404.dvz.util.PlayerInfoProvider;
@@ -59,7 +61,15 @@ public class CommandForcePlayerType extends CommandBase {
 			return;
 		} else if (args[1].equals(EnumPlayerType.dwarf.name().toString()) && cap.getPlayerType() != EnumPlayerType.dwarf) {
 			GameManager.resetPlayer(player);
-			GameManager.setupPlayerDwarf(player);
+			if (ThreadLocalRandom.current().nextInt(0, 4) == 0) {
+				if (ThreadLocalRandom.current().nextInt(0, 4) == 0) {
+					GameManager.setupPlayerDwarf(player, EnumDwarfType.blacksmith);
+				} else {
+					GameManager.setupPlayerDwarf(player, EnumDwarfType.lumberjack);
+				}
+			} else {
+				GameManager.setupPlayerDwarf(player, EnumDwarfType.builder);
+			}
 			sender.getCommandSenderEntity().sendMessage(txt);
 		} else if (args[1].equals(EnumPlayerType.dwarf.name().toString()) && cap.getPlayerType() == EnumPlayerType.dwarf) {
 			sender.getCommandSenderEntity().sendMessage(error2);

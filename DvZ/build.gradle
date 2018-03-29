@@ -11,7 +11,7 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 //Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 
 
-version = "[1.11.2-v0.15.1-Alpha]"
+version = "[1.11.2-v0.16.0-Alpha]"
 group = "com.mrunknown404.dvz" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "DvZ"
 

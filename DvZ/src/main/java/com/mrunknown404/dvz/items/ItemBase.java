@@ -15,10 +15,11 @@ public class ItemBase extends Item implements IHasModel {
 
 	private String tooltip;
 	
-	public ItemBase(String name, CreativeTabs tab, String tooltip) {
+	public ItemBase(String name, CreativeTabs tab, String tooltip, int maxStack) {
 		setUnlocalizedName(name);
 		setRegistryName(name);
 		setCreativeTab(tab);
+		setMaxStackSize(maxStack);
 		
 		this.tooltip = tooltip;
 		

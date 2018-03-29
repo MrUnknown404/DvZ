@@ -20,10 +20,9 @@ public class ItemDragonBreath extends ItemBase {
 	private EntityPlayer p;
 	private EnumDragonType type;
 	
-	public ItemDragonBreath(String name, CreativeTabs tab, String tooltip, EnumDragonType type) {
-		super(name, tab, tooltip);
+	public ItemDragonBreath(String name, CreativeTabs tab, String tooltip, int maxStack, EnumDragonType type) {
+		super(name, tab, tooltip, maxStack);
 		this.type = type;
-		setMaxStackSize(1);
 	}
 
 	private int tick = 0;
@@ -58,6 +57,7 @@ public class ItemDragonBreath extends ItemBase {
 		double xDirection = -Math.sin(yaw) * Math.cos(pitch);
 		double yDirection = -Math.sin(pitch);
 		double zDirection = Math.cos(yaw) * Math.cos(pitch);
+		
 		if (type == EnumDragonType.vlarunga) {
 			block = new EntityFallingBlock(world, p.posX, p.posY + p.getDefaultEyeHeight() - 0.5, p.posZ, Blocks.FIRE.getDefaultState());
 			block.fallTime = 1;

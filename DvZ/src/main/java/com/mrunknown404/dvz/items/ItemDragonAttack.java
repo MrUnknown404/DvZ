@@ -15,10 +15,9 @@ public class ItemDragonAttack extends ItemBase {
 	private EntityLargeFireball ball;
 	private EnumDragonType type;
 	
-	public ItemDragonAttack(String name, CreativeTabs tab, String tooltip, EnumDragonType type) {
-		super(name, tab, tooltip);
+	public ItemDragonAttack(String name, CreativeTabs tab, String tooltip, int maxStack, EnumDragonType type) {
+		super(name, tab, tooltip, maxStack);
 		this.type = type;
-		setMaxStackSize(1);
 	}
 	
 	@Override
@@ -26,6 +25,7 @@ public class ItemDragonAttack extends ItemBase {
 		if (player.getEntityWorld().isRemote) {
 			return super.onItemRightClick(world, player, hand);
 		}
+		
 		if (type == EnumDragonType.vlarunga) {
 			double yaw = Math.toRadians(player.rotationYaw);
 			double pitch = Math.toRadians(player.rotationPitch);

@@ -1,5 +1,9 @@
 //-//-//Items
 //-//Items
+item.spawnasbuilder.name=Builder
+item.spawnaslumberjack.name=Lumberjack
+item.spawnasblacksmith.name=Blacksmith
+
 item.glue.name=Glue
 item.superglue.name=Super Glue
 item.juice.name=Healing Ale

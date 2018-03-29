@@ -12,7 +12,6 @@ import com.mrunknown404.dvz.util.PlayerInfoProvider;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -105,8 +104,8 @@ public class GameManager {
 			}
 		}
 		
-		player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setDwarfType(EnumDwarfType.nil);
 		player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setPlayerType(EnumPlayerType.spectator);
+		player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setDwarfType(EnumDwarfType.nil);
 		player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setHeroType(EnumHeroType.nil);
 		player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setMonsterType(EnumMonsterType.nil);
 		
@@ -134,6 +133,22 @@ public class GameManager {
 		}
 		if (ThreadLocalRandom.current().nextBoolean()) {
 			player.inventory.addItemStackToInventory(new ItemStack(ModItems.SPAWNAS_SKELETON));
+		}
+	}
+	
+	public static void giveSpawnAsDwarfItems(EntityPlayer player) {
+		player.inventory.clear();
+		player.clearActivePotions();
+		player.refreshDisplayName();
+		
+		player.inventory.addItemStackToInventory(new ItemStack(ModItems.SPAWNAS_BUILDER));
+		if (ThreadLocalRandom.current().nextInt(0, 4) == 0) {
+			if (ThreadLocalRandom.current().nextInt(0, 4) == 0) {
+				player.inventory.addItemStackToInventory(new ItemStack(ModItems.SPAWNAS_BLACKSMITH));
+			} 
+			if (ThreadLocalRandom.current().nextBoolean()) {
+				player.inventory.addItemStackToInventory(new ItemStack(ModItems.SPAWNAS_LUMBERJACK));
+			}
 		}
 	}
 	
@@ -215,24 +230,15 @@ public class GameManager {
 		player.sendPlayerAbilities();
 	}
 	
-	public static void setupPlayerDwarf(EntityPlayer player) {
+	public static void setupPlayerDwarf(EntityPlayer player, EnumDwarfType type) {
 		player.getEntityWorld().getScoreboard().addPlayerToTeam(player.getName(), "dwarves");
 		
 		if (player.getName().equals("MrUnknown404")) {
 			player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setHeroType(EnumHeroType.mrunknown404);
 		}
 		
-		if (ThreadLocalRandom.current().nextInt(0, 4) == 0) {
-			if (ThreadLocalRandom.current().nextInt(0, 4) == 0) {
-				player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setDwarfType(EnumDwarfType.blacksmith);
-			} else {
-				player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setDwarfType(EnumDwarfType.lumberjack);
-			}
-		} else {
-			player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setDwarfType(EnumDwarfType.builder);
-		}
-		
 		player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setPlayerType(EnumPlayerType.dwarf);
+		player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setDwarfType(type);
 		
 		player.experienceLevel = 1000;
 		player.experience = 0;

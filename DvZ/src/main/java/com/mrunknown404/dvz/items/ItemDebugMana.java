@@ -12,10 +12,8 @@ import net.minecraft.world.World;
 
 public class ItemDebugMana extends ItemBase {
 
-	public ItemDebugMana(String name, CreativeTabs tab, String tooltip) {
-		super(name, tab, tooltip);
-		
-		setMaxStackSize(1);
+	public ItemDebugMana(String name, CreativeTabs tab, String tooltip, int maxStack) {
+		super(name, tab, tooltip, maxStack);
 	}
 	
 	@Override

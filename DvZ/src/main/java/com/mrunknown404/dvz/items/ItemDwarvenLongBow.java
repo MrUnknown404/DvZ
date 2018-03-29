@@ -30,11 +30,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemDwarvenLongBow extends ItemBase {
 
-	public ItemDwarvenLongBow(String name, CreativeTabs tab, String tooltip) {
-		super(name, tab, tooltip);
+	public ItemDwarvenLongBow(String name, CreativeTabs tab, String tooltip, int maxStack) {
+		super(name, tab, tooltip, maxStack);
 		setNoRepair();
-		
-		this.maxStackSize = 1;
 		
 		addPropertyOverride(new ResourceLocation("pull"), new IItemPropertyGetter() {
 			@SideOnly(Side.CLIENT)

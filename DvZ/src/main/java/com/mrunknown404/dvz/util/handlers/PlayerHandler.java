@@ -68,17 +68,8 @@ public class PlayerHandler {
 		IPlayerInfo info = player.getCapability(PlayerInfoProvider.PLAYERINFO, null);
 		IPlayerInfo oldInfo = event.getOriginal().getCapability(PlayerInfoProvider.PLAYERINFO, null);
 		
-		info.setPlayerType(EnumPlayerType.spectator);
-		info.setDwarfType(EnumDwarfType.nil);
-		info.setHeroType(EnumHeroType.nil);
-		info.setMonsterType(EnumMonsterType.nil);
-		
+		GameManager.resetPlayer(player);
 		GameManager.playerCapabilities(player, false);
-		
-		player.removeExperienceLevel(player.experienceLevel);
-		player.experience = 0;
-		player.inventory.clear();
-		player.refreshDisplayName();
 		
 		if (player.getEntityWorld().getScoreboard().getTeam("monsters") != null) {
 			GameManager.giveSpawnAsMonsterItems(player);
@@ -115,6 +106,9 @@ public class PlayerHandler {
 	
 	@SubscribeEvent
 	public void onPlayerDeath(LivingDeathEvent event) {
+		if (!(event.getEntity() instanceof EntityPlayer)) {
+			return;
+		}
 		if (event.getSource().getEntity() instanceof EntityPlayer) {
 			if (((EntityPlayer) event.getSource().getEntity()).getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() == EnumPlayerType.dwarf) {
 				if (((EntityPlayer) event.getSource().getEntity()).getHeldItemMainhand().getItem() == ModItems.DWARVEN_SWORD || ((EntityPlayer) event.getSource().getEntity()).getHeldItemMainhand().getItem() == ModItems.CRAFTER_SWORD) {
@@ -123,7 +117,9 @@ public class PlayerHandler {
 					((EntityPlayer) event.getSource().getEntity()).getEntityWorld().playSound(null, ((EntityPlayer) event.getSource().getEntity()).getPosition(), SoundEvents.ENTITY_ENDERDRAGON_GROWL, SoundCategory.PLAYERS, 0.4f, 2f);
 					spawnParticles((EntityPlayer) event.getSource().getEntity());
 				}
-			} else if (((EntityPlayer) event.getEntity()).getCapability(PlayerInfoProvider.PLAYERINFO, null).getMonsterType() == EnumMonsterType.zombie) {
+			}
+		}
+		if (((EntityPlayer) event.getEntity()).getCapability(PlayerInfoProvider.PLAYERINFO, null).getMonsterType() == EnumMonsterType.zombie) {
 				((EntityPlayer) event.getEntity()).getEntityWorld().playSound(null, ((EntityPlayer) event.getEntity()).getPosition(), SoundEvents.ENTITY_ZOMBIE_DEATH, SoundCategory.HOSTILE, 1.0f, 1.0f);
 			} else if (((EntityPlayer) event.getEntity()).getCapability(PlayerInfoProvider.PLAYERINFO, null).getMonsterType() == EnumMonsterType.creeper) {
 				((EntityPlayer) event.getEntity()).getEntityWorld().playSound(null, ((EntityPlayer) event.getEntity()).getPosition(), SoundEvents.ENTITY_CREEPER_DEATH, SoundCategory.HOSTILE, 1.0f, 1.0f);
@@ -140,7 +136,6 @@ public class PlayerHandler {
 			} else if (((EntityPlayer) event.getEntity()).getCapability(PlayerInfoProvider.PLAYERINFO, null).getMonsterType() == EnumMonsterType.dragon) {
 				((EntityPlayer) event.getEntity()).getEntityWorld().playSound(null, ((EntityPlayer) event.getEntity()).getPosition(), SoundEvents.ENTITY_ENDERDRAGON_DEATH, SoundCategory.WEATHER, 1.0f, 1.0f);
 			}
-		}
 	}
 	
 	private void spawnParticles(EntityPlayer p) {

@@ -14,9 +14,8 @@ import net.minecraft.world.World;
 
 public class ItemJuice extends ItemBase {
 
-	public ItemJuice(String name, CreativeTabs tab, String tooltip) {
-		super(name, tab, tooltip);
-		setMaxStackSize(1);
+	public ItemJuice(String name, CreativeTabs tab, String tooltip, int maxStack) {
+		super(name, tab, tooltip, maxStack);
 	}
 	
 	@Override

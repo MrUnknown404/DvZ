@@ -52,7 +52,7 @@ public class CommandStartGame extends CommandBase {
 				player.sendMessage(msg);
 			}
 			
-			GameManager.setupPlayerDwarf(player);
+			GameManager.giveSpawnAsDwarfItems(player);
 		}
 	}
 

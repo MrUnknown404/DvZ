@@ -17,8 +17,8 @@ public class ItemGlue extends ItemBase {
 
 	private boolean isSuper = false;
 	
-	public ItemGlue(String name, CreativeTabs tab, String tooltip, boolean isSuper) {
-		super(name, tab, tooltip);
+	public ItemGlue(String name, CreativeTabs tab, String tooltip, int maxStack, boolean isSuper) {
+		super(name, tab, tooltip, maxStack);
 		
 		this.isSuper = isSuper;
 	}

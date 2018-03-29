@@ -17,9 +17,8 @@ public class ItemDragonTalons extends ItemBase {
 	private EntityPlayer player;
 	private EntityLivingBase target;
 	
-	public ItemDragonTalons(String name, CreativeTabs tab, String tooltip) {
-		super(name, tab, tooltip);
-		setMaxStackSize(1);
+	public ItemDragonTalons(String name, CreativeTabs tab, String tooltip, int maxStack) {
+		super(name, tab, tooltip, maxStack);
 	}
 
 	@Override
