@@ -46,16 +46,16 @@ public class ModItems {
 	
 	public static final List<Item> ITEMS = new ArrayList<Item>();
 	
-	public static final Item SPAWNAS_BUILDER = new ItemSpawnAsDwarf("spawnasbuilder", ModCreativeTabs.DVZITEMS, "ÅòaSpawn as a Builder", 1, EnumDwarfType.builder, 5);
-	public static final Item SPAWNAS_BLACKSMITH = new ItemSpawnAsDwarf("spawnasblacksmith", ModCreativeTabs.DVZITEMS, "ÅòaSpawn as a Blacsmith", 1, EnumDwarfType.blacksmith, 5);
-	public static final Item SPAWNAS_LUMBERJACK = new ItemSpawnAsDwarf("spawnaslumberjack", ModCreativeTabs.DVZITEMS, "ÅòaSpawn as a Lumberjack", 1, EnumDwarfType.lumberjack, 5);
+	public static final Item SPAWNAS_BUILDER = new ItemSpawnAsDwarf("spawnasbuilder", ModCreativeTabs.DVZITEMS, "Spawn as a Builder", 1, EnumDwarfType.builder, 5);
+	public static final Item SPAWNAS_BLACKSMITH = new ItemSpawnAsDwarf("spawnasblacksmith", ModCreativeTabs.DVZITEMS, "Spawn as a Blacsmith", 1, EnumDwarfType.blacksmith, 5);
+	public static final Item SPAWNAS_LUMBERJACK = new ItemSpawnAsDwarf("spawnaslumberjack", ModCreativeTabs.DVZITEMS, "Spawn as a Lumberjack", 1, EnumDwarfType.lumberjack, 5);
 	
-	public static final Item GLUE = new ItemGlue("glue", ModCreativeTabs.DVZITEMS, "ÅòaRepairs walls", 64, false);
-	public static final Item SUPER_GLUE = new ItemGlue("superglue", ModCreativeTabs.DVZITEMS, "ÅòaRepairs walls", 64, true);
-	public static final Item JUICE = new ItemJuice("juice", ModCreativeTabs.DVZITEMS, "ÅòaHeals you to full Åò8(ÅòbCosts 75 manaÅò8)",1);
-	public static final Item EQUIP_ARMOR = new ItemEquipArmor("equiparmor", ModCreativeTabs.DVZITEMS, "ÅòaLeft/right click a dwarf to give him armor", 64);
+	public static final Item GLUE = new ItemGlue("glue", ModCreativeTabs.DVZITEMS, "Repairs walls", 64, false);
+	public static final Item SUPER_GLUE = new ItemGlue("superglue", ModCreativeTabs.DVZITEMS, "Repairs walls", 64, true);
+	public static final Item JUICE = new ItemJuice("juice", ModCreativeTabs.DVZITEMS, "Heals you to full (Costs 100 mana)",1);
+	public static final Item EQUIP_ARMOR = new ItemEquipArmor("equiparmor", ModCreativeTabs.DVZITEMS, "Left/right click a dwarf to give him armor", 64);
 	
-	public static final Item DEBUG_MANA = new ItemDebugMana("debugmana", null, "ÅòaDebug item! Åò8(ÅòbGives/Takes 250 manaÅò8)", 1);
+	public static final Item DEBUG_MANA = new ItemDebugMana("debugmana", null, "Debug item! (Gives/Takes 250 mana)", 1);
 	
 	public static final Item DWARVEN_SWORD = new ItemSwordBase("dwarvensword", ModCreativeTabs.DVZITEMS, "", MAT_DWARVEN);
 	public static final Item CRAFTER_SWORD = new ItemSwordBase("craftersword", ModCreativeTabs.DVZITEMS, "", MAT_CRAFTER_DWARVEN);
@@ -68,31 +68,31 @@ public class ModItems {
 	public static final Item CRAFTER_PICKAXE = new ItemPickaxeBase("crafterpickaxe", ModCreativeTabs.DVZITEMS, "", MAT_CRAFTER_DWARVEN);
 	public static final Item CRAFTER_AXE = new ItemAxeBase("crafteraxe", ModCreativeTabs.DVZITEMS, "", MAT_CRAFTER_DWARVEN, 10f, -3.2f);
 	
-	public static final Item DWARVEN_LONGBOW = new ItemDwarvenLongBow("dwarvenlongbow", ModCreativeTabs.DVZITEMS, "ÅòaLeft click to create arrows Åò8(ÅòbCosts 25 manaÅò8)", 1);
-	public static final Item CRAFTER_BOW = new ItemCrafterBow("crafterbow", ModCreativeTabs.DVZITEMS, "ÅòaLeft click to create arrows Åò8(ÅòbCosts 25 manaÅò8)", 1);
+	public static final Item DWARVEN_LONGBOW = new ItemDwarvenLongBow("dwarvenlongbow", ModCreativeTabs.DVZITEMS, "Left click to create arrows (Costs 25 mana)", 1);
+	public static final Item CRAFTER_BOW = new ItemCrafterBow("crafterbow", ModCreativeTabs.DVZITEMS, "Left click to create arrows (Costs 25 mana)", 1);
 	
-	public static final Item DWARVEN_HELMET = new ItemArmorBase("dwarvenhelmet", ModCreativeTabs.DVZITEMS, "ÅòaLeft click to repair armor Åò8(ÅòbCosts 25 manaÅò8)", ARMMAT_DWARVEN, 1, EntityEquipmentSlot.HEAD);
-	public static final Item DWARVEN_CHESTPLATE = new ItemArmorBase("dwarvenchestplate", ModCreativeTabs.DVZITEMS, "ÅòaLeft click to repair armor Åò8(ÅòbCosts 25 manaÅò8)", ARMMAT_DWARVEN, 1, EntityEquipmentSlot.CHEST);
-	public static final Item DWARVEN_LEGGINGS = new ItemArmorBase("dwarvenleggings", ModCreativeTabs.DVZITEMS, "ÅòaLeft click to repair armor Åò8(ÅòbCosts 25 manaÅò8)", ARMMAT_DWARVEN, 2, EntityEquipmentSlot.LEGS);
-	public static final Item DWARVEN_BOOTS = new ItemArmorBase("dwarvenboots", ModCreativeTabs.DVZITEMS, "ÅòaLeft click to repair armor Åò8(ÅòbCosts 25 manaÅò8)", ARMMAT_DWARVEN, 1, EntityEquipmentSlot.FEET);
+	public static final Item DWARVEN_HELMET = new ItemArmorBase("dwarvenhelmet", ModCreativeTabs.DVZITEMS, "Left click to create arrows (Costs 25 mana)", ARMMAT_DWARVEN, 1, EntityEquipmentSlot.HEAD);
+	public static final Item DWARVEN_CHESTPLATE = new ItemArmorBase("dwarvenchestplate", ModCreativeTabs.DVZITEMS, "Left click to create arrows (Costs 25 mana)", ARMMAT_DWARVEN, 1, EntityEquipmentSlot.CHEST);
+	public static final Item DWARVEN_LEGGINGS = new ItemArmorBase("dwarvenleggings", ModCreativeTabs.DVZITEMS, "Left click to create arrows (Costs 25 mana)", ARMMAT_DWARVEN, 2, EntityEquipmentSlot.LEGS);
+	public static final Item DWARVEN_BOOTS = new ItemArmorBase("dwarvenboots", ModCreativeTabs.DVZITEMS, "Left click to create arrows (Costs 25 mana)", ARMMAT_DWARVEN, 1, EntityEquipmentSlot.FEET);
 	
-	public static final Item CRAFTER_HELMET = new ItemArmorBase("crafterhelmet", ModCreativeTabs.DVZITEMS, "ÅòaLeft click to repair armor Åò8(ÅòbCosts 25 manaÅò8)", ARMMAT_CRAFTER, 1, EntityEquipmentSlot.HEAD);
-	public static final Item CRAFTER_CHESTPLATE = new ItemArmorBase("crafterchestplate", ModCreativeTabs.DVZITEMS, "ÅòaLeft click to repair armor Åò8(ÅòbCosts 25 manaÅò8)", ARMMAT_CRAFTER, 1, EntityEquipmentSlot.CHEST);
-	public static final Item CRAFTER_LEGGINGS = new ItemArmorBase("crafterleggings", ModCreativeTabs.DVZITEMS, "ÅòaLeft click to repair armor Åò8(ÅòbCosts 25 manaÅò8)", ARMMAT_CRAFTER, 2, EntityEquipmentSlot.LEGS);
-	public static final Item CRAFTER_BOOTS = new ItemArmorBase("crafterboots", ModCreativeTabs.DVZITEMS, "ÅòaLeft click to repair armor Åò8(ÅòbCosts 25 manaÅò8)", ARMMAT_CRAFTER, 1, EntityEquipmentSlot.FEET);
+	public static final Item CRAFTER_HELMET = new ItemArmorBase("crafterhelmet", ModCreativeTabs.DVZITEMS, "Left click to create arrows (Costs 25 mana)", ARMMAT_CRAFTER, 1, EntityEquipmentSlot.HEAD);
+	public static final Item CRAFTER_CHESTPLATE = new ItemArmorBase("crafterchestplate", ModCreativeTabs.DVZITEMS, "Left click to create arrows (Costs 25 mana)", ARMMAT_CRAFTER, 1, EntityEquipmentSlot.CHEST);
+	public static final Item CRAFTER_LEGGINGS = new ItemArmorBase("crafterleggings", ModCreativeTabs.DVZITEMS, "Left click to create arrows (Costs 25 mana)", ARMMAT_CRAFTER, 2, EntityEquipmentSlot.LEGS);
+	public static final Item CRAFTER_BOOTS = new ItemArmorBase("crafterboots", ModCreativeTabs.DVZITEMS, "Left click to create arrows (Costs 25 mana)", ARMMAT_CRAFTER, 1, EntityEquipmentSlot.FEET);
 
-	public static final Item SPAWNAS_ZOMBIE = new ItemSpawnAsMonster("spawnaszombie", ModCreativeTabs.DVZITEMS, "ÅòcSpawn as a Zombie", 1, EnumMonsterType.zombie, 10);
-	public static final Item SPAWNAS_CREEPER = new ItemSpawnAsMonster("spawnascreeper", ModCreativeTabs.DVZITEMS, "ÅòcSpawn as a Creeper", 1, EnumMonsterType.creeper, 15);
-	public static final Item SPAWNAS_SKELETON = new ItemSpawnAsMonster("spawnasskeleton", ModCreativeTabs.DVZITEMS, "ÅòcSpawn as a Skeleton", 1, EnumMonsterType.skeleton, 12);
+	public static final Item SPAWNAS_ZOMBIE = new ItemSpawnAsMonster("spawnaszombie", ModCreativeTabs.DVZITEMS, "Spawn as a Zombie", 1, EnumMonsterType.zombie);
+	public static final Item SPAWNAS_CREEPER = new ItemSpawnAsMonster("spawnascreeper", ModCreativeTabs.DVZITEMS, "Spawn as a Creeper", 1, EnumMonsterType.creeper);
+	public static final Item SPAWNAS_SKELETON = new ItemSpawnAsMonster("spawnasskeleton", ModCreativeTabs.DVZITEMS, "Spawn as a Skeleton", 1, EnumMonsterType.skeleton);
 	
 	public static final Item ZOMBIE_SWORD = new ItemZombieSword("zombiesword", ModCreativeTabs.DVZITEMS, "", MAT_CRAFTER_DWARVEN, 0, 0, null);
-	public static final Item ZOMBIE_FLESH = new ItemDwarvenFlesh("zombieflesh", ModCreativeTabs.DVZITEMS, "ÅòaRestores hunger & gives buffs");
+	public static final Item ZOMBIE_FLESH = new ItemDwarvenFlesh("zombieflesh", ModCreativeTabs.DVZITEMS, "Restores hunger & gives buffs");
 	
-	public static final Item CREEPER_EXPLODE = new ItemCreeperExplode("creeperexplode", ModCreativeTabs.DVZITEMS, "ÅòaLeft/Right click to explode", 1);
+	public static final Item CREEPER_EXPLODE = new ItemCreeperExplode("creeperexplode", ModCreativeTabs.DVZITEMS, "Left/Right click to explode", 1);
 	
-	public static final Item SKELETON_BOW = new ItemSkeletonBow("skeletonbow", ModCreativeTabs.DVZITEMS, "ÅòaLeft click to create arrows", 1);
+	public static final Item SKELETON_BOW = new ItemSkeletonBow("skeletonbow", ModCreativeTabs.DVZITEMS, "Left click to create arrows", 1);
 
-	public static final Item DRAGON_TALONS = new ItemDragonTalons("dragontalons", ModCreativeTabs.DVZITEMS, "ÅòaRight click to pickup a player", 1);
-	public static final Item DRAGON_FIREBREATH = new ItemDragonBreath("dragonfirebreath", ModCreativeTabs.DVZITEMS, "ÅòaLeft click to shoot fire", 1, EnumDragonType.vlarunga);
-	public static final Item DRAGON_FIREATTACK = new ItemDragonAttack("dragonfireattack", ModCreativeTabs.DVZITEMS, "ÅòaLeft click to shoot fireballs", 1, EnumDragonType.vlarunga);
+	public static final Item DRAGON_TALONS = new ItemDragonTalons("dragontalons", ModCreativeTabs.DVZITEMS, "Right click to pickup a player", 1);
+	public static final Item DRAGON_FIREBREATH = new ItemDragonBreath("dragonfirebreath", ModCreativeTabs.DVZITEMS, "Left click to shoot fire", 1, EnumDragonType.vlarunga);
+	public static final Item DRAGON_FIREATTACK = new ItemDragonAttack("dragonfireattack", ModCreativeTabs.DVZITEMS, "Left click to shoot fireballs", 1, EnumDragonType.vlarunga);
 }

@@ -5,6 +5,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import javax.annotation.Nullable;
 
 import com.mrunknown404.dvz.init.ModItems;
+import com.mrunknown404.dvz.util.handlers.ConfigHandler;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -53,7 +54,7 @@ public class ItemCrafterBow extends ItemBase {
 		EntityPlayer player = (EntityPlayer) entityLiving;
 		World world = player.getEntityWorld();
 		
-		if (player.experienceLevel >= 25) {
+		if (player.experienceLevel >= ConfigHandler.CraftArrowsManaCost) {
 			if (player.getCooldownTracker().getCooldown(this, 0f) == 0f) {
 				craftArrows(world, player, stack);
 				player.experience = 0;
@@ -74,7 +75,7 @@ public class ItemCrafterBow extends ItemBase {
 			world.spawnEntity(item);
 		}
 		player.getCooldownTracker().setCooldown(this, 25);
-		player.removeExperienceLevel(25);
+		player.removeExperienceLevel(ConfigHandler.CraftArrowsManaCost);
 	}
 	
 	private ItemStack findAmmo(EntityPlayer player) {

@@ -26,8 +26,8 @@ public class CommandStartGame extends CommandBase {
 		return "/startgame";
 	}
 
-	private final ITextComponent msg = new TextComponentString("ÅòcSTARTING GAME");
-	private final ITextComponent error = new TextComponentString("ÅòcInvalid arguments");
+	private final ITextComponent msg = new TextComponentString("STARTING GAME");
+	private final ITextComponent error = new TextComponentString("Invalid arguments");
 	
 	@Override
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {

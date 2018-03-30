@@ -25,8 +25,8 @@ public class CommandResetGame extends CommandBase {
 		return "/resetgame (can be unstable!)";
 	}
 
-	private final ITextComponent msg = new TextComponentString("ÅòcRESETING GAME");
-	private final ITextComponent error = new TextComponentString("ÅòcInvalid arguments");
+	private final ITextComponent msg = new TextComponentString("RESETING GAME");
+	private final ITextComponent error = new TextComponentString("Invalid arguments");
 	
 	@Override
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {

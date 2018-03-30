@@ -6,6 +6,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import com.mrunknown404.dvz.init.ModBlocks;
 import com.mrunknown404.dvz.util.EnumMonsterType;
 import com.mrunknown404.dvz.util.PlayerInfoProvider;
+import com.mrunknown404.dvz.util.handlers.ConfigHandler;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -104,9 +105,9 @@ public class ItemCreeperExplode extends ItemBase {
 		if (player.getCooldownTracker().getCooldown(this, 0f) == 0f) {
 			player.getEntityWorld().playSound(player, player.getPosition(), SoundEvents.ENTITY_CREEPER_PRIMED, SoundCategory.HOSTILE, 1.0f, 1.0f);
 			if (player.getCapability(PlayerInfoProvider.PLAYERINFO, null).getMonsterType() == EnumMonsterType.supercreeper) {
-				player.getCooldownTracker().setCooldown(this, 4 * 20);
+				player.getCooldownTracker().setCooldown(this, ConfigHandler.SuperCreeperExplodeTime);
 			} else {
-				player.getCooldownTracker().setCooldown(this, 2 * 20);
+				player.getCooldownTracker().setCooldown(this, ConfigHandler.CreeperExplodeTime);
 			}
 			didUse = true;
 		}
@@ -120,9 +121,9 @@ public class ItemCreeperExplode extends ItemBase {
 		if (player.getCooldownTracker().getCooldown(this, 0f) == 0f) {
 			player.getEntityWorld().playSound(player, player.getPosition(), SoundEvents.ENTITY_CREEPER_PRIMED, SoundCategory.HOSTILE, 1.0f, 1.0f);
 			if (player.getCapability(PlayerInfoProvider.PLAYERINFO, null).getMonsterType() == EnumMonsterType.supercreeper) {
-				player.getCooldownTracker().setCooldown(this, 4 * 20);
+				player.getCooldownTracker().setCooldown(this, ConfigHandler.SuperCreeperExplodeTime);
 			} else {
-				player.getCooldownTracker().setCooldown(this, 2 * 20);
+				player.getCooldownTracker().setCooldown(this, ConfigHandler.CreeperExplodeTime);
 			}
 			didUse = true;
 		}

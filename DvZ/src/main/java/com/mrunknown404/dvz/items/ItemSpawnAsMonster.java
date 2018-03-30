@@ -2,6 +2,7 @@ package com.mrunknown404.dvz.items;
 
 import com.mrunknown404.dvz.GameManager;
 import com.mrunknown404.dvz.util.EnumMonsterType;
+import com.mrunknown404.dvz.util.handlers.ConfigHandler;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -17,16 +18,14 @@ import net.minecraft.world.World;
 
 public class ItemSpawnAsMonster extends ItemBase {
 
-	private int time;
 	private boolean didUse = false;
 	private EnumMonsterType enumMonsterType;
 	private EntityPlayer p;
 	
-	public ItemSpawnAsMonster(String name, CreativeTabs tab, String tooltip, int maxStack, EnumMonsterType type, int time) {
+	public ItemSpawnAsMonster(String name, CreativeTabs tab, String tooltip, int maxStack, EnumMonsterType type) {
 		super(name, tab, tooltip, maxStack);
 		
 		enumMonsterType = type;
-		this.time = time;
 	}
 	
 	@Override
@@ -52,7 +51,7 @@ public class ItemSpawnAsMonster extends ItemBase {
 		if (!player.getEntityWorld().isRemote) {
 			if (player.getEntityWorld().getScoreboard().getTeam("monsters") != null) {
 				if (player.getCooldownTracker().getCooldown(this, 1f) == 0f) {
-					player.getCooldownTracker().setCooldown(this, time);
+					player.getCooldownTracker().setCooldown(this, ConfigHandler.SpawnAsMonsterTime);
 					player.getEntityWorld().playSound(null, player.getPosition(), SoundEvents.ENTITY_ZOMBIE_VILLAGER_CONVERTED, SoundCategory.HOSTILE, 1.0f, 1.0f);
 					didUse = true;
 				}
@@ -72,7 +71,7 @@ public class ItemSpawnAsMonster extends ItemBase {
 		
 		if (world.getScoreboard().getTeam("monsters") != null) {
 			if (player.getCooldownTracker().getCooldown(this, 1f) == 0f) {
-				player.getCooldownTracker().setCooldown(this, time);
+				player.getCooldownTracker().setCooldown(this, ConfigHandler.SpawnAsMonsterTime);
 				didUse = true;
 			}
 		}else {

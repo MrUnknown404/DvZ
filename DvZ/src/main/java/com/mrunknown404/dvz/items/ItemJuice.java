@@ -1,5 +1,7 @@
 package com.mrunknown404.dvz.items;
 
+import com.mrunknown404.dvz.util.handlers.ConfigHandler;
+
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -22,7 +24,7 @@ public class ItemJuice extends ItemBase {
 	public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
 		EntityPlayer player = (EntityPlayer) entityLiving;
 		
-		if (player.experienceLevel >= 100) {
+		if (player.experienceLevel >= ConfigHandler.JuiceManaCost) {
 			if (player.getHealth() != player.getMaxHealth()) {
 				if (player.getCooldownTracker().getCooldown(this, 0f) == 0f) {
 					healPlayer(player);
@@ -34,7 +36,7 @@ public class ItemJuice extends ItemBase {
 	
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
-		if (player.experienceLevel >= 100) {
+		if (player.experienceLevel >= ConfigHandler.JuiceManaCost) {
 			if (player.getHealth() != player.getMaxHealth()) {
 				healPlayer(player);
 			}
@@ -51,7 +53,7 @@ public class ItemJuice extends ItemBase {
 		player.heal(player.getMaxHealth());
 		player.getCooldownTracker().setCooldown(this, 10);
 		player.getFoodStats().addStats(4, 0f);
-		player.removeExperienceLevel(100);
+		player.removeExperienceLevel(ConfigHandler.JuiceManaCost);
 		
 		player.experience = 0;
 		player.addExperience((int) (player.xpBarCap() * (player.experienceLevel * 0.001f)));

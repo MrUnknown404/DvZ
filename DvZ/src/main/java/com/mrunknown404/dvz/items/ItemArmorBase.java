@@ -5,6 +5,7 @@ import java.util.List;
 import com.mrunknown404.dvz.Main;
 import com.mrunknown404.dvz.init.ModItems;
 import com.mrunknown404.dvz.util.IHasModel;
+import com.mrunknown404.dvz.util.handlers.ConfigHandler;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
@@ -45,7 +46,7 @@ public class ItemArmorBase extends ItemArmor implements IHasModel {
 		EntityPlayer player = (EntityPlayer) entityLiving;
 		World world = player.getEntityWorld();
 		
-		if (player.experienceLevel >= 25) {
+		if (player.experienceLevel >= ConfigHandler.RepairArmorManaCost) {
 			if (getMaxDamage(stack) != getDamage(stack) + getMaxDamage(stack)) {
 				if (player.getCooldownTracker().getCooldown(this, 0f) == 0f) {
 					repairArmor(world, player, stack);
@@ -60,7 +61,7 @@ public class ItemArmorBase extends ItemArmor implements IHasModel {
 	private void repairArmor(World world, EntityPlayer player, ItemStack stack) {
 		world.playSound(player, player.getPosition(), SoundEvents.BLOCK_ANVIL_USE, SoundCategory.PLAYERS, 1.0f, 1.0f);
 		player.getCooldownTracker().setCooldown(this, 20);
-		player.removeExperienceLevel(25);
+		player.removeExperienceLevel(ConfigHandler.RepairArmorManaCost);
 		setDamage(stack, getDamage(stack) - (getMaxDamage(stack) / 5));
 	}
 	

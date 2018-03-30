@@ -32,10 +32,10 @@ public class CommandForceMonsterType extends CommandBase {
 		return "/forcemonster <player> <monstertype> <if dragon type of dragon>" ;
 	}
 
-	private final ITextComponent error1 = new TextComponentString("ÅòcInvalid arguments");
-	private final ITextComponent error2 = new TextComponentString("ÅòcPlayer is already that role");
-	private final ITextComponent error3 = new TextComponentString("ÅòcCannot force player role game has not started");
-	private final ITextComponent error4 = new TextComponentString("ÅòcMonsters have not been released");
+	private final ITextComponent error1 = new TextComponentString("Invalid arguments");
+	private final ITextComponent error2 = new TextComponentString("Player is already that role");
+	private final ITextComponent error3 = new TextComponentString("Cannot force player role game has not started");
+	private final ITextComponent error4 = new TextComponentString("Monsters have not been released");
 	
 	@Override
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {

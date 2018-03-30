@@ -34,7 +34,7 @@ public class CommandCreateQuarry extends CommandBase {
 		return "/createquarry";
 	}
 	
-	private final ITextComponent error = new TextComponentString("ÅòcInvalid arguments");
+	private final ITextComponent error = new TextComponentString("Invalid arguments");
 	
 	@Override
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
@@ -42,11 +42,11 @@ public class CommandCreateQuarry extends CommandBase {
 			sender.getCommandSenderEntity().sendMessage(error);
 			return;
 		} else if (server.getEntityWorld().getTopSolidOrLiquidBlock(sender.getPosition()).getY() <= 63) {
-			sender.getCommandSenderEntity().sendMessage(new TextComponentString("ÅòcToo low (minimum Y:63)"));
+			sender.getCommandSenderEntity().sendMessage(new TextComponentString("Too low (minimum Y:63)"));
 			return;
 		}
 		
-		sender.getCommandSenderEntity().sendMessage(new TextComponentString("ÅòcCreating Quarry..."));
+		sender.getCommandSenderEntity().sendMessage(new TextComponentString("Creating Quarry..."));
 		
 		WorldServer world = (WorldServer) server.getEntityWorld();
 		TemplateManager tm = world.getStructureTemplateManager();

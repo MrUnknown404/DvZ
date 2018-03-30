@@ -20,7 +20,6 @@ import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.scoreboard.Team.EnumVisible;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
@@ -38,8 +37,8 @@ public class CommandReleaseMonsters extends CommandBase {
 		return "/releasemonsters <event> <if dragon type of dragon>";
 	}
 
-	private final ITextComponent msg = new TextComponentString("ÅòcMONSTERS HAVE BEEN RELEASED");
-	private final ITextComponent error = new TextComponentString("ÅòcInvalid arguments");
+	private final ITextComponent msg = new TextComponentString("MONSTERS HAVE BEEN RELEASED");
+	private final ITextComponent error = new TextComponentString("Invalid arguments");
 	
 	@Override
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
@@ -56,42 +55,16 @@ public class CommandReleaseMonsters extends CommandBase {
 			}
 			//Start
 			List<EntityPlayer> players = server.getEntityWorld().playerEntities;
-			
-			server.getEntityWorld().getScoreboard().createTeam("monsters");
-			server.getEntityWorld().getScoreboard().getTeam("monsters").setAllowFriendlyFire(false);
-			server.getEntityWorld().getScoreboard().getTeam("monsters").setNameTagVisibility(EnumVisible.HIDE_FOR_OTHER_TEAMS);
-			server.getEntityWorld().getScoreboard().getTeam("monsters").setDeathMessageVisibility(EnumVisible.ALWAYS);
+			GameManager.releaseMonsters((EntityPlayer) sender);
 			
 			if (args[0].equals(EnumDeathEventType.none.name().toString())) {
-				for (EntityPlayer player : players) {
-					for (int i = 0; i < 5; i++) {
-						player.sendMessage(msg);
-					}
-					
-					if (player.getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() == EnumPlayerType.spectator) {
-						player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setPlayerType(EnumPlayerType.monster);;
-						player.getEntityWorld().getScoreboard().addPlayerToTeam(player.getName(), "monsters");
-						
-						GameManager.resetPlayer(player);
-						GameManager.giveSpawnAsMonsterItems(player);
-					}
-				}
+				//maybe do something
 			} else if (args[0].equals(EnumDeathEventType.plague.name().toString())) {
 				List<EntityPlayer> canBeKilledPlayers = new ArrayList<EntityPlayer>();
 				List<EntityPlayer> plaguePlayers = new ArrayList<EntityPlayer>();
 				
 				for (EntityPlayer player : players) {
-					for (int i = 0; i < 5; i++) {
-						player.sendMessage(msg);
-					}
-					
-					if (player.getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() == EnumPlayerType.spectator) {
-						player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setPlayerType(EnumPlayerType.monster);;
-						player.getEntityWorld().getScoreboard().addPlayerToTeam(player.getName(), "monsters");
-						
-						GameManager.resetPlayer(player);
-						GameManager.giveSpawnAsMonsterItems(player);
-					} else if (player.getCapability(PlayerInfoProvider.PLAYERINFO, null).getHeroType() == EnumHeroType.nil) {
+					if (player.getCapability(PlayerInfoProvider.PLAYERINFO, null).getHeroType() == EnumHeroType.nil) {
 						canBeKilledPlayers.add(player);
 					}
 				}
@@ -104,7 +77,7 @@ public class CommandReleaseMonsters extends CommandBase {
 				}
 				
 				for (EntityPlayer player : plaguePlayers) {
-					player.sendMessage(new TextComponentString("Åò4You have the Crafter Plague!"));
+					player.sendMessage(new TextComponentString("You have the Crafter Plague!"));
 					player.addPotionEffect(new PotionEffect(MobEffects.WITHER, (120 * 60) * 20, 2));
 				}	
 			}
@@ -123,28 +96,8 @@ public class CommandReleaseMonsters extends CommandBase {
 				return;
 			} //do for all dragon types
 			
-			List<EntityPlayer> players = server.getEntityWorld().playerEntities;
-			
-			server.getEntityWorld().getScoreboard().createTeam("monsters");
-			server.getEntityWorld().getScoreboard().getTeam("monsters").setAllowFriendlyFire(false);
-			server.getEntityWorld().getScoreboard().getTeam("monsters").setNameTagVisibility(EnumVisible.HIDE_FOR_OTHER_TEAMS);
-			server.getEntityWorld().getScoreboard().getTeam("monsters").setDeathMessageVisibility(EnumVisible.ALWAYS);
-			
 			if (args[0].equals(EnumDeathEventType.dragon.name().toString())) {
 				if (args[1].equals(EnumDragonType.vlarunga.name().toString())) {
-					for (EntityPlayer player : players) {
-						for (int i = 0; i < 5; i++) {
-							player.sendMessage(msg);
-						}
-						
-						if (player.getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() == EnumPlayerType.spectator) {
-							player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setPlayerType(EnumPlayerType.monster);;
-							player.getEntityWorld().getScoreboard().addPlayerToTeam(player.getName(), "monsters");
-							
-							GameManager.resetPlayer(player);
-							GameManager.giveSpawnAsMonsterItems(player);
-						}
-					}
 					GameManager.resetPlayer(getCommandSenderAsPlayer(sender));
 					GameManager.setupPlayerMonster(getCommandSenderAsPlayer(sender), EnumMonsterType.dragon, EnumDragonType.vlarunga);
 				} else {

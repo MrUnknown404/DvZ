@@ -9,6 +9,7 @@ import com.mrunknown404.dvz.commands.CommandStartGame;
 import com.mrunknown404.dvz.proxy.CommonProxy;
 import com.mrunknown404.dvz.util.Reference;
 import com.mrunknown404.dvz.util.handlers.BlockHandler;
+import com.mrunknown404.dvz.util.handlers.ConfigHandler;
 import com.mrunknown404.dvz.util.handlers.PlayerHandler;
 import com.mrunknown404.dvz.util.handlers.WorldLoadHandler;
 
@@ -25,7 +26,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 
-@Mod(modid = Reference.MODID, name = Reference.NAME, version = Reference.VERSION, acceptedMinecraftVersions = Reference.ACCEPTED_VERSION)
+@Mod(modid = Reference.MODID, name = Reference.NAME, version = Reference.VERSION, acceptedMinecraftVersions = Reference.ACCEPTED_VERSION, guiFactory = Reference.GUI_FACTORY_CLASS)
 public class Main {
 
 	@Instance
@@ -37,6 +38,11 @@ public class Main {
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		proxy.registerCapability();
+		
+		MinecraftForge.EVENT_BUS.register(new ConfigHandler());
+		
+		String ConfigDir = event.getModConfigurationDirectory().toString();
+		ConfigHandler.init(ConfigDir);
 	}
 	
 	@EventHandler

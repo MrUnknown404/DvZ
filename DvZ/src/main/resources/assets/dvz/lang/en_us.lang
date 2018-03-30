@@ -70,6 +70,15 @@ tile.stonecake.name=Stone Cake
 itemGroup.TabDvZItems=DvZ Items
 itemGroup.TabDvZBlocks=DvZ Blocks
 
+//-//Config
+config.general=General
+config.dwarves=Dwarves
+config.monsters=Monsters
+
+config.gamesettings.tooltip=Game settings
+config.dwarves.tooltip=All config settings involving dwarves
+config.monsters.tooltip=All config settings involving monsters
+
 //-//Sounds
 soundCategory.master=Master Volume
 soundCategory.music=Music

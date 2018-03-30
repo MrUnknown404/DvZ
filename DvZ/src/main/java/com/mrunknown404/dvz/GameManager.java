@@ -1,5 +1,6 @@
 package com.mrunknown404.dvz;
 
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 import javax.annotation.Nullable;
@@ -12,6 +13,7 @@ import com.mrunknown404.dvz.util.EnumHeroType;
 import com.mrunknown404.dvz.util.EnumMonsterType;
 import com.mrunknown404.dvz.util.EnumPlayerType;
 import com.mrunknown404.dvz.util.PlayerInfoProvider;
+import com.mrunknown404.dvz.util.handlers.ConfigHandler;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -20,6 +22,9 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.scoreboard.Team.EnumVisible;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.event.entity.player.PlayerEvent.NameFormat;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
@@ -51,18 +56,18 @@ public class GameManager {
 	
 	public void updatePlayerMana(EntityPlayer p) {
 		if (p.experienceLevel < 1000) {
-			if (tick < 3 * 20) {
+			if (tick < ConfigHandler.ManaRegenTime) {
 				tick++;
 				return;
 			}
 			
 			tick = 0;
-			p.experienceLevel += 25;
-			//p.addExperienceLevel(25); //this causes the level up sound so i'm not use it
+			p.experienceLevel += ConfigHandler.ManaRegenAmount;
+			//p.addExperienceLevel(25); //this causes the level up sound so i'm not going to use it
 			p.experience = 0;
 			p.addExperience((int) (p.xpBarCap() * (p.experienceLevel * 0.001f)));
 			
-			if (p.experienceLevel == 1001) {
+			if (p.experienceLevel > 1000) {
 				p.experienceLevel = 1000;
 				p.experience = 0;
 				p.addExperience((int) (p.xpBarCap() - 1));
@@ -77,22 +82,22 @@ public class GameManager {
 	public void nameEvent(NameFormat event) {
 		if (event.getEntityPlayer().getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() == EnumPlayerType.dwarf) {
 			if (event.getEntityPlayer().getCapability(PlayerInfoProvider.PLAYERINFO, null).getDwarfType() == EnumDwarfType.blacksmith) {
-				event.setDisplayname("Åò3" + event.getUsername() + " the Blacksmith");
+				event.setDisplayname(event.getUsername() + " the Blacksmith");
 			} else if (event.getEntityPlayer().getCapability(PlayerInfoProvider.PLAYERINFO, null).getDwarfType() == EnumDwarfType.lumberjack) {
-				event.setDisplayname("Åò3" + event.getUsername() + " the Lumberjack");
+				event.setDisplayname(event.getUsername() + " the Lumberjack");
 			} else {
-				event.setDisplayname("Åò3" + event.getUsername() + " the Dwarf");
+				event.setDisplayname(event.getUsername() + " the Dwarf");
 			}
 		} else if (event.getEntityPlayer().getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() == EnumPlayerType.spectator) {
 			event.setDisplayname(event.getUsername());
 		}
 		
 		if (event.getEntityPlayer().getCapability(PlayerInfoProvider.PLAYERINFO, null).getMonsterType() == EnumMonsterType.dragon) {
-			event.setDisplayname("Åò4Vlarunga");
+			event.setDisplayname("Vlarunga");
 		} else if (event.getEntityPlayer().getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() == EnumPlayerType.monster) {
-			event.setDisplayname("Åòc" + event.getUsername() + " the Monster");
+			event.setDisplayname(event.getUsername() + " the Monster");
 		} else if (event.getEntityPlayer().getCapability(PlayerInfoProvider.PLAYERINFO, null).getHeroType() == EnumHeroType.mrunknown404) {
-			event.setDisplayname("Åò6" + event.getUsername() + " the Creator");
+			event.setDisplayname(event.getUsername() + " the Creator");
 		}
 	}
 	
@@ -201,10 +206,6 @@ public class GameManager {
 						break;
 					}
 				}
-				break;
-			}
-			case nil: {
-				System.out.println("Invalid!");
 				break;
 			}
 			case skeleton: {
@@ -386,5 +387,33 @@ public class GameManager {
 			}
 		}
 		player.refreshDisplayName();
+	}
+	
+	private final static ITextComponent MSG = new TextComponentString("MONSTERS HAVE BEEN RELEASED");
+	
+	public static void releaseMonsters(EntityPlayer p) {
+		if (p.getEntityWorld().getScoreboard().getTeam("monsters") != null) {
+			return;
+		}
+		List<EntityPlayer> players = p.getEntityWorld().playerEntities;
+		
+		p.getEntityWorld().getScoreboard().createTeam("monsters");
+		p.getEntityWorld().getScoreboard().getTeam("monsters").setAllowFriendlyFire(false);
+		p.getEntityWorld().getScoreboard().getTeam("monsters").setNameTagVisibility(EnumVisible.HIDE_FOR_OTHER_TEAMS);
+		p.getEntityWorld().getScoreboard().getTeam("monsters").setDeathMessageVisibility(EnumVisible.ALWAYS);
+		
+		for (EntityPlayer player : players) {
+			for (int i = 0; i < 5; i++) {
+				player.sendMessage(MSG);
+			}
+			
+			if (player.getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() == EnumPlayerType.spectator) {
+				player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setPlayerType(EnumPlayerType.monster);;
+				player.getEntityWorld().getScoreboard().addPlayerToTeam(player.getName(), "monsters");
+				
+				GameManager.resetPlayer(player);
+				GameManager.giveSpawnAsMonsterItems(player);
+			}
+		}
 	}
 }
