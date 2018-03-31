@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Random;
 
 import com.mrunknown404.dvz.GameManager;
+import com.mrunknown404.dvz.util.ColoredStringHelper;
 import com.mrunknown404.dvz.util.EnumDeathEventType;
 import com.mrunknown404.dvz.util.EnumDragonType;
 import com.mrunknown404.dvz.util.EnumHeroType;
@@ -37,8 +38,7 @@ public class CommandReleaseMonsters extends CommandBase {
 		return "/releasemonsters <event> <if dragon type of dragon>";
 	}
 
-	private final ITextComponent msg = new TextComponentString("MONSTERS HAVE BEEN RELEASED");
-	private final ITextComponent error = new TextComponentString("Invalid arguments");
+	private final ITextComponent error = new TextComponentString(ColoredStringHelper.setColors("&cInvalid arguments"));
 	
 	@Override
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {

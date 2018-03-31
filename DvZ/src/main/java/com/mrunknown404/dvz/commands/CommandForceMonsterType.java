@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.mrunknown404.dvz.GameManager;
 import com.mrunknown404.dvz.capabilities.IPlayerInfo;
+import com.mrunknown404.dvz.util.ColoredStringHelper;
 import com.mrunknown404.dvz.util.EnumDeathEventType;
 import com.mrunknown404.dvz.util.EnumDragonType;
 import com.mrunknown404.dvz.util.EnumMonsterType;
@@ -32,10 +33,10 @@ public class CommandForceMonsterType extends CommandBase {
 		return "/forcemonster <player> <monstertype> <if dragon type of dragon>" ;
 	}
 
-	private final ITextComponent error1 = new TextComponentString("Invalid arguments");
-	private final ITextComponent error2 = new TextComponentString("Player is already that role");
-	private final ITextComponent error3 = new TextComponentString("Cannot force player role game has not started");
-	private final ITextComponent error4 = new TextComponentString("Monsters have not been released");
+	private final ITextComponent error1 = new TextComponentString(ColoredStringHelper.setColors("&cInvalid arguments"));
+	private final ITextComponent error2 = new TextComponentString(ColoredStringHelper.setColors("&cPlayer is already that role"));
+	private final ITextComponent error3 = new TextComponentString(ColoredStringHelper.setColors("&cCannot force player role game has not started"));
+	private final ITextComponent error4 = new TextComponentString(ColoredStringHelper.setColors("&cMonsters have not been released"));
 	
 	@Override
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {

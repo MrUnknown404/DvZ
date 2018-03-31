@@ -1,5 +1,6 @@
 package com.mrunknown404.dvz.capabilities;
 
+import com.mrunknown404.dvz.util.EnumDragonType;
 import com.mrunknown404.dvz.util.EnumDwarfType;
 import com.mrunknown404.dvz.util.EnumHeroType;
 import com.mrunknown404.dvz.util.EnumMonsterType;
@@ -11,6 +12,7 @@ public class PlayerInfo implements IPlayerInfo {
 	private EnumDwarfType enumDwarfType = EnumDwarfType.nil;
 	private EnumHeroType enumHeroType = EnumHeroType.nil;
 	private EnumMonsterType enumMonsterType = EnumMonsterType.nil;
+	private EnumDragonType enumDragonType = EnumDragonType.nil;
 	
 	@Override
 	public void setPlayerType(EnumPlayerType type) {
@@ -30,6 +32,11 @@ public class PlayerInfo implements IPlayerInfo {
 	@Override
 	public void setMonsterType(EnumMonsterType type) {
 		enumMonsterType = type;
+	}
+	
+	@Override
+	public void setDragonType(EnumDragonType type) {
+		enumDragonType = type;
 	}
 	
 	@Override
@@ -53,6 +60,11 @@ public class PlayerInfo implements IPlayerInfo {
 	}
 	
 	@Override
+	public EnumDragonType getDragonType() {
+		return enumDragonType;
+	}
+	
+	@Override
 	public void setPlayerTypeInt(int i) {
 		enumPlayerType = EnumPlayerType.getNumber(i);
 	}
@@ -70,5 +82,10 @@ public class PlayerInfo implements IPlayerInfo {
 	@Override
 	public void setMonsterTypeInt(int i) {
 		enumMonsterType = EnumMonsterType.getNumber(i);
+	}
+	
+	@Override
+	public void setDragonTypeInt(int i) {
+		enumDragonType = EnumDragonType.getNumber(i);
 	}
 }

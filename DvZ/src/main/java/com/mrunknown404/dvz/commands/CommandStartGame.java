@@ -3,6 +3,7 @@ package com.mrunknown404.dvz.commands;
 import java.util.List;
 
 import com.mrunknown404.dvz.GameManager;
+import com.mrunknown404.dvz.util.ColoredStringHelper;
 
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
@@ -26,8 +27,8 @@ public class CommandStartGame extends CommandBase {
 		return "/startgame";
 	}
 
-	private final ITextComponent msg = new TextComponentString("STARTING GAME");
-	private final ITextComponent error = new TextComponentString("Invalid arguments");
+	private final ITextComponent msg = new TextComponentString(ColoredStringHelper.setColors("&cSTARTING GAME"));
+	private final ITextComponent error = new TextComponentString(ColoredStringHelper.setColors("&cInvalid arguments"));
 	
 	@Override
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {

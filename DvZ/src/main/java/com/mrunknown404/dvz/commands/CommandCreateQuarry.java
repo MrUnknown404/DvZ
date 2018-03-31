@@ -2,6 +2,7 @@ package com.mrunknown404.dvz.commands;
 
 import java.util.List;
 
+import com.mrunknown404.dvz.util.ColoredStringHelper;
 import com.mrunknown404.dvz.util.Reference;
 
 import net.minecraft.block.Block;
@@ -34,7 +35,7 @@ public class CommandCreateQuarry extends CommandBase {
 		return "/createquarry";
 	}
 	
-	private final ITextComponent error = new TextComponentString("Invalid arguments");
+	private final ITextComponent error = new TextComponentString(ColoredStringHelper.setColors("&cInvalid arguments"));
 	
 	@Override
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
@@ -42,11 +43,11 @@ public class CommandCreateQuarry extends CommandBase {
 			sender.getCommandSenderEntity().sendMessage(error);
 			return;
 		} else if (server.getEntityWorld().getTopSolidOrLiquidBlock(sender.getPosition()).getY() <= 63) {
-			sender.getCommandSenderEntity().sendMessage(new TextComponentString("Too low (minimum Y:63)"));
+			sender.getCommandSenderEntity().sendMessage(new TextComponentString(ColoredStringHelper.setColors("&cToo low (minimum Y:63)")));
 			return;
 		}
 		
-		sender.getCommandSenderEntity().sendMessage(new TextComponentString("Creating Quarry..."));
+		sender.getCommandSenderEntity().sendMessage(new TextComponentString(ColoredStringHelper.setColors("&cCreating Quarry...")));
 		
 		WorldServer world = (WorldServer) server.getEntityWorld();
 		TemplateManager tm = world.getStructureTemplateManager();

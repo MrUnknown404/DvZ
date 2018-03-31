@@ -1,7 +1,8 @@
 package com.mrunknown404.dvz.util;
 
 public enum EnumDragonType {
-	vlarunga(0); //will be more later
+	nil(0),
+	vlarunga(1); //will be more later
 	
 	public final int fId;
 

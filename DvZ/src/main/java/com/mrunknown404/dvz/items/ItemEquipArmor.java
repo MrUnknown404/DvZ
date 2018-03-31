@@ -51,30 +51,6 @@ public class ItemEquipArmor extends ItemBase {
 					}
 				}
 			}
-		}
-		//world.rayTraceBlocks(start, end)
-		/*
-		if (e != null) {
-			if (e instanceof EntityPlayer) {
-				EntityPlayer p = (EntityPlayer) e;
-				if (p.getCapability(PlayerInfoProvider.PLAYERINFO, null).getDwarfType() == EnumDwarfType.builder) {
-					if (p.getTotalArmorValue() == 0) {
-						return super.onItemRightClick(world, player, hand);
-					}
-					p.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(ModItems.DWARVEN_HELMET));
-					p.setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(ModItems.DWARVEN_CHESTPLATE));
-					p.setItemStackToSlot(EntityEquipmentSlot.LEGS, new ItemStack(ModItems.DWARVEN_LEGGINGS));
-					p.setItemStackToSlot(EntityEquipmentSlot.FEET, new ItemStack(ModItems.DWARVEN_BOOTS));
-				} else {
-					if (p.getTotalArmorValue() == 0) {
-						return super.onItemRightClick(world, player, hand);
-					}
-					p.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(ModItems.CRAFTER_HELMET));
-					p.setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(ModItems.CRAFTER_CHESTPLATE));
-					p.setItemStackToSlot(EntityEquipmentSlot.LEGS, new ItemStack(ModItems.CRAFTER_LEGGINGS));
-					p.setItemStackToSlot(EntityEquipmentSlot.FEET, new ItemStack(ModItems.CRAFTER_BOOTS));
-				}
-			}
 		}*/
 		return super.onItemRightClick(world, player, hand);
 	}

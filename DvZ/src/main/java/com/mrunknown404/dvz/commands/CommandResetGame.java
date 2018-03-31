@@ -3,6 +3,7 @@ package com.mrunknown404.dvz.commands;
 import java.util.List;
 
 import com.mrunknown404.dvz.GameManager;
+import com.mrunknown404.dvz.util.ColoredStringHelper;
 
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
@@ -25,8 +26,8 @@ public class CommandResetGame extends CommandBase {
 		return "/resetgame (can be unstable!)";
 	}
 
-	private final ITextComponent msg = new TextComponentString("RESETING GAME");
-	private final ITextComponent error = new TextComponentString("Invalid arguments");
+	private final ITextComponent msg = new TextComponentString(ColoredStringHelper.setColors("&cRESETING GAME"));
+	private final ITextComponent error = new TextComponentString(ColoredStringHelper.setColors("&cInvalid arguments"));
 	
 	@Override
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {

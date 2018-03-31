@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 
 import com.mrunknown404.dvz.init.ModBlocks;
 import com.mrunknown404.dvz.init.ModItems;
+import com.mrunknown404.dvz.util.ColoredStringHelper;
 import com.mrunknown404.dvz.util.EnumDragonType;
 import com.mrunknown404.dvz.util.EnumDwarfType;
 import com.mrunknown404.dvz.util.EnumHeroType;
@@ -82,22 +83,26 @@ public class GameManager {
 	public void nameEvent(NameFormat event) {
 		if (event.getEntityPlayer().getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() == EnumPlayerType.dwarf) {
 			if (event.getEntityPlayer().getCapability(PlayerInfoProvider.PLAYERINFO, null).getDwarfType() == EnumDwarfType.blacksmith) {
-				event.setDisplayname(event.getUsername() + " the Blacksmith");
+				event.setDisplayname(ColoredStringHelper.setColors("&3") + event.getUsername() + " the Blacksmith");
 			} else if (event.getEntityPlayer().getCapability(PlayerInfoProvider.PLAYERINFO, null).getDwarfType() == EnumDwarfType.lumberjack) {
-				event.setDisplayname(event.getUsername() + " the Lumberjack");
+				event.setDisplayname(ColoredStringHelper.setColors("&3") + event.getUsername() + " the Lumberjack");
 			} else {
-				event.setDisplayname(event.getUsername() + " the Dwarf");
+				event.setDisplayname(ColoredStringHelper.setColors("&3") + event.getUsername() + " the Dwarf");
 			}
 		} else if (event.getEntityPlayer().getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() == EnumPlayerType.spectator) {
 			event.setDisplayname(event.getUsername());
 		}
 		
 		if (event.getEntityPlayer().getCapability(PlayerInfoProvider.PLAYERINFO, null).getMonsterType() == EnumMonsterType.dragon) {
-			event.setDisplayname("Vlarunga");
+			if (event.getEntityPlayer().getCapability(PlayerInfoProvider.PLAYERINFO, null).getDragonType() == EnumDragonType.vlarunga) {
+				event.setDisplayname(ColoredStringHelper.setColors("&4Vlarunga"));
+			} else {
+				event.setDisplayname("Invalid dragon");
+			}
 		} else if (event.getEntityPlayer().getCapability(PlayerInfoProvider.PLAYERINFO, null).getPlayerType() == EnumPlayerType.monster) {
-			event.setDisplayname(event.getUsername() + " the Monster");
+			event.setDisplayname(ColoredStringHelper.setColors("&c") + event.getUsername() + " the Monster");
 		} else if (event.getEntityPlayer().getCapability(PlayerInfoProvider.PLAYERINFO, null).getHeroType() == EnumHeroType.mrunknown404) {
-			event.setDisplayname(event.getUsername() + " the Creator");
+			event.setDisplayname(ColoredStringHelper.setColors("&6") + event.getUsername() + " the Creator");
 		}
 	}
 	
@@ -116,6 +121,7 @@ public class GameManager {
 		player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setDwarfType(EnumDwarfType.nil);
 		player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setHeroType(EnumHeroType.nil);
 		player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setMonsterType(EnumMonsterType.nil);
+		player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setDragonType(EnumDragonType.nil);
 		
 		playerCapabilities(player, false);
 		
@@ -176,8 +182,6 @@ public class GameManager {
 		player.inventory.clear();
 		player.getFoodStats().setFoodLevel(20);
 		
-		player.refreshDisplayName();
-		
 		player.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, (120 * 60) * 20, 0, false, false));
 		switch (type) {
 			case creeper: {
@@ -191,6 +195,7 @@ public class GameManager {
 					break;
 				}
 				
+				player.getCapability(PlayerInfoProvider.PLAYERINFO, null).setDragonType(dragonType);
 				player.inventory.addItemStackToInventory(new ItemStack(ModItems.DRAGON_TALONS));
 				player.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.SKULL, 1, 5)); //temporary
 				playerCapabilities(player, true);
@@ -254,6 +259,7 @@ public class GameManager {
 				break;
 			}
 		}
+		player.refreshDisplayName();
 		player.heal(player.getMaxHealth());
 	}
 	
@@ -389,7 +395,7 @@ public class GameManager {
 		player.refreshDisplayName();
 	}
 	
-	private final static ITextComponent MSG = new TextComponentString("MONSTERS HAVE BEEN RELEASED");
+	private static final ITextComponent MSG = new TextComponentString(ColoredStringHelper.setColors("&cMONSTERS HAVE BEEN RELEASED"));
 	
 	public static void releaseMonsters(EntityPlayer p) {
 		if (p.getEntityWorld().getScoreboard().getTeam("monsters") != null) {
